@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { createContext, useState, useContext } from 'react';
 
 import cookies from 'react-cookies';

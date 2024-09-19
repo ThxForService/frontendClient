@@ -1,9 +1,9 @@
 import LoginContainer from '@/member/containers/LoginContainer';
 import GuestOnlyContainer from '@/member/containers/GuestOnlyContainer';
-const LoginPage = () => {
+const LoginPage = ({ searchParams }) => {
   return (
     <GuestOnlyContainer>
-      <LoginContainer />
+      <LoginContainer searchParams={searchParams} />
     </GuestOnlyContainer>
   );
 };
