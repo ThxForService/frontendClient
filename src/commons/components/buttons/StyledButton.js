@@ -3,7 +3,7 @@ import colors from '@/theme/colors';
 
 // Common styles for all buttons
 const commonStyles = css`
-  border-radius: 50px;
+  border-radius: 12px;
   cursor: pointer;
   border: none;
   display: inline-flex;
@@ -13,108 +13,61 @@ const commonStyles = css`
   transition: all 0.3s ease;
 
   &:focus {
-    opacity: 0.9;
+    opacity: 0.8;
   }
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    background-color: ${colors.gray};
+    color: ${colors.textLight};
   }
 `;
 
-// Large button styles
-export const LargeButton = styled.button`
-  height: 50px;
-  font-size: 16pt;
-  ${commonStyles}
-
-  ${({ variant }) =>
-    variant === 'primary' &&
-    css`
-      background-color: ${colors.primary};
-      color: ${colors.white};
-    `}
-
-  ${({ variant }) =>
-    variant === 'secondary' &&
-    css`
-      background-color: ${colors.white};
-      border: 2px solid ${colors.primary};
-      color: ${colors.primary};
-    `}
-`;
-
-// Medium button styles
-export const MediumButton = styled.button`
-  height: 45px;
-  font-size: 15pt;
-  ${commonStyles}
-
-  ${({ variant }) =>
-    variant === 'primary' &&
-    css`
-      background-color: ${colors.primary};
-      color: ${colors.white};
-    `}
-
-  ${({ variant }) =>
-    variant === 'secondary' &&
-    css`
-      background-color: ${colors.white};
-      border: 2px solid ${colors.primary};
-      color: ${colors.primary};
-    `}
-`;
-
-// Small button styles
-export const SmallButton = styled.button`
-  height: 36px;
-  font-size: 13pt;
-  ${commonStyles}
-
-  ${({ variant }) =>
-    variant === 'primary' &&
-    css`
-      background-color: ${colors.primary};
-      color: ${colors.white};
-    `}
-
-  ${({ variant }) =>
-    variant === 'secondary' &&
-    css`
-      background-color: ${colors.white};
-      border: 2px solid ${colors.primary};
-      color: ${colors.primary};
-    `}
-`;
-
-// StyledButton using theme and common colors
+// StyledButton with updated sizes, colors, and states
 export const StyledButton = styled.button`
   ${({ variant, size, width, height }) => {
+    const defaultColor = colors.primary;
+    const hoverColor = colors.primaryLight;
     const border =
       variant === 'transparent' ? `1px solid ${colors.black}` : 'none';
-    width = width ?? '100%';
-    height = height ?? '38px';
+
+    // Size settings
+    const sizeStyles = {
+      large: css`
+        width: 165px;
+        height: 50px;
+        font-size: 16pt;
+      `,
+      medium: css`
+        width: 165px;
+        height: 50px;
+        font-size: 15pt;
+      `,
+      small: css`
+        width: 120px;
+        height: 36px;
+        font-size: 13pt;
+      `,
+    };
+
     return css`
+      ${commonStyles}
       color: ${variant === 'primary' ? colors.white : colors.text};
-      background-color: ${colors[variant]};
+      background-color: ${variant === 'primary'
+        ? defaultColor
+        : colors[variant]};
       border: ${border};
-      font-size: ${size === 'large'
-        ? '16pt'
-        : size === 'medium'
-        ? '15pt'
-        : '13pt'};
-      width: ${width};
-      height: ${height};
+      width: ${width ?? sizeStyles[size]?.width ?? '100%'};
+      height: ${height ?? sizeStyles[size]?.height ?? '38px'};
+      font-size: ${sizeStyles[size]?.fontSize ?? '15pt'};
+
+      &:hover {
+        background-color: ${variant === 'primary'
+          ? hoverColor
+          : colors[variant]};
+      }
     `;
   }}
-
-  border-radius: 12px;
-  letter-spacing: 0;
-  cursor: pointer;
-  &:focus {
-    opacity: 0.8;
-  }
 `;
 
 // Usage in a component
@@ -122,16 +75,28 @@ const ButtonExample = () => {
   return (
     <div>
       {/* Large Buttons */}
-      <LargeButton variant="primary">Primary</LargeButton>
-      <LargeButton variant="secondary">Secondary</LargeButton>
+      <StyledButton size="large" variant="primary">
+        Primary
+      </StyledButton>
+      <StyledButton size="large" variant="secondary">
+        Secondary
+      </StyledButton>
 
       {/* Medium Buttons */}
-      <MediumButton variant="primary">Primary</MediumButton>
-      <MediumButton variant="secondary">Secondary</MediumButton>
+      <StyledButton size="medium" variant="primary">
+        Primary
+      </StyledButton>
+      <StyledButton size="medium" variant="secondary">
+        Secondary
+      </StyledButton>
 
       {/* Small Buttons */}
-      <SmallButton variant="primary">Primary</SmallButton>
-      <SmallButton variant="secondary">Secondary</SmallButton>
+      <StyledButton size="small" variant="primary">
+        Primary
+      </StyledButton>
+      <StyledButton size="small" variant="secondary">
+        Secondary
+      </StyledButton>
     </div>
   );
 };

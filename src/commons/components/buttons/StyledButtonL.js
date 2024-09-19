@@ -2,9 +2,10 @@ import styled, { css } from 'styled-components';
 import colors from '@/theme/colors';
 
 // 공통 스타일
-const buttonStyles = css`
-  border-radius: 50px;
+const commonStyles = css`
+  border-radius: 12px;
   cursor: pointer;
+  border: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -12,80 +13,86 @@ const buttonStyles = css`
   transition: all 0.3s ease;
 
   &:focus {
-    opacity: 0.9;
+    opacity: 0.8;
   }
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    background-color: ${colors.gray};
+    color: ${colors.textLight};
   }
 `;
 
-// Large Button
-export const LLargeButton = styled.button`
-  height: 50px;
-  font-size: 16pt;
-  padding: 0 20px;
-  ${buttonStyles}
+// StyledButton with updated sizes, colors, and states
+export const StyledButtonL = styled.button`
+  ${({ variant, size, width, height }) => {
+    const defaultColor = colors.primary;
+    const hoverColor = colors.primaryLight;
+    const border =
+      variant === 'transparent' ? `1px solid ${colors.black}` : 'none';
 
-  ${({ variant }) =>
-    variant === 'primary' &&
-    css`
-      background-color: ${colors.primary};
-      color: ${colors.white};
-    `}
+    // Size settings
+    const sizeStyles = {
+      large: css`
+        width: 165px;
+        height: 50px;
+        font-size: 16pt;
+      `,
+      medium: css`
+        width: 165px;
+        height: 50px;
+        font-size: 15pt;
+      `,
+      small: css`
+        width: 120px;
+        height: 36px;
+        font-size: 13pt;
+      `,
+    };
 
-  ${({ variant }) =>
-    variant === 'secondary' &&
-    css`
-      background-color: ${colors.white};
-      border: 2px solid ${colors.primary};
-      color: ${colors.primary};
-    `}
+    return css`
+      ${commonStyles}
+      ${sizeStyles[size]}
+    color: ${variant === 'primary' ? colors.white : colors.primary};
+      background-color: ${variant === 'primary' ? defaultColor : colors.white};
+      border: ${border};
+      width: ${width ?? sizeStyles[size]?.width ?? '100%'};
+      height: ${height ?? sizeStyles[size]?.height ?? '50px'};
+
+      &:hover {
+        background-color: ${variant === 'primary' ? hoverColor : colors.white};
+      }
+    `;
+  }}
 `;
 
-// Medium Button
-export const LMediumButton = styled.button`
-  height: 45px;
-  font-size: 15pt;
-  padding: 0 18px;
-  ${buttonStyles}
+// Usage in a component
+const ButtonExample = () => {
+  return (
+    <div>
+      {/* Large Buttons */}
+      <StyledButton size="large" variant="primary">
+        Primary
+      </StyledButton>
+      <StyledButton size="large" variant="secondary">
+        Secondary
+      </StyledButton>
 
-  ${({ variant }) =>
-    variant === 'primary' &&
-    css`
-      background-color: ${colors.primary};
-      color: ${colors.white};
-    `}
+      {/* Medium Buttons */}
+      <StyledButton size="medium" variant="primary">
+        Primary
+      </StyledButton>
+      <StyledButton size="medium" variant="secondary">
+        Secondary
+      </StyledButton>
 
-  ${({ variant }) =>
-    variant === 'secondary' &&
-    css`
-      background-color: ${colors.white};
-      border: 2px solid ${colors.primary};
-      color: ${colors.primary};
-    `}
-`;
-
-// Small Button
-export const LSmallButton = styled.button`
-  height: 36px;
-  font-size: 13pt;
-  padding: 0 16px;
-  ${buttonStyles}
-
-  ${({ variant }) =>
-    variant === 'primary' &&
-    css`
-      background-color: ${colors.primary};
-      color: ${colors.white};
-    `}
-
-  ${({ variant }) =>
-    variant === 'secondary' &&
-    css`
-      background-color: ${colors.white};
-      border: 2px solid ${colors.primary};
-      color: ${colors.primary};
-    `}
-`;
+      {/* Small Buttons */}
+      <StyledButton size="small" variant="primary">
+        Primary
+      </StyledButton>
+      <StyledButton size="small" variant="secondary">
+        Secondary
+      </StyledButton>
+    </div>
+  );
+};

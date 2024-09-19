@@ -1,39 +1,37 @@
 'use client';
 import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
 import styled from 'styled-components';
-import {
-  LLargeButton,
-  LMediumButton,
-  LSmallButton,
-} from '@/commons/components/buttons/StyledButtonL';
-import {
-  LargeButton,
-  MediumButton,
-  SmallButton,
-} from '@/commons/components/buttons/StyledButton';
+import { StyledButtonL } from '@/commons/components/buttons/StyledButtonL';
+import { StyledButton } from '@/commons/components/buttons/StyledButton';
 
 const ListPage = () => {
   return (
     <>
       <h1>설문 메인</h1>
       <ButtonContainer>
-        {/* Large Buttons */}
-        <LargeButton variant="primary">버튼 Large </LargeButton>
+        <StyledButton size="large" variant="primary">
+          버튼 Large
+        </StyledButton>
 
-        {/* Medium Buttons */}
-        <MediumButton variant="primary">버튼 Medium</MediumButton>
+        <StyledButton size="medium" variant="primary">
+          버튼 Medium
+        </StyledButton>
 
-        {/* Small Buttons */}
-        <SmallButton variant="primary">버튼 Small</SmallButton>
+        <StyledButton size="Small" variant="primary">
+          버튼 Small
+        </StyledButton>
 
-        {/* LLarge Buttons */}
-        <LLargeButton variant="primary">버튼 Light Large</LLargeButton>
+        <StyledButtonL size="large" variant="primary">
+          버튼 Large
+        </StyledButtonL>
 
-        {/* LMedium Buttons */}
-        <LMediumButton variant="primary">버튼 Light Medium</LMediumButton>
+        <StyledButtonL size="medium" variant="primary">
+          버튼 Medium
+        </StyledButtonL>
 
-        {/* LSmall Buttons */}
-        <LSmallButton variant="primary">버튼 Light Small</LSmallButton>
+        <StyledButtonL size="Small" variant="primary">
+          버튼 Small
+        </StyledButtonL>
       </ButtonContainer>
     </>
   );
