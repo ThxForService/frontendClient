@@ -7,10 +7,37 @@ import { IoMdRadioButtonOn, IoMdRadioButtonOff } from 'react-icons/io';
 import { StyledInput } from '@/commons/components/inputs/StyledInput';
 import { StyledButton } from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
-import userType from '../constants/userType';
-import userStatus from '../constants/userStatus';
+import Authority from '../constants/Authority';
+import Status from '../constants/Status';
 
-const FormBox = styled.form``;
+const FormBox = styled.form`
+dl {
+    display: flex;
+    align-items: center;
+
+    dt {
+      width: 120px;
+    }
+
+    dd {
+      flex-grow: 1;
+    }
+  }
+
+  dl + dl {
+    margin-top: 5px;
+  }
+
+  .agree {
+    text-align: center;
+    margin: 15px 0;
+
+    svg {
+      font-size: 1.5rem;
+      vertical-align: middle;
+    }
+  }
+`;
 
 const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
   const { t } = useTranslation();
@@ -20,19 +47,19 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
       <dl>
         <dt>{t('가입유형')}</dt>
         <dd>
-          {Object.keys(userType)
+          {Object.keys(Authority)
             .filter((k) => k != 'ADMIN')
             .map((k, i) => (
               <span
-                key={`userType_${k}`}
-                onClick={() => onToggle('userType', k)}
+                key={`Authority_${k}`}
+                onClick={() => onToggle('Authority', k)}
               >
-                {form?.userType === k ? (
+                {form?.Authority === k ? (
                   <IoMdRadioButtonOn />
                 ) : (
                   <IoMdRadioButtonOff />
                 )}
-                {userType[k]}
+                {Authority[k]}
               </span>
             ))}
         </dd>
@@ -148,17 +175,17 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
         </dd>
       </dl>
       <dl>
-        <dt>{form?.userType === 'STUDENT' ? t('재학상태') : t('재직상태')}</dt>
+        <dt>{form?.Authority === 'STUDENT' ? t('재학상태') : t('재직상태')}</dt>
         <dd>
-          {form?.userType === 'STUDENT' ? (
+          {form?.Authority === 'STUDENT' ? (
             <>
-              <span onClick={() => onToggle('status', 'ONCLASS')}>
-                {form?.status === 'ONCLASS' ? (
+              <span onClick={() => onToggle('status', 'UNDERGRADUATE')}>
+                {form?.status === 'UNDERGRADUATE' ? (
                   <IoMdRadioButtonOn />
                 ) : (
                   <IoMdRadioButtonOff />
                 )}
-                {userStatus.ONCLASS}
+                {Status.UNDERGRADUATE}
               </span>
               <span onClick={() => onToggle('status', 'OUTCLASS')}>
                 {form?.status === 'OUTCLASS' ? (
@@ -166,7 +193,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 ) : (
                   <IoMdRadioButtonOff />
                 )}
-                {userStatus.OUTCLASS}
+                {Status.GRADUATE}
               </span>
             </>
           ) : (
@@ -177,7 +204,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 ) : (
                   <IoMdRadioButtonOff />
                 )}
-                {userStatus.EMPLOYED}
+                {Status.EMPLOYED}
               </span>
               <span onClick={() => onToggle('status', 'LEAVE')}>
                 {form?.status === 'LEAVE' ? (
@@ -185,7 +212,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 ) : (
                   <IoMdRadioButtonOff />
                 )}
-                {userStatus.LEAVE}
+                {Status.LEAVE}
               </span>
               <span onClick={() => onToggle('status', 'RESIGN')}>
                 {form?.status === 'REGISN' ? (
@@ -193,37 +220,37 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 ) : (
                   <IoMdRadioButtonOff />
                 )}
-                {userStatus.RESIGN}
+                {Status.RESIGN}
               </span>
             </>
           )}
         </dd>
       </dl>
       <dl>
-        <dt>{form?.userType === 'COUNSELOR' ? t('부서명') : t('학과명')}</dt>
+        <dt>{form?.Authority === 'COUNSELOR' ? t('부서명') : t('학과명')}</dt>
         <dd>
           <StyledInput
             type="text"
-            name="deptNm"
-            value={form?.deptNm ?? ''}
+            name="department"
+            value={form?.department ?? ''}
             onChange={onChange}
           />
-          <StyledMessage variant="danger">{errors?.deptNm}</StyledMessage>
+          <StyledMessage variant="danger">{errors?.department}</StyledMessage>
         </dd>
       </dl>
       
-      {form?.userType === 'STUDENT' ? (
+      {form?.Authority === 'STUDENT' ? (
         <>
           <dl>
             <dt>{t('학번')}</dt>
             <dd>
               <StyledInput
                 type="text"
-                name="stdntNo"
-                value={form?.stdntNo ?? ''}
+                name="studentNo"
+                value={form?.studentNo ?? ''}
                 onChange={onChange}
               />
-              <StyledMessage variant="danger">{errors?.stdntNo}</StyledMessage>
+              <StyledMessage variant="danger">{errors?.studentNo}</StyledMessage>
             </dd>
           </dl>
           <dl>

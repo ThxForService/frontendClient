@@ -25,7 +25,6 @@ const LoginContainer = ({ searchParams }) => {
     setIsAdmin,
     setIsStudent,
     setIsCounselor,
-    setIsProfessor,
     setUserInfo,
   } = getUserActions();
 
@@ -70,10 +69,10 @@ const LoginContainer = ({ searchParams }) => {
               setIsLogin(true); // 로그인 상태
               setUserInfo(user);
 
-              setIsAdmin(user.userType === 'ADMIN'); // 관리자 여부
-              setIsStudent(user.userType === 'STUDENT');
-              setIsCounselor(user.userType === 'COUNSELOR');
-              setIsProfessor(user.userType === 'PROFESSOR');
+              setIsAdmin(user.Authority === 'ADMIN'); // 관리자 여부
+              setIsStudent(user.Authority === 'STUDENT');
+              setIsCounselor(user.Authority === 'COUNSELOR');
+            
 
               /**
                * 후속 처리 : 회원 전용 서비스 URL로 이동
@@ -101,7 +100,6 @@ const LoginContainer = ({ searchParams }) => {
       setIsAdmin,
       setIsCounselor,
       setIsLogin,
-      setIsProfessor,
       setIsStudent,
       setUserInfo,
       t,

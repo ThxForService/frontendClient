@@ -6,7 +6,7 @@ export default function apiRequest(url, method = 'GET', data, headers) {
    * url - http://jsonplaceholder.. https://
    */
   if (!/^http[s]?/i.test(url)) {
-    url = `/api${url}`;
+    url = process.env.NEXT_PUBLIC_API_URL + url;
   }
 
   /**
