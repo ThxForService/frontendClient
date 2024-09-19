@@ -5,8 +5,7 @@ import fontWeight from '@/theme/fontWeight';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-
-const { dark, light, midGreen, white, lightGreen } = colors;
+const { dark, white, midGreen, lightGreen } = colors;
 
 const MenuContainer = styled.nav`
   position: relative;
@@ -22,6 +21,9 @@ const MenuContainer = styled.nav`
 
 const MenuList = styled.ul`
   display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 `;
 
 const MenuItem = styled.li`
@@ -30,23 +32,27 @@ const MenuItem = styled.li`
   margin: 0 10px;
 
   a {
-    color: dark;
+    color: ${dark};
     line-height: 100px;
     width: 200px;
     padding: 0 20px;
-    font-size: medium;
+    font-size: 1.5em;
     text-decoration: none;
     text-align: center;
     display: block;
-    font-size: 1.5em;
     font-weight: bold;
+    transition: color 0.3s, background 0.3s;
 
     &:hover {
-      background: white;
+      background: ${white};
       text-decoration-line: underline;
       text-decoration-thickness: 2px;
       text-underline-offset: 10px;
-      color: midGreen;
+      color: ${midGreen};
+    }
+
+    &.on {
+      // Define styles for active link if needed
     }
   }
 
@@ -54,14 +60,14 @@ const MenuItem = styled.li`
     display: flex;
   }
 `;
+
 const SubMenu = styled.div`
   position: absolute;
-  top: 80px;
+  top: 100px; /* Adjust based on your layout */
   background: ${white};
   display: none;
   flex-direction: column;
   width: 200px;
-  height: auto;
   z-index: 1000;
 
   a {
@@ -69,6 +75,7 @@ const SubMenu = styled.div`
     color: ${dark};
     font-size: 1.3em;
     text-decoration: none;
+    transition: background 0.3s;
 
     &:hover {
       background: ${lightGreen};
@@ -85,9 +92,7 @@ const MainMenu = () => {
       <MenuContainer>
         <MenuList>
           <MenuItem>
-            <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('qwe')}
-            </a>
+            <a href="#">{t('qwe')}</a>
             <SubMenu className="sub-menu">
               <a href="/mypage/info">{t('qwe')}</a>
               <a href="/mypage/info">{t('asd')}</a>
@@ -95,9 +100,7 @@ const MainMenu = () => {
             </SubMenu>
           </MenuItem>
           <MenuItem>
-            <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('asd')}
-            </a>
+            <a href="#">{t('asd')}</a>
             <SubMenu className="sub-menu">
               <a href="/mypage/info">{t('qwe')}</a>
               <a href="/mypage/info">{t('asd')}</a>
@@ -105,9 +108,7 @@ const MainMenu = () => {
             </SubMenu>
           </MenuItem>
           <MenuItem>
-            <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('zxc')}
-            </a>
+            <a href="#">{t('zxc')}</a>
             <SubMenu className="sub-menu">
               <a href="/mypage/info">{t('qwe')}</a>
               <a href="/mypage/info">{t('asd')}</a>
@@ -115,9 +116,7 @@ const MainMenu = () => {
             </SubMenu>
           </MenuItem>
           <MenuItem>
-            <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('qaz')}
-            </a>
+            <a href="#">{t('qaz')}</a>
             <SubMenu className="sub-menu">
               <a href="/mypage/info">{t('qwe')}</a>
               <a href="/mypage/info">{t('asd')}</a>

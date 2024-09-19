@@ -14,7 +14,7 @@ const colors = {
   black: '#000000',
   white: '#ffffff',
   text: '#000000',
-  navy: '#222c9d',
+  dark: '#000000',
 };
 
 export default colors;

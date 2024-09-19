@@ -6,14 +6,13 @@ import { getCommonStates } from '../commons/contexts/CommonContext';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import { colors } from '@/theme/colors';
 
-const { navy, white, gray } = colors;
-
 const HeaderBox = styled.header`
   position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  background: ${navy};
+  background: ${({ theme }) =>
+    theme.primary}; // Access from theme or default value
   height: 50px;
   z-index: 1000;
   display: flex;
@@ -35,13 +34,13 @@ const HeaderBox = styled.header`
   }
 
   a {
-    color: ${white};
+    color: ${({ theme }) => theme.white}; // Access from theme or default value
     text-decoration: none;
     padding: 0 20px;
     transition: color 0.3s;
 
     &:hover {
-      color: ${gray};
+      color: ${({ theme }) => theme.gray}; // Access from theme or default value
     }
   }
 `;
@@ -53,6 +52,7 @@ const Header = () => {
     states: { isLogin, userInfo, isAdmin },
     actions: { setIsLogin, setIsAdmin, setUserInfo },
   } = getUserContext();
+
   const onLogout = useCallback(() => {
     setIsLogin(false);
     setIsAdmin(false);
@@ -60,9 +60,10 @@ const Header = () => {
     cookies.remove('token', { path: '/' });
   }, [setIsLogin, setIsAdmin, setUserInfo]);
 
+  // Pass colors as theme prop if using theme provider
   return (
     showHeader && (
-      <HeaderBox>
+      <HeaderBox theme={colors}>
         <section className="site-top">
           <div className="layout-width">
             {isLogin ? (

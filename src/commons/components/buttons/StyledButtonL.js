@@ -71,28 +71,28 @@ const ButtonExample = () => {
   return (
     <div>
       {/* Large Buttons */}
-      <StyledButton size="large" variant="primary">
+      <StyledButtonL size="large" variant="primary">
         Primary
-      </StyledButton>
-      <StyledButton size="large" variant="secondary">
+      </StyledButtonL>
+      <StyledButtonL size="large" variant="secondary">
         Secondary
-      </StyledButton>
+      </StyledButtonL>
 
       {/* Medium Buttons */}
-      <StyledButton size="medium" variant="primary">
+      <StyledButtonL size="medium" variant="primary">
         Primary
-      </StyledButton>
-      <StyledButton size="medium" variant="secondary">
+      </StyledButtonL>
+      <StyledButtonL size="medium" variant="secondary">
         Secondary
-      </StyledButton>
+      </StyledButtonL>
 
       {/* Small Buttons */}
-      <StyledButton size="small" variant="primary">
+      <StyledButtonL size="small" variant="primary">
         Primary
-      </StyledButton>
-      <StyledButton size="small" variant="secondary">
+      </StyledButtonL>
+      <StyledButtonL size="small" variant="secondary">
         Secondary
-      </StyledButton>
+      </StyledButtonL>
     </div>
   );
 };
