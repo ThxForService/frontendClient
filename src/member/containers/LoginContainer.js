@@ -8,9 +8,9 @@ import LoginForm from '../components/LoginForm';
 import { StyledWrapper } from '@/commons/components/layouts/StyledWrapper';
 import { apiLogin } from '../apis/apiLogin';
 import { getUserActions } from '@/commons/contexts/UserInfoContext';
+
 const LoginContainer = ({ searchParams }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { t } = useTranslation();
   const { setMainTitle } = getCommonActions();
   useLayoutEffect(() => {
