@@ -11,6 +11,20 @@ const colors = {
   black: '#000000',
   white: '#ffffff',
   text: '#000000',
+  blue: '#6CC0FF',
+  success: '#28a745',
+  warning: '#ffc107',
+  info: '#17a2b8',
+  light: '#E2E2E2',
+  dark: '#343a40',
+  darkGreen: '#428C4C',
+  midGreen: '#39AE48',
+  lightGreen: '#C2F2B6',
+  dark_gray: '#333333',
+  mid_gray: '#767676',
+  line_gray: '#D5D5D5',
+  whiteGreen: '#FFFFDE',
+  whiteGray: '#cccccc',
 };
 
 export default colors;
