@@ -8,9 +8,8 @@ import { StyledWrapper } from '@/commons/components/layouts/StyledWrapper';
 import { apiJoin } from '../apis/apiJoin';
 
 const initalForm = {
-  userType: 'STUDENT',
-  status: 'ONCLASS',
-  gender: 'FEMALE',
+  authority: 'STUDENT',
+  status: 'UNDERGRADUATE',
   agree: false,
 };
 
@@ -37,14 +36,13 @@ const JoinContainer = () => {
         password: t('비밀번호를_입력하세요.'),
         confirmPassword: t('비밀번호를_확인하세요.'),
         userName: t('회원명을_입력하세요.'),
-        userType: t('가입유형을_선택하세요.'),
+        authority: t('가입유형을_선택하세요.'),
         zonecode: t('우편번호를_입력하세요.'),
         address: t('주소를_입력하세요.'),
         birth: t('생년월일을_입력하세요.'),
-        gender: t('성별을_선택하세요.'),
       };
 
-      if (form?.userType === 'STUDENT') {
+      if (form?.authority === 'STUDENT') {
         requiredFields.deptNm = t('학과명을_입력하세요.');
         requiredFields.deptNo = t('학과번호를_입력하세요.');
         requiredFields.stdntNo = t('학번을_입력하세요.');
