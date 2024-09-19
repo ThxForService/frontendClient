@@ -1,61 +1,47 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import cookies from 'react-cookies';
 import { useTranslation } from 'react-i18next';
 import { getCommonStates } from '../commons/contexts/CommonContext';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
+import { colors } from '@/theme/colors';
+
+const { navy, white, gray } = colors;
+
 const HeaderBox = styled.header`
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: ${navy};
+  height: 50px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+
   .site-top {
-    background: #f8f8f8;
-    border-bottom: 1px solid #d5d5d5;
-    height: 35px;
-
-    div {
-      text-align: right;
-
-      a {
-        display: inline-block;
-        line-height: 34px;
-        margin-left: 10px;
-        font-size: ${({ theme }) => theme.fontSizes.normal};
-
-        &.on {
-          color: ${({ theme }) => theme.colors.primary};
-        }
-      }
-    }
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
   }
 
-  .logo-search {
-    div {
-      display: flex;
-      justify-content: space-between;
-      height: 150px;
-      align-items: center;
+  .layout-width {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+  }
 
-      form {
-        display: flex;
-        height: 45px;
-        width: 380px;
+  a {
+    color: ${white};
+    text-decoration: none;
+    padding: 0 20px;
+    transition: color 0.3s;
 
-        button {
-          width: 45px;
-          background: ${({ theme }) => theme.colors.dark};
-          border: 0;
-          cursor: pointer;
-
-          svg {
-            color: ${({ theme }) => theme.colors.gray};
-            font-size: 1.75rem;
-          }
-        }
-
-        input[type='text'] {
-          flex-grow: 1;
-          border: 5px solid ${({ theme }) => theme.colors.dark};
-          padding: 0 10px;
-        }
-      }
+    &:hover {
+      color: ${gray};
     }
   }
 `;
@@ -80,18 +66,16 @@ const Header = () => {
         <section className="site-top">
           <div className="layout-width">
             {isLogin ? (
-              <>
-                {/* 로그인 상태 */}
-                <span>
-                  {userInfo?.userName}({userInfo?.email}){t('님_로그인')}
-                </span>
-                <span onClick={onLogout}>{t('로그아웃')}</span>
-              </>
+              <div>
+                <a href="/mypage">{t('마이페이지')}</a>
+                <a onClick={onLogout}>{t('로그아웃')}</a>
+                <a href="/admin">{t('사이트_관리')}</a>
+              </div>
             ) : (
-              <>
+              <div>
                 <a href="/member/join">{t('회원가입')}</a>
                 <a href="/member/login">{t('로그인')}</a>
-              </>
+              </div>
             )}
           </div>
         </section>
