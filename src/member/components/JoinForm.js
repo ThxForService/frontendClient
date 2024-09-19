@@ -148,28 +148,6 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
         </dd>
       </dl>
       <dl>
-        <dt>{t('성별')}</dt>
-        <dd>
-          <span onClick={() => onToggle('gender', 'FEMALE')}>
-            {form?.gender === 'FEMALE' ? (
-              <IoMdRadioButtonOn />
-            ) : (
-              <IoMdRadioButtonOff />
-            )}
-            {t('여성')}
-          </span>
-          <span onClick={() => onToggle('gender', 'MALE')}>
-            {form?.gender === 'MALE' ? (
-              <IoMdRadioButtonOn />
-            ) : (
-              <IoMdRadioButtonOff />
-            )}
-            {t('남성')}
-          </span>
-          <StyledMessage variant="danger">{errors?.gender}</StyledMessage>
-        </dd>
-      </dl>
-      <dl>
         <dt>{form?.userType === 'STUDENT' ? t('재학상태') : t('재직상태')}</dt>
         <dd>
           {form?.userType === 'STUDENT' ? (
@@ -233,20 +211,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
           <StyledMessage variant="danger">{errors?.deptNm}</StyledMessage>
         </dd>
       </dl>
-      <dl>
-        <dt>
-          {form?.userType === 'COUNSELOR' ? t('부서번호') : t('학과번호')}
-        </dt>
-        <dd>
-          <StyledInput
-            type="text"
-            name="deptNo"
-            value={form?.deptNo ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">{errors?.deptNo}</StyledMessage>
-        </dd>
-      </dl>
+      
       {form?.userType === 'STUDENT' ? (
         <>
           <dl>

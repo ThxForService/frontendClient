@@ -43,16 +43,13 @@ const JoinContainer = () => {
       };
 
       if (form?.authority === 'STUDENT') {
-        requiredFields.deptNm = t('학과명을_입력하세요.');
-        requiredFields.deptNo = t('학과번호를_입력하세요.');
-        requiredFields.stdntNo = t('학번을_입력하세요.');
+        requiredFields.department = t('학과명을_입력하세요.');
+        requiredFields.studentNo = t('학번을_입력하세요.');
         requiredFields.grade = t('학년을_입력하세요.');
         requiredFields.professor = t('지도교수를_선택하세요.');
       } else {
-        requiredFields.deptNm = t('부서명을_입력하세요.');
-        requiredFields.deptNo = t('부서번호를_입력하세요.');
         requiredFields.empNo = t('사번을_입력하세요.');
-        requiredFields.subject = t('담당과목을_입력하세요.');
+        requiredFields.subject = t('담당분야을_입력하세요.');
       }
 
       for (const [field, message] of Object.entries(requiredFields)) {
