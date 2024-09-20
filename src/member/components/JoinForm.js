@@ -215,7 +215,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 {Status.LEAVE}
               </span>
               <span onClick={() => onToggle('status', 'RESIGN')}>
-                {form?.status === 'REGISN' ? (
+                {form?.status === 'RESIGN' ? (
                   <IoMdRadioButtonOn />
                 ) : (
                   <IoMdRadioButtonOff />

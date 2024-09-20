@@ -1,4 +1,4 @@
-const CounselingReserve = () => {
+export default function CounselingList() {
   return (
     <div>
       <h1>상담 예약 페이지</h1>
@@ -14,6 +14,4 @@ const CounselingReserve = () => {
       </form>
     </div>
   );
-};
-
-export default CounselingReserve();
+}
