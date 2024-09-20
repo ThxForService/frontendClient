@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { getCommonStates } from '../commons/contexts/CommonContext';
 import { colors } from '@/theme/colors';
+import Image from 'next/image';
 
 const { darkPink, black } = colors;
 
@@ -58,37 +59,35 @@ const FooterImageBox = styled.div`
   margin-top: 180px;
 `;
 
-const Image = styled.img`
-  width: 150px;
-  height: auto;
-  object-fit: contain;
-`;
+// const Image = styled.img`
+//   width: 150px;
+//   height: auto;
+//   object-fit: contain;
+// `;
 
 const Footer = () => {
   return (
     <FooterBox>
       <FooterWrap>
         <FooterContentBox>
-          <Address className="이진표">
-            서울 마포구 신촌로 176 중앙빌딩 | 502호 2조
-          </Address>
+          <Address>이진표</Address>
           <Information>
-            asdf
             <br />
           </Information>
           <Information2>
-            qwer
+            주소(신촌캠퍼스) : (03722) 서울특별시 서대문구 연세로 50 연세대학교
+            백양관 N408호 전화 : 02-2123-6688 이메일 : counsel@yonsei.ac.kr
+            <br />
+            주소(국제캠퍼스) : (21983) 인천광역시 연수구 송도과학로 85 송도2학사
+            G동 반피득홀 전화 : 032-749-2070 이메일 : counselyic@yonsei.ac.kr
             <br />
             <br />
-            zxc
-            <br />
-            이진표
+            Copyrights (c) 2017 Yonsei University Counseling Center. All rights
+            reserved.
           </Information2>
         </FooterContentBox>
         <FooterImageBox>
-          {/* <Image src={FooterImage1} alt="1" />
-          <Image src={FooterImage2} alt="2" />
-          <Image src={FooterImage3} alt="3" /> */}
+          <Image src="/images/logo.png" alt="1" width={100} height={100} />
         </FooterImageBox>
       </FooterWrap>
     </FooterBox>

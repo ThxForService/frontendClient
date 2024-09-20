@@ -1,13 +1,13 @@
 'use client';
 import LoginContainer from '@/member/containers/LoginContainer';
 import GuestOnlyContainer from '@/member/containers/GuestOnlyContainer';
-import { OuterBox } from '@/commons/components/layouts/StyledWrapper';
+import { OuterBox } from '@/commons/layouts/StyledWrapper';
 
 const LoginPage = ({ searchParams }) => {
   return (
     <GuestOnlyContainer>
       <OuterBox>
-      <LoginContainer searchParams={searchParams} />
+        <LoginContainer searchParams={searchParams} />
       </OuterBox>
     </GuestOnlyContainer>
   );

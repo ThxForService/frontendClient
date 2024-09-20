@@ -1,17 +1,30 @@
-export default function CounselingList() {
+'use client';
+import React, { useState } from 'react';
+import CounselingApplyContainer from '@/counseling/containers/CounselingApplyContainer';
+import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
+
+import Header from '@/commons/layouts/Header';
+import { OuterBox, ContentBox2 } from '@/commons/layouts/StyledWrapper';
+import SiteTitle from '@/commons/SiteTitle';
+import { useTranslation } from 'next-i18next';
+
+const Apply = () => {
+  const { t } = useTranslation();
+  const [pageTitle, setPageTitle] = useState('');
+  //컨테이너에서 데이터 불러와서 사용
+
   return (
-    <div>
-      <h1>상담 예약 페이지</h1>
-      {/* 상담 예약 폼 */}
-      <form>
-        <label htmlFor="username">이름:</label>
-        <input type="text" id="username" name="username" />
-
-        <label htmlFor="date">예약 날짜:</label>
-        <input type="date" id="date" name="date" />
-
-        <button type="submit">예약하기</button>
-      </form>
-    </div>
+    <MemberOnlyContainer>
+      {/* <SubTitleLink text={t('상담 예약')} href="" /> */}
+      <title>{pageTitle}</title>
+      <OuterBox>
+        <Header />
+        <ContentBox2>
+          <SiteTitle>{pageTitle}</SiteTitle>
+          <CounselingApplyContainer setPageTitle={setPageTitle} />
+        </ContentBox2>
+      </OuterBox>
+    </MemberOnlyContainer>
   );
-}
+};
+export default React.memo(Apply);

@@ -1,13 +1,14 @@
+'use client';
 import React from 'react';
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 import { useTranslation } from 'next-i18next';
 import { IoIosRadioButtonOff, IoIosRadioButtonOn } from 'react-icons/io';
-import { BigButton } from '../../commons/components/Buttons';
-import InputBox from '../../commons/components/InputBox';
-import MessageBox from '../../commons/components/MessageBox';
-import { color } from '../../styles/color';
-import fontSize from '../../styles/fontSize';
+import { StyledButton } from '@/commons/components/StyledButton';
+import { StyledInput } from '../../commons/components/StyledInput';
+import MessageBox from '../../commons/components/StyledMessage';
+import { colors } from '@/theme/colors';
+import fontSizes from '@/theme/fontSizes';
 import { format } from 'date-fns';
 import moment from 'moment/moment';
 import Select from 'react-select';
@@ -19,8 +20,8 @@ import {
 } from 'react-icons/fc';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 
-const { gray, primary, lightGreen, darkGreen, white, midGreen, dark } = color;
-const { normal, medium, normedium, big, extraBig } = fontSize;
+const { gray, primary, lightGreen, darkGreen, white, midGreen, dark } = colors;
+const { normal, medium, normedium, big, extraBig } = fontSizes;
 
 const FormBox = styled.form`
   .infoBox {
@@ -280,7 +281,7 @@ const options = [...new Array(30).keys()].map((i) => ({
   label: `${i + 1}명`,
 }));
 
-const ReservationForm = ({
+const CounselingForm = ({
   data,
   form,
   onSubmit,
@@ -330,7 +331,7 @@ const ReservationForm = ({
             <dl>
               <dt>{t('예약자명')}</dt>
               <dd>
-                <InputBox
+                <StyledInput
                   type="text"
                   name="name"
                   value={form?.name}
@@ -344,7 +345,7 @@ const ReservationForm = ({
             <dl>
               <dt>{t('이메일')}</dt>
               <dd>
-                <InputBox
+                <StyledInput
                   type="text"
                   name="email"
                   value={form?.email}
@@ -358,7 +359,7 @@ const ReservationForm = ({
             <dl>
               <dt>{t('전화번호')}</dt>
               <dd>
-                <InputBox
+                <StyledInput
                   type="text"
                   name="mobile"
                   value={form?.mobile}
@@ -386,47 +387,12 @@ const ReservationForm = ({
               <MessageBox color="danger" messages={errors.persons} />
             )}
           </div>
-          <div className="time_box">
-            {times && (
-              <div>
-                <div className="title">
-                  <FcAlarmClock />
-                  <h2>{t('예약시간_선택')}</h2>
-                </div>
-                <ul>
-                  {times[0] && (
-                    <li onClick={() => onTimeChange('AM')}>
-                      {form.ampm === 'AM' ? (
-                        <IoIosRadioButtonOn />
-                      ) : (
-                        <IoIosRadioButtonOff />
-                      )}
-                      {t('오전')}
-                    </li>
-                  )}
-                  {times[1] && (
-                    <li onClick={() => onTimeChange('PM')}>
-                      {form.ampm === 'PM' ? (
-                        <IoIosRadioButtonOn />
-                      ) : (
-                        <IoIosRadioButtonOff />
-                      )}
-                      {t('오후')}
-                    </li>
-                  )}
-                </ul>
-                {errors?.ampm && (
-                  <MessageBox color="danger" messages={errors.ampm} />
-                )}
-              </div>
-            )}
-          </div>
         </div>
       </div>
       <div className="btn_box">
-        <BigButton type="submit" color="midGreen" className="rsv_btn">
+        <StyledButton type="submit" color="midGreen" className="rsv_btn">
           {t('예약하기')}
-        </BigButton>
+        </StyledButton>
         {errors?.global && (
           <MessageBox color="danger" messages={errors.global} />
         )}
@@ -435,4 +401,4 @@ const ReservationForm = ({
   );
 };
 
-export default React.memo(ReservationForm);
+export default React.memo(CounselingForm);

@@ -5,6 +5,7 @@ import fontWeight from '@/theme/fontWeight';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
 
 const { dark, light, midGreen, white, lightGreen } = colors;
 
@@ -76,6 +77,12 @@ const SubMenu = styled.div`
   }
 `;
 
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+`;
+
 const MainMenu = () => {
   const { showMainMenu } = getCommonStates();
   const { t } = useTranslation();
@@ -103,6 +110,13 @@ const MainMenu = () => {
               <a href="/counseling/reserve">{t('상담')}</a>
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
               <a href="/mypage/info">{t('zxc')}</a>
+            </SubMenu>
+          </MenuItem>
+          <MenuItem>
+            <a href="/">{t('Main')}</a>
+            <SubMenu className="sub-menu">
+              <a href="/counseling/reserve">{t('로고넣고싶어')}</a>
+              <a href="/counseling/reserve">{t('메롱')}</a>
             </SubMenu>
           </MenuItem>
           <MenuItem>
