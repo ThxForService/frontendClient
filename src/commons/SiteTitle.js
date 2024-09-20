@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import CommonContext from '../contexts/CommonContext';
+import CommonContext from './contexts/CommonContext';
 const SiteTitle = () => {
   const {
     states: { mainTitle },

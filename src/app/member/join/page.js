@@ -1,13 +1,13 @@
 'use client';
 import JoinContainer from '@/member/containers/JoinContainer';
 import GuestOnlyContainer from '@/member/containers/GuestOnlyContainer';
-import { OuterBox } from '@/commons/components/layouts/StyledWrapper';
+import { OuterBox } from '@/commons/layouts/StyledWrapper';
 
 const JoinPage = () => {
   return (
     <GuestOnlyContainer>
       <OuterBox>
-      <JoinContainer />
+        <JoinContainer />
       </OuterBox>
     </GuestOnlyContainer>
   );
