@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getCommonStates } from '../commons/contexts/CommonContext';
-import { colors } from '@/theme/colors';
+import { buttonColor } from '@/theme/colors';
 
-const { darkPink, black } = colors;
+const { darkPink, black } = buttonColor;
 
 const FooterBox = styled.footer`
   min-height: 270px;

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import colors from '@/theme/colors';
+import { buttonColor } from '@/theme/colors';
 import fontSizes from '@/theme/fontSizes';
 
 // Common styles for all buttons
@@ -22,8 +22,8 @@ const commonStyles = css`
 
   &:disabled {
     cursor: not-allowed;
-    background-color: ${colors.gray};
-    color: ${colors.white};
+    background-color: ${buttonColor.gray};
+    color: ${buttonColor.white};
   }
 `;
 
@@ -48,16 +48,16 @@ const sizeStyles = {
 
 // StyledButton with updated sizes, colors, and states
 export const StyledButton = styled.button`
-  ${({ size = 'large', variant = 'primary', width, height, border, defaultColor = colors.primary, hoverColor = colors.primaryLight }) => {
+  ${({ size = 'large', variant = 'primary', width, height, border, defaultColor = buttonColor.primary, hoverColor = buttonColor.primaryLight }) => {
     return css`
       ${commonStyles}
       ${sizeStyles[size]} // sizeStyles에서 해당 사이즈의 스타일을 한 번에 적용
-      color: ${variant === 'primary' ? colors.white : colors.text};
-      background-color: ${variant === 'primary' ? defaultColor : colors[variant]};
+      color: ${variant === 'primary' ? buttonColor.white : buttonColor.text};
+      background-color: ${variant === 'primary' ? defaultColor : buttonColor[variant]};
       border: ${border};
 
       &:hover {
-        background-color: ${variant === 'primary' ? hoverColor : colors[variant]};
+        background-color: ${variant === 'primary' ? hoverColor : buttonColor[variant]};
           // 호버 시 텍스트 그림자 추가
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
       }

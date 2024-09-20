@@ -4,9 +4,9 @@ import cookies from 'react-cookies';
 import { useTranslation } from 'react-i18next';
 import { getCommonStates } from '../commons/contexts/CommonContext';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
-import { colors } from '@/theme/colors';
+import { buttonColor } from '@/theme/colors';
 
-const { sora, white, gray } = colors;
+const { sora, white, gray } = buttonColor;
 
 const HeaderBox = styled.header`
   position: relative;
