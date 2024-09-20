@@ -1,11 +1,17 @@
 'use client';
-import React, { useLayoutEffect, useCallback, useState } from 'react';
+import React, {
+  useLayoutEffect,
+  useCallback,
+  useState,
+  useEffect,
+} from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import JoinForm from '../components/JoinForm';
 import { StyledWrapper } from '@/commons/components/layouts/StyledWrapper';
 import { apiJoin } from '../apis/apiJoin';
+import { getProfessors } from '../apis/apiInfo';
 
 const initalForm = {
   authority: 'STUDENT',
@@ -19,9 +25,27 @@ const JoinContainer = () => {
   const router = useRouter();
   const [form, setForm] = useState(initalForm);
   const [errors, setErrors] = useState({});
+
+  const [professors, setProfessors] = useState([]);
+  const [skey, setSkey] = useState('');
+
   useLayoutEffect(() => {
     setMainTitle(t('회원가입'));
   }, [t, setMainTitle]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const professors = await getProfessors(skey);
+        setProfessors(professors);
+        if (professors && professors.length > 0) {
+          setForm((form) => ({ ...form, professor: professors[0].seq }));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, [skey]);
 
   const onSubmit = useCallback(
     (e) => {
@@ -100,7 +124,13 @@ const JoinContainer = () => {
   );
 
   const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+    const name = e.target.name;
+    const value = e.target.value;
+    if (name === 'skey') {
+      setSkey(value);
+    } else {
+      setForm((form) => ({ ...form, [name]: value }));
+    }
   }, []);
 
   const onToggle = useCallback((name, value) => {
@@ -115,6 +145,8 @@ const JoinContainer = () => {
         onChange={onChange}
         onToggle={onToggle}
         errors={errors}
+        skey={skey}
+        professors={professors}
       />
     </StyledWrapper>
   );

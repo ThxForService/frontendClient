@@ -39,7 +39,15 @@ const FormBox = styled.form`
   }
 `;
 
-const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
+const JoinForm = ({
+  form,
+  errors,
+  onSubmit,
+  onChange,
+  onToggle,
+  skey,
+  professors,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -269,6 +277,35 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
               <StyledMessage variant="danger">{errors?.grade}</StyledMessage>
             </dd>
           </dl>
+          <dl>
+            <dt>{t('지도교수')}</dt>
+            <dd>
+              <StyledInput
+                type="text"
+                name="skey"
+                value={skey}
+                onChange={onChange}
+              />
+              <select
+                name="professor"
+                value={form?.professor}
+                onChange={onChange}
+              >
+                {professors && professors.length > 0 ? (
+                  professors.map(({ memberSeq, username, empNo }) => (
+                    <option key={memberSeq} value={memberSeq}>
+                      {username}({empNo})
+                    </option>
+                  ))
+                ) : (
+                  <option value="">{t('교수를_선택하세요')}</option>
+                )}
+              </select>
+              <StyledMessage variant="danger">
+                {errors?.professor}
+              </StyledMessage>
+            </dd>
+          </dl>
         </>
       ) : (
         <>
@@ -285,7 +322,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             </dd>
           </dl>
           <dl>
-            <dt>{t('담당과목')}</dt>
+            <dt>{t('담당분야')}</dt>
             <dd>
               <StyledInput
                 type="text"
