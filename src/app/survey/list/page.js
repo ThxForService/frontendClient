@@ -1,6 +1,6 @@
 'use client';
 import styled from 'styled-components';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { StyledButton } from '@/commons/buttons/StyledButton';
 
 const ListPage = () => {
   return (
