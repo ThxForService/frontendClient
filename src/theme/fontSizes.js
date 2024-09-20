@@ -1,4 +1,4 @@
-const fontSize = {
+const fontSizes = {
   extraSmall: '1rem',
   small: '1.2rem',
   normal: '1.4rem',
@@ -9,4 +9,4 @@ const fontSize = {
   giantBig: '4.5rem',
 };
 
-export default fontSize;
+export default fontSizes;
