@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { IoMdRadioButtonOn, IoMdRadioButtonOff } from 'react-icons/io';
-import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { StyledInput } from '@/commons/components/StyledInput';
 import StyledMessage from '@/commons/components/StyledMessage';
 import Authority from '../constants/Authority';
 import Status from '../constants/Status';
+import { StyledButton } from '@/commons/components/StyledButton';
 
 const FormBox = styled.form`
   dl {
@@ -215,7 +215,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 {Status.LEAVE}
               </span>
               <span onClick={() => onToggle('status', 'RESIGN')}>
-                {form?.status === 'REGISN' ? (
+                {form?.status === 'RESIGN' ? (
                   <IoMdRadioButtonOn />
                 ) : (
                   <IoMdRadioButtonOff />

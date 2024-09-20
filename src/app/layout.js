@@ -3,7 +3,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { CommonProvider } from '@/commons/contexts/CommonContext';
 import { UserInfoProvider } from '@/commons/contexts/UserInfoContext';
-import SiteTitle from '@/commons/components/SiteTitle';
+import SiteTitle from '@/commons/SiteTitle';
 import Header from '@/outlines/Header';
 import Footer from '@/outlines/Footer';
 import MainMenu from '@/outlines/MainMenu';

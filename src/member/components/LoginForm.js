@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import StyledMessage from '@/commons/components/StyledMessage';
-import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { StyledInput } from '@/commons/components/StyledInput';
+import { StyledButton } from '@/commons/components/StyledButton';
 const FormBox = styled.form``;
 
 const LoginForm = ({ form, errors, onSubmit, onChange }) => {
