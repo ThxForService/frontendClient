@@ -83,7 +83,7 @@ const Header = () => {
               <>
                 {/* 로그인 상태 */}
                 <span>
-                  {userInfo?.userName}({userInfo?.email}){t('님_로그인')}
+                  {userInfo?.username}({userInfo?.email}){t('님_로그인')}
                 </span>
                 <span onClick={onLogout}>{t('로그아웃')}</span>
               </>

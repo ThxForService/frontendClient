@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import axios from 'axios';
 import cookies from 'react-cookies';
 
@@ -29,9 +30,9 @@ export default function apiRequest(url, method = 'GET', data, headers) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  try {
-    return axios(options);
-  } catch (err) {
-    console.log('err', err);
+  if (headers) {
+    options.headers = headers;
   }
+
+  return axios(options);
 }
