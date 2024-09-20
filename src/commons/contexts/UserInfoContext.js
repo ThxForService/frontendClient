@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { createContext, useState, useContext } from 'react';
-
 import cookies from 'react-cookies';
 import { apiUser } from '@/member/apis/apiLogin';
 
@@ -52,10 +51,10 @@ const UserInfoProvider = ({ children }) => {
         setUserInfo(user);
         setIsLogin(true);
 
-        setIsAdmin(user.userType === 'ADMIN');
-        setIsCounselor(user.userType === 'COUNSELOR');
-        setIsProfessor(user.userType === 'PROFESSOR');
-        setIsStudent(user.userType === 'STUDENT');
+        setIsAdmin(user.authority === 'ADMIN');
+        setIsCounselor(user.authority === 'COUNSELOR');
+        setIsProfessor(user.authority === 'PROFESSOR');
+        setIsStudent(user.authority === 'STUDENT');
       } catch (err) {
         // 토큰 만료, 토큰이 잘못된 경우
         cookies.remove('token', { path: '/' });
