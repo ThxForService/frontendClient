@@ -175,9 +175,9 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
         </dd>
       </dl>
       <dl>
-        <dt>{form?.Authority === 'STUDENT' ? t('재학상태') : t('재직상태')}</dt>
+        <dt>{form?.authority === 'STUDENT' ? t('재학상태') : t('재직상태')}</dt>
         <dd>
-          {form?.Authority === 'STUDENT' ? (
+          {form?.authority === 'STUDENT' ? (
             <>
               <span onClick={() => onToggle('status', 'UNDERGRADUATE')}>
                 {form?.status === 'UNDERGRADUATE' ? (
@@ -226,7 +226,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
           )}
         </dd>
       </dl>
-      {form?.Authority === 'STUDENT' && (
+      {form?.authority === 'STUDENT' && (
         <dl>
           <dt>{t('학과명')}</dt>
           <dd>
@@ -241,7 +241,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
         </dl>
       )}
 
-      {form?.Authority === 'STUDENT' ? (
+      {form?.authority === 'STUDENT' ? (
         <>
           <dl>
             <dt>{t('학번')}</dt>
