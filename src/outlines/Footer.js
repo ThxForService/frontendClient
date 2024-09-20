@@ -4,7 +4,7 @@ import { getCommonStates } from '../commons/contexts/CommonContext';
 import { colors } from '@/theme/colors';
 import Image from 'next/image';
 
-const { darkPink, black } = buttonColor;
+const { darkPink, black } = colors;
 
 const FooterBox = styled.footer`
   min-height: 270px;

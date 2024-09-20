@@ -4,12 +4,12 @@ import cookies from 'react-cookies';
 import { useTranslation } from 'react-i18next';
 import { getCommonStates } from '../commons/contexts/CommonContext';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
-import { colors } from '@/theme/colors';
 import { BiLock, BiLockOpen, BiUserPlus, BiWinkSmile } from 'react-icons/bi';
 import { GrUserManager } from 'react-icons/gr';
 import Link from 'next/link';
+import { colors } from '@/theme/colors';
 
-const { sora, white, gray } = buttonColor;
+const { sora, white, gray } = colors;
 
 const HeaderBox = styled.header`
   position: relative;
