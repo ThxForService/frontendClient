@@ -3,7 +3,7 @@ import React, { useLayoutEffect, useEffect, useState } from 'react';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import LoginContainer from '@/member/containers/LoginContainer';
 import GuestOnlyContainer from '@/member/containers/GuestOnlyContainer';
-import { OuterBox } from '@/commons/components/layouts/StyledWrapper';
+import { OuterBox } from '@/commons/layouts/StyledWrapper';
 
 import './main.scss';
 
@@ -33,10 +33,10 @@ export default function Home({ searchParams }) {
   }, []);
 
   return (
-    <div className={`outer-box ${bgClass}`}>
+    <div className="outer-box">
       <div className={`background ${bgClass}`} />{' '}
-      {/* 배경 div에 bgClass 추가 */}
-      <GuestOnlyContainer>
+      {/* 배경 이미지 애니메이션이 적용될 div */}
+      <GuestOnlyContainer className="no-zoom">
         <OuterBox>
           <LoginContainer searchParams={searchParams} />
         </OuterBox>

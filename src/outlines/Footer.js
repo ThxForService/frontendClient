@@ -66,31 +66,36 @@ const FooterImageBox = styled.div`
 // `;
 
 const Footer = () => {
+  const { showFooter } = getCommonStates();
   return (
-    <FooterBox>
-      <FooterWrap>
-        <FooterContentBox>
-          <Address>이진표</Address>
-          <Information>
-            <br />
-          </Information>
-          <Information2>
-            주소(신촌캠퍼스) : (03722) 서울특별시 서대문구 연세로 50 연세대학교
-            백양관 N408호 전화 : 02-2123-6688 이메일 : counsel@yonsei.ac.kr
-            <br />
-            주소(국제캠퍼스) : (21983) 인천광역시 연수구 송도과학로 85 송도2학사
-            G동 반피득홀 전화 : 032-749-2070 이메일 : counselyic@yonsei.ac.kr
-            <br />
-            <br />
-            Copyrights (c) 2017 Yonsei University Counseling Center. All rights
-            reserved.
-          </Information2>
-        </FooterContentBox>
-        <FooterImageBox>
-          <Image src="/images/logo.png" alt="1" width={100} height={100} />
-        </FooterImageBox>
-      </FooterWrap>
-    </FooterBox>
+    showFooter && (
+      <FooterBox>
+        <FooterWrap>
+          <FooterContentBox>
+            <Address>이진표</Address>
+            <Information>
+              <br />
+            </Information>
+            <Information2>
+              주소(신촌캠퍼스) : (03722) 서울특별시 서대문구 연세로 50
+              연세대학교 백양관 N408호 전화 : 02-2123-6688 이메일 :
+              counsel@yonsei.ac.kr
+              <br />
+              주소(국제캠퍼스) : (21983) 인천광역시 연수구 송도과학로 85
+              송도2학사 G동 반피득홀 전화 : 032-749-2070 이메일 :
+              counselyic@yonsei.ac.kr
+              <br />
+              <br />
+              Copyrights (c) 2017 Yonsei University Counseling Center. All
+              rights reserved.
+            </Information2>
+          </FooterContentBox>
+          <FooterImageBox>
+            <Image src="/images/logo.png" alt="1" width={100} height={100} />
+          </FooterImageBox>
+        </FooterWrap>
+      </FooterBox>
+    )
   );
 };
 
@@ -106,17 +111,5 @@ const Footer = () => {
 //   width: 100%;
 //   height: 200px;
 // `;
-
-// const Footer = () => {
-//   const { showFooter } = getCommonStates();
-//   return (
-//     showFooter && (
-//       <FooterContainer>
-//         <h1>푸터</h1>
-//         <p>있어보이는 말 합니다.</p>
-//       </FooterContainer>
-//     )
-//   );
-// };
 
 export default React.memo(Footer);

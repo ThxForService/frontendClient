@@ -12,18 +12,21 @@ body, html {
     height: 100vh; // 화면 전체 높이
     position: relative; // 배경 이미지 위치를 설정하기 위해
     overflow: hidden; // 자식 요소가 넘칠 경우 숨김
+}
 
-    &.bg1, &.bg2, &.bg3 {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1; // 로그인 화면 뒤에 위치
-        background-size: cover; // 이미지 크기를 커버로 설정
-        background-position: center; // 이미지를 가운데 정렬
-        animation: zoom 4s infinite; // 확대 애니메이션
-    }
+.background {
+    position: absolute; // 배경 이미지 위치를 절대적으로 설정
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover; // 이미지 크기
+    background-position: center; // 이미지 위치
+    z-index: -1; // 배경이 가장 뒤에 위치
+}
+
+.bg1, .bg2, .bg3 {
+    animation: zoom 4s infinite; // 확대 애니메이션
 
     &.bg1 {
         background-image: url('@/../../images/mainbg1.jpg');
@@ -37,11 +40,7 @@ body, html {
         background-image: url('@/../../images/mainbg3.jpg');
     }
 
-    // 로그인 컨테이너가 고정되도록 설정
-    > div {
-        position: relative; // 로그인 컨테이너의 위치를 상대적으로 설정
-        z-index: 1; // 로그인 창이 배경 위에 보이도록 설정
-    }
+   
 }
 
 @keyframes zoom {
@@ -52,6 +51,13 @@ body, html {
         transform: scale(1.8); // 1.8배로 확대
     }
     100% { 
-        transform: scale(1.5); // 원래 크기로 돌아오기
+        transform: scale(1); // 원래 크기로 돌아오기
     }
+    
+}
+
+// 로그인 컨테이너가 고정되도록 설정
+.no-zoom {
+    position: relative; // 상대적 위치 설정
+    z-index: 1; // 배경 위에 표시되도록 설정
 }
