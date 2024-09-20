@@ -87,17 +87,11 @@ const Header = () => {
               </div>
             ) : (
               <div>
-                <Link
-                  href="/member/join"
-                  className={({ isActive }) => classNames({ on: isActive })}
-                >
+                <Link href="/member/join">
                   <BiUserPlus className="icon" />
                   {t('회원가입')}
                 </Link>
-                <Link
-                  href="/member/login"
-                  className={({ isActive }) => classNames({ on: isActive })}
-                >
+                <Link href="/member/login">
                   <BiLock className="icon" />
                   {t('로그인')}
                 </Link>
