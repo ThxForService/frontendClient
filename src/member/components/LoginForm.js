@@ -1,11 +1,31 @@
 import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'next/link';
+import Link from 'next/link';
 import StyledMessage from '@/commons/components/StyledMessage';
 import { StyledInput } from '@/commons/components/StyledInput';
 import { StyledButton } from '@/commons/components/StyledButton';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
+import { colors } from '@/theme/colors';
+
+const ButtonGroup = styled.div`
+  display: flex;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
+  margin: 20px auto;
+
+  button {
+    width: 0;
+    flex-grow: 1;
+  }
+
+  button + button {
+    margin-left: 5px;
+  }
+  
+  .linkjoin {
+    color: ${colors.white};
+  }
+`;
 
 const FormBox = styled.form`
   dl {
@@ -77,12 +97,18 @@ const LoginForm = ({ form, errors, onSubmit, onChange }) => {
           <StyledMessage variant="danger">{errors?.password}</StyledMessage>
         </dd>
       </dl>
-      
-        
+
+      <ButtonGroup>
+          <StyledButton type="button" variant="primary">
+          <Link href="/member/join" className='linkjoin' >
+            {t('회원가입')}
+            </Link>
+          </StyledButton>
         <StyledButton type="submit" variant="primary">
           {t('로그인')}
         </StyledButton>
-      
+      </ButtonGroup>
+
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );

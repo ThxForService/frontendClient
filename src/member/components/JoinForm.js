@@ -10,6 +10,21 @@ import Authority from '../constants/Authority';
 import Status from '../constants/Status';
 import { StyledButton } from '@/commons/components/StyledButton';
 
+const ButtonGroup = styled.div`
+  display: flex;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
+  margin: 20px auto;
+
+  button {
+    width: 0;
+    flex-grow: 1;
+  }
+
+  button + button {
+    margin-left: 5px;
+  }
+`;
+
 const FormBox = styled.form`
   dl {
     display: flex;
@@ -360,11 +375,11 @@ const JoinForm = ({
         {t('약관에_동의')}
       </div>
       <StyledMessage variant="danger">{errors?.agree}</StyledMessage>
-      
+      <ButtonGroup>
         <StyledButton type="submit" variant="primary">
           {t('회원가입')}
         </StyledButton>
-     
+      </ButtonGroup>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
