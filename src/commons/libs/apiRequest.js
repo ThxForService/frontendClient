@@ -14,7 +14,7 @@ export default function apiRequest(url, method = 'GET', data, headers) {
    * axios 응답 코드가 2xx ~ 3xx 만 정상 응답 판단
    *       그외의 응답 코드는 예외 발생 -> 4xx 역시 오류로 판단 -> 정상 응답의 범위를 변경
    */
-  
+
   const options = {
     method,
     url,
@@ -24,7 +24,7 @@ export default function apiRequest(url, method = 'GET', data, headers) {
   if (['POST', 'PUT', 'PATCH'].includes(method.toUpperCase()) && data) {
     options.data = data;
   }
-  const token = cookies?.token;
+  const token = cookies.load('token');
   if (token && token.trim()) {
     headers = headers ?? {};
     headers.Authorization = `Bearer ${token}`;
@@ -34,9 +34,5 @@ export default function apiRequest(url, method = 'GET', data, headers) {
     options.headers = headers;
   }
 
-  try {
-    return axios(options);
-  } catch (err) {
-    console.log('err', err);
-  }
+  return axios(options);
 }

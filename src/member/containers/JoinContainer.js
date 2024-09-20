@@ -45,10 +45,8 @@ const JoinContainer = () => {
       if (form?.authority === 'STUDENT') {
         requiredFields.department = t('학과명을_입력하세요.');
         requiredFields.studentNo = t('학번을_입력하세요.');
-        requiredFields.grade = t('학년을_입력하세요.');
       } else {
         requiredFields.empNo = t('사번을_입력하세요.');
-        requiredFields.subject = t('담당분야을_입력하세요.');
       }
 
       for (const [field, message] of Object.entries(requiredFields)) {
@@ -74,14 +72,12 @@ const JoinContainer = () => {
       setErrors(_errors);
       if (hasErrors) {
         // 검증 실패시 회원 가입 X
-        console.log(err)
         return;
       }
 
       // 회원 가입 처리
       (async () => {
         try {
-          
           await apiJoin(form);
           setForm(initalForm);
           router.replace('/member/login'); // 회원가입 완료 후 페이지 이동

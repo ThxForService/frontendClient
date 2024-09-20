@@ -11,7 +11,7 @@ import Authority from '../constants/Authority';
 import Status from '../constants/Status';
 
 const FormBox = styled.form`
-dl {
+  dl {
     display: flex;
     align-items: center;
 
@@ -52,9 +52,9 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             .map((k, i) => (
               <span
                 key={`Authority_${k}`}
-                onClick={() => onToggle('Authority', k)}
+                onClick={() => onToggle('authority', k)}
               >
-                {form?.Authority === k ? (
+                {form?.authority === k ? (
                   <IoMdRadioButtonOn />
                 ) : (
                   <IoMdRadioButtonOff />
@@ -226,19 +226,21 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
           )}
         </dd>
       </dl>
-      <dl>
-        <dt>{form?.Authority === 'COUNSELOR' ? t('부서명') : t('학과명')}</dt>
-        <dd>
-          <StyledInput
-            type="text"
-            name="department"
-            value={form?.department ?? ''}
-            onChange={onChange}
-          />
-          <StyledMessage variant="danger">{errors?.department}</StyledMessage>
-        </dd>
-      </dl>
-      
+      {form?.Authority === 'STUDENT' && (
+        <dl>
+          <dt>{t('학과명')}</dt>
+          <dd>
+            <StyledInput
+              type="text"
+              name="department"
+              value={form?.department ?? ''}
+              onChange={onChange}
+            />
+            <StyledMessage variant="danger">{errors?.department}</StyledMessage>
+          </dd>
+        </dl>
+      )}
+
       {form?.Authority === 'STUDENT' ? (
         <>
           <dl>
@@ -250,7 +252,9 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 value={form?.studentNo ?? ''}
                 onChange={onChange}
               />
-              <StyledMessage variant="danger">{errors?.studentNo}</StyledMessage>
+              <StyledMessage variant="danger">
+                {errors?.studentNo}
+              </StyledMessage>
             </dd>
           </dl>
           <dl>
@@ -265,7 +269,6 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
               <StyledMessage variant="danger">{errors?.grade}</StyledMessage>
             </dd>
           </dl>
-          
         </>
       ) : (
         <>

@@ -55,7 +55,6 @@ const LoginContainer = ({ searchParams }) => {
         .then((res) => {
           const token = res.data;
           cookies.save('token', token, { path: '/' });
-          console.log('token', token);
           (async () => {
             try {
               // 로그인 처리
