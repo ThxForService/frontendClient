@@ -104,7 +104,7 @@ export const StyledButton = styled.button`
       color: #fff;
       background-color: ${theme.colors[variant]};
       border: ${border};
-      font-size: ${theme.fontSizes[size] || '14px'};
+      font-size: ${theme.fontSize[size] || '14px'};
       width: ${width};
       height: ${height};
     `;
