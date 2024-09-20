@@ -6,7 +6,7 @@ import { produce } from 'immer';
 // import { apiGet } from '../apis/apiInfo';
 import CounselingForm from '../components/CounselingForm.js';
 import Loading from '../../commons/components/Loading.js';
-import UserInfoContext from '../../member/modules/UserInfoContext';
+import UserInfoContext from '@/commons/contexts/UserInfoContext.js';
 import apiApply from '../apis/apiApply';
 import _useConfirm from '../../commons/hooks/useConfirm';
 
