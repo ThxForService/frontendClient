@@ -1,10 +1,10 @@
-const fontSizes = [12, 14, 16, 20, 24, 32];
+const fontSize = [12, 14, 16, 20, 24, 32];
 
-fontSizes.extraSmall = fontSizes[0];
-fontSizes.small = fontSizes[1];
-fontSizes.medium = fontSizes[2];
-fontSizes.mediumLarge = fontSizes[3];
-fontSizes.large = fontSizes[4];
-fontSizes.extraLarge = fontSizes[5];
+fontSize.extraSmall = fontSize[0];
+fontSize.small = fontSize[1];
+fontSize.medium = fontSize[2];
+fontSize.mediumLarge = fontSize[3];
+fontSize.large = fontSize[4];
+fontSize.extraLarge = fontSize[5];
 
 export default fontSize;

@@ -1,120 +1,112 @@
 import styled, { css } from 'styled-components';
-import colors from '@/theme/colors';
-import fontSizes from '@/theme/fontSizes';
+import { buttonColor } from '@/theme/colors';
+import fontSize from '@/theme/fontSizes';
+import { colors } from '@/theme/colors';
 
-// Common styles for all buttons
-const commonStyles = css`
-  border-radius: 12px;
+const { big, medium, normal } = fontSize;
+
+const commonStyle = css`
+  width: 100%;
+  border-radius: 3px;
   cursor: pointer;
+`;
+
+const { midGreen, white } = colors;
+
+export const SmallButton = styled.button`
+  font-size: ${normal};
+  height: 30px;
+  ${commonStyle}
+
+  ${({ color }) =>
+    buttonColor[color] &&
+    css`
+      background: ${buttonColor[color][0]};
+      color: ${buttonColor[color][1]};
+      border: 1px solid ${buttonColor[color][2]};
+    `}
+
+  ${({ width }) => css`
+    width: ${width && '100px'};
+  `}
+`;
+
+export const MidButton = styled.button`
+  font-size: ${medium};
+  height: 40px;
+  ${commonStyle}
+
+  ${({ color }) =>
+    buttonColor[color] &&
+    css`
+      background: ${buttonColor[color][0]};
+      color: ${buttonColor[color][1]};
+      border: 1px solid ${buttonColor[color][2]};
+    `}
+`;
+
+export const BigButton = styled.button`
+  font-size: ${big};
+  height: 45px;
+  ${commonStyle}
+
+  ${({ color }) =>
+    buttonColor[color] &&
+    css`
+      background: ${buttonColor[color][0]};
+      color: ${buttonColor[color][1]};
+      border: 1px solid ${buttonColor[color][2]};
+    `}
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
+  margin: 20px auto;
+
+  button {
+    width: 0;
+    flex-grow: 1;
+  }
+
+  button + button {
+    margin-left: 5px;
+  }
+`;
+
+export const ZzimButton = styled.div`
+  font-size: 1.3em;
+  font-weight: 700;
+  width: 200px;
+  height: 50px;
+  background-color: ${midGreen};
+  color: ${white};
+  border-radius: 5px;
   border: none;
-  display: inline-flex;
+  cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  transition: all 0.3s ease;
 
-  // 기본 그림자 추가
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-  &:focus {
-    opacity: 0.8;
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    background-color: ${colors.gray};
-    color: ${colors.white};
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 `;
 
-// Size settings
-const sizeStyles = {
-  large: css`
-    width: 165px;
-    height: 50px;
-    font-size: ${fontSizes.medium}px;
-  `,
-  medium: css`
-    width: 100px;
-    height: 50px;
-    font-size: ${fontSizes.small}px;
-  `,
-  small: css`
-    width: 100px;
-    height: 36px;
-    f font-size: ${fontSizes.extraSmall}px;
-  `,
-};
-
-// StyledButton with updated sizes, colors, and states
-export const StyledButton = styled.button`
-  ${({ size = 'large', variant = 'primary', width, height, border, defaultColor = colors.primary, hoverColor = colors.primaryLight }) => {
-    return css`
-      ${commonStyles}
-      ${sizeStyles[size]} // sizeStyles에서 해당 사이즈의 스타일을 한 번에 적용
-      color: ${variant === 'primary' ? colors.white : colors.text};
-      background-color: ${variant === 'primary' ? defaultColor : colors[variant]};
-      border: ${border};
-
-      &:hover {
-        background-color: ${variant === 'primary' ? hoverColor : colors[variant]};
-          // 호버 시 텍스트 그림자 추가
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-      }
-    `;
-  }}
-`;
-
-
-// export default StyledButton;
-
-/*
-// Usage in a component
-const ButtonExample = () => {
-  return (
-    <div>
-   
-      <StyledButton sizeStyles="large" variant="primary">
-        Primary
-      </StyledButton>
-
- 
-      <StyledButton sizeStyles="medium" variant="primary">
-        Primary
-      </StyledButton>
-
-     
-      <StyledButton sizeStyles="small" variant="primary">
-        Primary
-      </StyledButton>
-    </div>
-  );
-};
-
-*/
-
-/*
-export const StyledButton = styled.button`
-  ${({ variant, theme, size, width, height }) => {
-    const border =
-      variant === 'transparent' ? `1px solid ${theme.colors.black}` : 'none';
-    width = width ?? '100%';
-    height = height ?? '38px';
-    return css`
-      color: #fff;
-      background-color: ${theme.colors[variant]};
-      border: ${border};
-      font-size: ${theme.fontSize[size] || '14px'};
-      width: ${width};
-      height: ${height};
-    `;
-  }}
-
-  border-radius: 12px;
-  letter-spacing: 0;
+export const BoardButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${medium};
+  font-weight: 600px;
   cursor: pointer;
-  &:focus {
-    opacity: 0.8;
+  width: 100px;
+  height: 35px;
+  background-color: ${midGreen};
+  border-radius: 5px;
+  color: white;
+  a {
+    color: white;
   }
 `;
-*/
