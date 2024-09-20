@@ -13,9 +13,9 @@ const CommonContext = createContext({
 const CommonProvider = ({ children }) => {
   const [mainTitle, setMainTitle] = useState('');
   const [subTitle, setSubTitle] = useState('');
-  const [showHeader, setShowHeader] = useState(false);
-  const [showFooter, setShowFooter] = useState(false);
-  const [showMainMenu, setShowMainMenu] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
+  const [showFooter, setShowFooter] = useState(true);
+  const [showMainMenu, setShowMainMenu] = useState(true);
 
   const value = {
     states: { mainTitle, subTitle, showHeader, showFooter, showMainMenu },
