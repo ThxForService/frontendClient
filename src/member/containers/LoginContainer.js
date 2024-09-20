@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import LoginForm from '../components/LoginForm';
 import { StyledWrapper } from '@/commons/components/layouts/StyledWrapper';
-import { apiLogin } from '../apis/apiLogin';
+import { apiLogin, apiUser } from '../apis/apiLogin';
 import { getUserActions } from '@/commons/contexts/UserInfoContext';
 
 const LoginContainer = ({ searchParams }) => {
@@ -20,13 +20,8 @@ const LoginContainer = ({ searchParams }) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
-  const {
-    setIsLogin,
-    setIsAdmin,
-    setIsStudent,
-    setIsCounselor,
-    setUserInfo,
-  } = getUserActions();
+  const { setIsLogin, setIsAdmin, setIsStudent, setIsCounselor, setUserInfo } =
+    getUserActions();
 
   const onSubmit = useCallback(
     (e) => {
@@ -60,7 +55,7 @@ const LoginContainer = ({ searchParams }) => {
         .then((res) => {
           const token = res.data;
           cookies.save('token', token, { path: '/' });
-
+          console.log('token', token);
           (async () => {
             try {
               // 로그인 처리
@@ -72,7 +67,6 @@ const LoginContainer = ({ searchParams }) => {
               setIsAdmin(user.Authority === 'ADMIN'); // 관리자 여부
               setIsStudent(user.Authority === 'STUDENT');
               setIsCounselor(user.Authority === 'COUNSELOR');
-            
 
               /**
                * 후속 처리 : 회원 전용 서비스 URL로 이동

@@ -107,11 +107,11 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
         <dd>
           <StyledInput
             type="text"
-            name="userName"
-            value={form?.userName ?? ''}
+            name="username"
+            value={form?.username ?? ''}
             onChange={onChange}
           />
-          <StyledMessage variant="danger">{errors?.userName}</StyledMessage>
+          <StyledMessage variant="danger">{errors?.username}</StyledMessage>
         </dd>
       </dl>
       <dl>
@@ -187,8 +187,8 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 )}
                 {Status.UNDERGRADUATE}
               </span>
-              <span onClick={() => onToggle('status', 'OUTCLASS')}>
-                {form?.status === 'OUTCLASS' ? (
+              <span onClick={() => onToggle('status', 'GRADUATE')}>
+                {form?.status === 'GRADUATE' ? (
                   <IoMdRadioButtonOn />
                 ) : (
                   <IoMdRadioButtonOff />
@@ -265,20 +265,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
               <StyledMessage variant="danger">{errors?.grade}</StyledMessage>
             </dd>
           </dl>
-          <dl>
-            <dt>{t('지도교수')}</dt>
-            <dd>
-              <StyledInput
-                type="text"
-                name="professor"
-                value={form?.professor ?? ''}
-                onChange={onChange}
-              />
-              <StyledMessage variant="danger">
-                {errors?.professor}
-              </StyledMessage>
-            </dd>
-          </dl>
+          
         </>
       ) : (
         <>
