@@ -35,7 +35,7 @@ const JoinContainer = () => {
         email: t('이메일을_입력하세요.'),
         password: t('비밀번호를_입력하세요.'),
         confirmPassword: t('비밀번호를_확인하세요.'),
-        userName: t('회원명을_입력하세요.'),
+        username: t('회원명을_입력하세요.'),
         authority: t('가입유형을_선택하세요.'),
         zonecode: t('우편번호를_입력하세요.'),
         address: t('주소를_입력하세요.'),
@@ -45,11 +45,8 @@ const JoinContainer = () => {
       if (form?.authority === 'STUDENT') {
         requiredFields.department = t('학과명을_입력하세요.');
         requiredFields.studentNo = t('학번을_입력하세요.');
-        requiredFields.grade = t('학년을_입력하세요.');
-        requiredFields.professor = t('지도교수를_선택하세요.');
       } else {
         requiredFields.empNo = t('사번을_입력하세요.');
-        requiredFields.subject = t('담당분야을_입력하세요.');
       }
 
       for (const [field, message] of Object.entries(requiredFields)) {

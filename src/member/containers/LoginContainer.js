@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import LoginForm from '../components/LoginForm';
 import { StyledWrapper } from '@/commons/components/layouts/StyledWrapper';
-import { apiLogin } from '../apis/apiLogin';
+import { apiLogin, apiUser } from '../apis/apiLogin';
 import { getUserActions } from '@/commons/contexts/UserInfoContext';
 
 const LoginContainer = ({ searchParams }) => {
@@ -20,14 +20,8 @@ const LoginContainer = ({ searchParams }) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
-  const {
-    setIsLogin,
-    setIsAdmin,
-    setIsStudent,
-    setIsCounselor,
-    setIsProfessor,
-    setUserInfo,
-  } = getUserActions();
+  const { setIsLogin, setIsAdmin, setIsStudent, setIsCounselor, setUserInfo } =
+    getUserActions();
 
   const onSubmit = useCallback(
     (e) => {
@@ -61,7 +55,6 @@ const LoginContainer = ({ searchParams }) => {
         .then((res) => {
           const token = res.data;
           cookies.save('token', token, { path: '/' });
-
           (async () => {
             try {
               // 로그인 처리
@@ -70,10 +63,9 @@ const LoginContainer = ({ searchParams }) => {
               setIsLogin(true); // 로그인 상태
               setUserInfo(user);
 
-              setIsAdmin(user.userType === 'ADMIN'); // 관리자 여부
-              setIsStudent(user.userType === 'STUDENT');
-              setIsCounselor(user.userType === 'COUNSELOR');
-              setIsProfessor(user.userType === 'PROFESSOR');
+              setIsAdmin(user.Authority === 'ADMIN'); // 관리자 여부
+              setIsStudent(user.Authority === 'STUDENT');
+              setIsCounselor(user.Authority === 'COUNSELOR');
 
               /**
                * 후속 처리 : 회원 전용 서비스 URL로 이동
@@ -101,7 +93,6 @@ const LoginContainer = ({ searchParams }) => {
       setIsAdmin,
       setIsCounselor,
       setIsLogin,
-      setIsProfessor,
       setIsStudent,
       setUserInfo,
       t,
