@@ -7,7 +7,7 @@ import Header from '@/commons/layouts/Header';
 import { OuterBox, ContentBox2 } from '@/commons/layouts/StyledWrapper';
 import SiteTitle from '@/commons/SiteTitle';
 import { useTranslation } from 'next-i18next';
-
+//
 const Apply = () => {
   const { t } = useTranslation();
   const [pageTitle, setPageTitle] = useState('');
