@@ -5,7 +5,10 @@ import { useTranslation } from 'next-i18next';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { IoMdRadioButtonOn, IoMdRadioButtonOff } from 'react-icons/io';
 import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import {
+  StyledButton,
+  ButtonGroup,
+} from '@/commons/components/buttons/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import Authority from '../constants/Authority';
 import Status from '../constants/Status';
@@ -25,8 +28,13 @@ const FormBox = styled.form`
   }
 
   dl + dl {
-    margin-top: 5px;
+    margin-top: 10px;
   }
+
+  .radio {
+    margin-right: 10px;
+  }
+
 
   .agree {
     text-align: center;
@@ -35,7 +43,10 @@ const FormBox = styled.form`
     svg {
       font-size: 1.5rem;
       vertical-align: middle;
+      margin-right: 5px;
     }
+    
+  
   }
 `;
 
@@ -58,7 +69,7 @@ const JoinForm = ({
           {Object.keys(Authority)
             .filter((k) => k != 'ADMIN')
             .map((k, i) => (
-              <span
+              <span className='radio'
                 key={`Authority_${k}`}
                 onClick={() => onToggle('authority', k)}
               >
@@ -187,7 +198,7 @@ const JoinForm = ({
         <dd>
           {form?.authority === 'STUDENT' ? (
             <>
-              <span onClick={() => onToggle('status', 'UNDERGRADUATE')}>
+              <span className='radio' onClick={() => onToggle('status', 'UNDERGRADUATE')}>
                 {form?.status === 'UNDERGRADUATE' ? (
                   <IoMdRadioButtonOn />
                 ) : (
@@ -195,7 +206,15 @@ const JoinForm = ({
                 )}
                 {Status.UNDERGRADUATE}
               </span>
-              <span onClick={() => onToggle('status', 'GRADUATE')}>
+              <span className='radio' onClick={() => onToggle('status', 'POSTGRADUATE')}>
+                {form?.status === 'POSTGRADUATE' ? (
+                  <IoMdRadioButtonOn />
+                ) : (
+                  <IoMdRadioButtonOff />
+                )}
+                {Status.POSTGRADUATE}
+              </span>
+              <span className='radio' onClick={() => onToggle('status', 'GRADUATE')}>
                 {form?.status === 'GRADUATE' ? (
                   <IoMdRadioButtonOn />
                 ) : (
@@ -206,7 +225,7 @@ const JoinForm = ({
             </>
           ) : (
             <>
-              <span onClick={() => onToggle('status', 'EMPLOYED')}>
+              <span className='radio' onClick={() => onToggle('status', 'EMPLOYED')} >
                 {form?.status === 'EMPLOYED' ? (
                   <IoMdRadioButtonOn />
                 ) : (
@@ -214,7 +233,7 @@ const JoinForm = ({
                 )}
                 {Status.EMPLOYED}
               </span>
-              <span onClick={() => onToggle('status', 'LEAVE')}>
+              <span className='radio' onClick={() => onToggle('status', 'LEAVE')}>
                 {form?.status === 'LEAVE' ? (
                   <IoMdRadioButtonOn />
                 ) : (
@@ -222,7 +241,7 @@ const JoinForm = ({
                 )}
                 {Status.LEAVE}
               </span>
-              <span onClick={() => onToggle('status', 'RESIGN')}>
+              <span className='radio' onClick={() => onToggle('status', 'RESIGN')}>
                 {form?.status === 'REGISN' ? (
                   <IoMdRadioButtonOn />
                 ) : (
@@ -344,9 +363,11 @@ const JoinForm = ({
         {t('약관에_동의')}
       </div>
       <StyledMessage variant="danger">{errors?.agree}</StyledMessage>
-      <StyledButton type="submit" variant="primary">
-        {t('회원가입')}
-      </StyledButton>
+      <ButtonGroup>
+        <StyledButton type="submit" variant="primary">
+          {t('회원가입')}
+        </StyledButton>
+      </ButtonGroup>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );

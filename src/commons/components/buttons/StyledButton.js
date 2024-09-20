@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 import colors from '@/theme/colors';
 import fontSizes from '@/theme/fontSizes';
 
+const { gray, white, primary, primaryLight } = colors;
+
 // Common styles for all buttons
 const commonStyles = css`
   border-radius: 12px;
@@ -22,8 +24,8 @@ const commonStyles = css`
 
   &:disabled {
     cursor: not-allowed;
-    background-color: ${colors.gray};
-    color: ${colors.white};
+    background-color: ${gray};
+    color: ${white};
   }
 `;
 
@@ -48,23 +50,49 @@ const sizeStyles = {
 
 // StyledButton with updated sizes, colors, and states
 export const StyledButton = styled.button`
-  ${({ size = 'large', variant = 'primary', width, height, border, defaultColor = colors.primary, hoverColor = colors.primaryLight }) => {
+  ${({
+    size = 'large',
+    variant = 'primary',
+    width,
+    height,
+    border,
+    defaultColor = primary,
+    hoverColor = primaryLight,
+  }) => {
     return css`
       ${commonStyles}
       ${sizeStyles[size]} // sizeStyles에서 해당 사이즈의 스타일을 한 번에 적용
       color: ${variant === 'primary' ? colors.white : colors.text};
-      background-color: ${variant === 'primary' ? defaultColor : colors[variant]};
+      background-color: ${variant === 'primary'
+        ? defaultColor
+        : colors[variant]};
       border: ${border};
 
       &:hover {
-        background-color: ${variant === 'primary' ? hoverColor : colors[variant]};
-          // 호버 시 텍스트 그림자 추가
+        background-color: ${variant === 'primary'
+          ? hoverColor
+          : colors[variant]};
+        // 호버 시 텍스트 그림자 추가
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
       }
     `;
   }}
 `;
 
+export const ButtonGroup = styled.div`
+  display: flex;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
+  margin: 20px auto;
+
+  button {
+    width: 0;
+    flex-grow: 1;
+  }
+
+  button + button {
+    margin-left: 5px;
+  }
+`;
 
 // export default StyledButton;
 

@@ -1,13 +1,58 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'next/link';
 import StyledMessage from '@/commons/components/StyledMessage';
 import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
-const FormBox = styled.form``;
+import {
+  StyledButton,
+  ButtonGroup,
+} from '@/commons/components/buttons/StyledButton';
+import { getCommonActions } from '@/commons/contexts/CommonContext';
 
+const FormBox = styled.form`
+  dl {
+    display: flex;
+    align-items: center;
+
+    dt {
+      width: 120px;
+    }
+
+    dd {
+      flex-grow: 1;
+    }
+  }
+
+  dl + dl {
+    margin-top: 10px;
+  }
+
+  .radio {
+    margin-right: 10px;
+  }
+
+  .agree {
+    text-align: center;
+    margin: 15px 0;
+
+    svg {
+      font-size: 1.5rem;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+  }
+`;
 const LoginForm = ({ form, errors, onSubmit, onChange }) => {
   const { t } = useTranslation();
+
+  const { setShowHeader, setShowFooter, setShowMainMenu } = getCommonActions();
+
+  useLayoutEffect(() => {
+    setShowHeader(false);
+    setShowFooter(false);
+    setShowMainMenu(false);
+  }, [setShowHeader, setShowFooter, setShowMainMenu]);
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
@@ -35,9 +80,12 @@ const LoginForm = ({ form, errors, onSubmit, onChange }) => {
           <StyledMessage variant="danger">{errors?.password}</StyledMessage>
         </dd>
       </dl>
-      <StyledButton type="submit" variant="primary">
-        {t('로그인')}
-      </StyledButton>
+      <ButtonGroup>
+        
+        <StyledButton type="submit" variant="primary">
+          {t('로그인')}
+        </StyledButton>
+      </ButtonGroup>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
