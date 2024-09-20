@@ -3,11 +3,8 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'next/link';
 import StyledMessage from '@/commons/components/StyledMessage';
-import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import {
-  StyledButton,
-  ButtonGroup,
-} from '@/commons/components/buttons/StyledButton';
+import { StyledInput } from '@/commons/components/StyledInput';
+import { StyledButton } from '@/commons/components/StyledButton';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 
 const FormBox = styled.form`
@@ -80,12 +77,12 @@ const LoginForm = ({ form, errors, onSubmit, onChange }) => {
           <StyledMessage variant="danger">{errors?.password}</StyledMessage>
         </dd>
       </dl>
-      <ButtonGroup>
+      
         
         <StyledButton type="submit" variant="primary">
           {t('로그인')}
         </StyledButton>
-      </ButtonGroup>
+      
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );

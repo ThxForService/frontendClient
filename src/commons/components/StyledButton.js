@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components';
-import colors from '@/theme/colors';
+import { colors } from '@/theme/colors';
 import fontSizes from '@/theme/fontSizes';
-
-const { gray, white, primary, primaryLight } = colors;
 
 // Common styles for all buttons
 const commonStyles = css`
@@ -24,8 +22,8 @@ const commonStyles = css`
 
   &:disabled {
     cursor: not-allowed;
-    background-color: ${gray};
-    color: ${white};
+    background-color: ${colors.gray};
+    color: ${colors.white};
   }
 `;
 
@@ -56,8 +54,8 @@ export const StyledButton = styled.button`
     width,
     height,
     border,
-    defaultColor = primary,
-    hoverColor = primaryLight,
+    defaultColor = colors.primary,
+    hoverColor = colors.primaryLight,
   }) => {
     return css`
       ${commonStyles}
@@ -78,71 +76,3 @@ export const StyledButton = styled.button`
     `;
   }}
 `;
-
-export const ButtonGroup = styled.div`
-  display: flex;
-  width: ${({ width }) => (width ? `${width}px` : '100%')};
-  margin: 20px auto;
-
-  button {
-    width: 0;
-    flex-grow: 1;
-  }
-
-  button + button {
-    margin-left: 5px;
-  }
-`;
-
-// export default StyledButton;
-
-/*
-// Usage in a component
-const ButtonExample = () => {
-  return (
-    <div>
-   
-      <StyledButton sizeStyles="large" variant="primary">
-        Primary
-      </StyledButton>
-
- 
-      <StyledButton sizeStyles="medium" variant="primary">
-        Primary
-      </StyledButton>
-
-     
-      <StyledButton sizeStyles="small" variant="primary">
-        Primary
-      </StyledButton>
-    </div>
-  );
-};
-
-*/
-
-/*
-export const StyledButton = styled.button`
-  ${({ variant, theme, size, width, height }) => {
-    const border =
-      variant === 'transparent' ? `1px solid ${theme.colors.black}` : 'none';
-    width = width ?? '100%';
-    height = height ?? '38px';
-    return css`
-      color: #fff;
-      background-color: ${theme.colors[variant]};
-      border: ${border};
-      font-size: ${theme.fontSizes[size] || '14px'};
-      width: ${width};
-      height: ${height};
-    `;
-  }}
-
-  border-radius: 12px;
-  letter-spacing: 0;
-  cursor: pointer;
-  &:focus {
-    opacity: 0.8;
-  }
-`;
-*/

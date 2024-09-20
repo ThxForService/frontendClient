@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import fontSizes from '@/theme/fontSizes';
-import colors from '@/theme/colors';
+import {colors} from '@/theme/colors';
 
 const { small } = fontSizes;
 

@@ -4,14 +4,11 @@ import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { IoMdRadioButtonOn, IoMdRadioButtonOff } from 'react-icons/io';
-import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import {
-  StyledButton,
-  ButtonGroup,
-} from '@/commons/components/buttons/StyledButton';
+import { StyledInput } from '@/commons/components/StyledInput';
 import StyledMessage from '@/commons/components/StyledMessage';
 import Authority from '../constants/Authority';
 import Status from '../constants/Status';
+import { StyledButton } from '@/commons/components/StyledButton';
 
 const FormBox = styled.form`
   dl {
@@ -241,8 +238,8 @@ const JoinForm = ({
                 )}
                 {Status.LEAVE}
               </span>
-              <span className='radio' onClick={() => onToggle('status', 'RESIGN')}>
-                {form?.status === 'REGISN' ? (
+              <span onClick={() => onToggle('status', 'RESIGN')}>
+                {form?.status === 'RESIGN' ? (
                   <IoMdRadioButtonOn />
                 ) : (
                   <IoMdRadioButtonOff />
@@ -363,11 +360,11 @@ const JoinForm = ({
         {t('약관에_동의')}
       </div>
       <StyledMessage variant="danger">{errors?.agree}</StyledMessage>
-      <ButtonGroup>
+      
         <StyledButton type="submit" variant="primary">
           {t('회원가입')}
         </StyledButton>
-      </ButtonGroup>
+     
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );
