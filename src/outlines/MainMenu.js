@@ -86,42 +86,42 @@ const MainMenu = () => {
         <MenuList>
           <MenuItem>
             <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('qwe')}
+              {t('심리상담센터 소개')}
             </a>
             <SubMenu className="sub-menu">
-              <a href="/mypage/info">{t('qwe')}</a>
-              <a href="/mypage/info">{t('asd')}</a>
+              <a href="/mypage/info">{t('센터 소개')}</a>
+              <a href="/mypage/info">{t('구성원 소개')}</a>
+              <a href="/mypage/info">{t('센터업무 및 이용안내')}</a>
+              <a href="/mypage/info">{t('오시는 길')}</a>
+            </SubMenu>
+          </MenuItem>
+          <MenuItem>
+            <a className={({ isActive }) => (isActive ? 'on' : '')}>
+              {t('상담신청')}
+            </a>
+            <SubMenu className="sub-menu">
+              <a href="/counseling/reserve">{t('상담')}</a>
+              <a href="/counseling/list">{t('나의 상담 현황')}</a>
               <a href="/mypage/info">{t('zxc')}</a>
             </SubMenu>
           </MenuItem>
           <MenuItem>
             <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('asd')}
+              {t('자가 진단')}
             </a>
             <SubMenu className="sub-menu">
-              <a href="/mypage/info">{t('qwe')}</a>
-              <a href="/mypage/info">{t('asd')}</a>
-              <a href="/mypage/info">{t('zxc')}</a>
+              <a href="/mypage/info">{t('무슨 검사')}</a>
+              <a href="/mypage/info">{t('어쩌구 검사')}</a>
+              <a href="/mypage/info">{t('저쩌구 검사')}</a>
             </SubMenu>
           </MenuItem>
           <MenuItem>
             <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('zxc')}
+              {t('게시판')}
             </a>
             <SubMenu className="sub-menu">
-              <a href="/mypage/info">{t('qwe')}</a>
-              <a href="/mypage/info">{t('asd')}</a>
-              <a href="/mypage/info">{t('zxc')}</a>
-            </SubMenu>
-          </MenuItem>
-          <MenuItem>
-            <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('qaz')}
-            </a>
-            <SubMenu className="sub-menu">
-              <a href="/mypage/info">{t('qwe')}</a>
-              <a href="/mypage/info">{t('asd')}</a>
-              <a href="/mypage/info">{t('zxc')}</a>
+              <a href="/mypage/info">{t('공지사항')}</a>
+              <a href="/mypage/info">{t('QnA')}</a>
             </SubMenu>
           </MenuItem>
         </MenuList>

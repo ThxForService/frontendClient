@@ -6,14 +6,14 @@ import { getCommonStates } from '../commons/contexts/CommonContext';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import { colors } from '@/theme/colors';
 
-const { navy, white, gray } = colors;
+const { sora, white, gray } = colors;
 
 const HeaderBox = styled.header`
   position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  background: ${navy};
+  background: ${sora};
   height: 50px;
   z-index: 1000;
   display: flex;

@@ -12,6 +12,8 @@ export const colors = {
   darkgray: '#31363F',
   black: '#000',
   white: '#fff',
+  sora: '#5697cc',
+  darkPink: '#c48bc7',
 };
 
 export const buttonColor = {
