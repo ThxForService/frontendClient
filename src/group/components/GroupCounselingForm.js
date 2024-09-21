@@ -6,21 +6,13 @@ import { IoIosRadioButtonOff, IoIosRadioButtonOn } from 'react-icons/io';
 import { BigButton } from '../../commons/components/Buttons';
 import InputBox from '../../commons/components/InputBox';
 import MessageBox from '../../commons/components/MessageBox';
-import { color } from '../../styles/color';
-import fontSize from '../../styles/fontSize';
-import { format } from 'date-fns';
-import moment from 'moment/moment';
 import Select from 'react-select';
 import {
   FcCloseUpMode,
-  FcConferenceCall,
-  FcAlarmClock,
   FcCalendar,
+  FcAlarmClock,
+  FcConferenceCall,
 } from 'react-icons/fc';
-import { BsFillPersonLinesFill } from 'react-icons/bs';
-
-const { gray, primary, lightGreen, darkGreen, white, midGreen, dark } = color;
-const { normal, medium, normedium, big, extraBig } = fontSize;
 
 const FormBox = styled.form`
   .infoBox {
@@ -64,115 +56,30 @@ const FormBox = styled.form`
     flex-direction: column;
   }
 
-  /* 네비게이션 가운데 정렬 */
   .react-calendar__navigation {
     justify-content: center;
-    align-content: center;
   }
 
-  // 연도 옮기는 버튼 없애기
   .react-calendar__navigation__next2-button,
   .react-calendar__navigation__prev2-button {
     display: none;
   }
 
-  /* 네비게이션 비활성화 됐을때 스타일 */
   .react-calendar__navigation button:disabled {
     background-color: ${white};
     color: ${gray};
   }
 
-  /* 년/월 상단 네비게이션 칸 크기 줄이기 */
   .react-calendar__navigation__label {
     flex-grow: 0 !important;
   }
 
-  //hover 했을 때, 선택한 날짜 색상 변경
   .react-calendar__navigation__label:hover,
   .react-calendar__navigation button:enabled:hover {
     background: ${lightGreen};
     border-radius: 40px;
   }
 
-  .react-calendar__viewContainer {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* 요일 밑줄 제거 */
-  .react-calendar__month-view__weekdays abbr {
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .react-calendar__navigation button:focus {
-    background-color: ${white};
-  }
-
-  .react-calendar__tile:disabled {
-    background-color: ${gray};
-  }
-
-  .react-calendar__navigation__label > span {
-    // 달력 상단 년/월 글씨 커스텀
-    font-size: ${normedium};
-    font-weight: bold;
-    line-height: 140%;
-  }
-
-  /* 주말에만 빨간 폰트 */
-  .react-calendar__month-view__weekdays__weekday--weekend {
-    color: #red;
-  }
-
-  .react-calendar__month-view__weekdays__weekday {
-    padding: 15px;
-    font-size: ${medium};
-    font-weight: bold;
-    border-bottom: solid 1px ${dark};
-    margin-bottom: 5px;
-  }
-
-  //hover 했을 때, 선택한 날짜 색상 변경
-  .react-calendar__tile:enabled:hover {
-    background: ${lightGreen};
-    border-radius: 40px;
-  }
-  .react-calendar__tile:enabled:focus,
-  .react-calendar__tile--active {
-    background: ${darkGreen};
-    color: ${white};
-    border-radius: 40px;
-  }
-
-  .react-calendar__tile--now {
-    // 오늘 날짜 하이라이트 커스텀
-    background: ${white};
-    color: ${midGreen};
-  }
-
-  /* 네비게이션 현재 선택한 월 스타일 적용 */
-  .react-calendar__tile--hasActive {
-    abbr {
-      color: ${primary};
-    }
-  }
-
-  /* 네비게이션 월, 연도 스타일 적용 */
-  .react-calendar__year-view__months__month,
-  .react-calendar__decade-view__years__year,
-  .react-calendar__century-view__decades__decade {
-    flex: 0 0 calc(33.3333% - 10px) !important;
-    margin-inline-start: 5px !important;
-    margin-inline-end: 5px !important;
-    margin-block-end: 10px;
-    font-weight: bold;
-    border-radius: 10px;
-    background-color: ${lightGreen};
-  }
-
-  /* 일 날짜 간격 */
   .react-calendar__tile {
     position: relative;
     text-align: center;
@@ -182,25 +89,33 @@ const FormBox = styled.form`
     justify-content: center;
     align-items: center;
     font-size: ${normedium};
+
+    &:enabled:hover {
+      background: ${lightGreen};
+      border-radius: 40px;
+    }
+
+    &--active {
+      background: ${darkGreen};
+      color: ${white};
+      border-radius: 40px;
+    }
+
+    &--now {
+      background: ${white};
+      color: ${midGreen};
+    }
   }
 
   .select {
-    width: 230px;
-
-    height: 40px;
-    padding: 5px 10px;
-    border-radius: 4px;
-    outline: 0 none;
-    position: relative;
+    width: 300px;
+    height: 50px;
+    padding: 0;
     font-size: ${medium};
-    line-height: 170%;
     margin-left: 10px;
 
-    //Option 태그에 대한 스타일은 직접적으로 적용할 수 없다.(os 영역)
-    .options {
-      font-size: ${medium};
-      margin-bottom: 5px;
-      background: ${white};
+    .css-13cymwt-control {
+      height: 50px;
     }
   }
 
@@ -245,20 +160,6 @@ const FormBox = styled.form`
     font-size: ${medium};
   }
 
-  .select {
-    height: 50px;
-    width: 300px;
-    padding: 0;
-    font-size: ${medium};
-
-    .css-13cymwt-control {
-      height: 50px;
-    }
-
-    .css-1nmdiq5-menu {
-    }
-  }
-
   .people {
     margin-bottom: 40px;
   }
@@ -280,7 +181,7 @@ const options = [...new Array(30).keys()].map((i) => ({
   label: `${i + 1}명`,
 }));
 
-const ReservationForm = ({
+const GroupCounselingForm = ({
   data,
   form,
   onSubmit,
@@ -291,7 +192,7 @@ const ReservationForm = ({
   selectChange,
 }) => {
   const { t } = useTranslation();
-  const { minDate, maxDate, times, _availableDates } = data;
+  const { minDate, maxDate, times } = data;
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
@@ -299,36 +200,30 @@ const ReservationForm = ({
         <div className="select_date box">
           <div className="title">
             <FcCloseUpMode />
-            <h2>{t('예약하는_체험마을')}</h2>
+            <h2>{t('집단_상담_예약')}</h2>
           </div>
-          <p className="townNm">{data.townName}</p>
           <div className="title">
             <FcCalendar />
             <h2>{t('예약일_선택')}</h2>
           </div>
-          <h3>{t('예약은_당일로부터_한달_이내만_가능합니다')}</h3>
           <Calendar
             minDate={minDate}
             maxDate={maxDate}
             onChange={onDateChange}
-            tileDisabled={({ _, date }) =>
-              !_availableDates.some((d) => format(date, 'yyyy-MM-dd') === d)
-            }
-            formatDay={(locale, date) => moment(date).format('DD')}
-            calendarType="gregory" //일요일부터 시작
           />
           {errors?.rDate && (
             <MessageBox color="danger" messages={errors.rDate} />
           )}
         </div>
+
         <div className="select-time box">
           <div className="userInfo">
             <div className="title">
-              <BsFillPersonLinesFill />
+              <FcConferenceCall />
               <h2>{t('예약자_정보_입력')}</h2>
             </div>
             <dl>
-              <dt>{t('예약자명')}</dt>
+              <dt>{t('이름')}</dt>
               <dd>
                 <InputBox
                   type="text"
@@ -345,7 +240,7 @@ const ReservationForm = ({
               <dt>{t('이메일')}</dt>
               <dd>
                 <InputBox
-                  type="text"
+                  type="email"
                   name="email"
                   value={form?.email}
                   onChange={onChange}
@@ -370,22 +265,21 @@ const ReservationForm = ({
               </dd>
             </dl>
           </div>
+
           <div className="people">
             <div className="title">
-              <FcConferenceCall />
               <h2>{t('인원수_선택')}</h2>
             </div>
             <Select
               value={options.find((option) => option.value === form?.persons)}
               onChange={selectChange}
-              className="select"
               options={options}
             />
-            {/* // 드롭 다운 */}
             {errors?.persons && (
               <MessageBox color="danger" messages={errors.persons} />
             )}
           </div>
+
           <div className="time_box">
             {times && (
               <div>
@@ -394,29 +288,19 @@ const ReservationForm = ({
                   <h2>{t('예약시간_선택')}</h2>
                 </div>
                 <ul>
-                  {times[0] && (
-                    <li onClick={() => onTimeChange('AM')}>
-                      {form.ampm === 'AM' ? (
+                  {times.map((time, index) => (
+                    <li key={index} onClick={() => onTimeChange(time)}>
+                      {form.time === time ? (
                         <IoIosRadioButtonOn />
                       ) : (
                         <IoIosRadioButtonOff />
                       )}
-                      {t('오전')}
+                      {time}
                     </li>
-                  )}
-                  {times[1] && (
-                    <li onClick={() => onTimeChange('PM')}>
-                      {form.ampm === 'PM' ? (
-                        <IoIosRadioButtonOn />
-                      ) : (
-                        <IoIosRadioButtonOff />
-                      )}
-                      {t('오후')}
-                    </li>
-                  )}
+                  ))}
                 </ul>
-                {errors?.ampm && (
-                  <MessageBox color="danger" messages={errors.ampm} />
+                {errors?.time && (
+                  <MessageBox color="danger" messages={errors.time} />
                 )}
               </div>
             )}
@@ -424,8 +308,8 @@ const ReservationForm = ({
         </div>
       </div>
       <div className="btn_box">
-        <BigButton type="submit" color="midGreen" className="rsv_btn">
-          {t('예약하기')}
+        <BigButton type="submit">
+          {t('신청하기')}
         </BigButton>
         {errors?.global && (
           <MessageBox color="danger" messages={errors.global} />
@@ -435,4 +319,5 @@ const ReservationForm = ({
   );
 };
 
-export default React.memo(ReservationForm);
+export default React.memo(GroupCounselingForm);
+

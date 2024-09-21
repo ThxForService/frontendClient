@@ -109,7 +109,7 @@ const MainMenu = () => {
             </a>
             <SubMenu className="sub-menu">
               <a href="/counseling/reserve">{t('상담')}</a>
-              <a href="/program/info/{pgmSeq}">{t('집단상담')}</a>
+              <a href="/group/program/info">{t('집단상담')}</a>
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
               <a href="/mypage/info">{t('zxc')}</a>
             </SubMenu>
