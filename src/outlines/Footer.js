@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import { getCommonStates } from '../commons/contexts/CommonContext';
 import { colors } from '@/theme/colors';
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
+import { getUserContext } from '@/commons/contexts/UserInfoContext';
+import cookies from 'react-cookies';
 
 const { darkPink, black } = colors;
 
@@ -59,14 +62,19 @@ const FooterImageBox = styled.div`
   margin-top: 180px;
 `;
 
-// const Image = styled.img`
-//   width: 150px;
-//   height: auto;
-//   object-fit: contain;
-// `;
-
 const Footer = () => {
+  const { t } = useTranslation();
   const { showFooter } = getCommonStates();
+  const {
+    states: { isLogin, userInfo, isAdmin },
+    actions: { setIsLogin, setIsAdmin, setUserInfo },
+  } = getUserContext();
+  const onLogout = useCallback(() => {
+    setIsLogin(false);
+    setIsAdmin(false);
+    setUserInfo(null);
+    cookies.remove('token', { path: '/' });
+  }, [setIsLogin, setIsAdmin, setUserInfo]);
   return (
     showFooter && (
       <FooterBox>
@@ -111,5 +119,17 @@ const Footer = () => {
 //   width: 100%;
 //   height: 200px;
 // `;
+
+// const Footer = () => {
+//   const { showFooter } = getCommonStates();
+//   return (
+//     showFooter && (
+//       <FooterContainer>
+//         <h1>푸터</h1>
+//         <p>있어보이는 말 합니다.</p>
+//       </FooterContainer>
+//     )
+//   );
+// };
 
 export default React.memo(Footer);
