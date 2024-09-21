@@ -1,8 +1,29 @@
 'use client';
+import React from 'react';
 import styled from 'styled-components';
-import { StyledButton } from '@/commons/buttons/StyledButton';
+import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import SurveyListContainer from '@/survey/containers/SurveyListContainer';
+import { apiList } from '@/survey/apis/apiList'; // apiList 임포트
 
 const ListPage = () => {
+  const [survey, setSurvey] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchSurveys = async () => {
+      try {
+        const data = await apiList.fetchSurveys();
+        setSurveys(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSurvey(); // 페이지가 변경될 때마다 설문 리스트 가져오기
+  }, []);
+
   return (
     <>
       <h1>설문 메인</h1>
@@ -22,6 +43,11 @@ const ListPage = () => {
           Primary small
         </StyledButton>
       </ButtonContainer>
+      {/* 설문 리스트 및 로딩, 오류 처리 */}
+      {loading && <p>Loading surveys...</p>}
+      {error && <p>Error fetching surveys: {error}</p>}
+      {!loading && !error && <SurveyListContainer surveys={surveys} />}{' '}
+      {/* 설문 리스트 표시 */}
     </>
   );
 };

@@ -1,0 +1,146 @@
+@import '/src/theme/colors.scss'; 
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; // 스크롤 방지
+}
+
+.outer-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; // 화면 전체 높이
+    position: relative; // 배경 이미지 위치를 설정하기 위해
+    overflow: hidden; // 자식 요소가 넘칠 경우 숨김
+}
+
+.background {
+    transition: background-image 1s ease-in-out; 
+    position: absolute; // 배경 이미지 위치를 절대적으로 설정
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover; // 이미지 크기
+    background-position: center; // 이미지 위치
+    z-index: -1; // 배경이 가장 뒤에 위치
+}
+
+.bg1, .bg2, .bg3, .bg4, .bg5, .bg6, .bg7, .bg8 {
+    animation: zoom 4s infinite; // 확대 애니메이션
+
+    &.bg1 {
+        background-image: url('@/../../images/mainbg1.jpg');
+    }
+
+    &.bg2 {
+        background-image: url('@/../../images/mainbg2.jpg');
+    }
+
+    &.bg3 {
+        background-image: url('@/../../images/mainbg3.jpg');
+    }
+
+    &.bg4 {
+        background-image: url('@/../../images/mainbg4.jpg');
+    }
+
+    &.bg5 {
+        background-image: url('@/../../images/mainbg5.jpg');
+    }
+
+    &.bg6 {
+        background-image: url('@/../../images/mainbg6.jpg');
+    }
+
+    &.bg7 {
+        background-image: url('@/../../images/mainbg7.jpg');
+    }
+
+    &.bg8 {
+        background-image: url('@/../../images/mainbg8.jpg');
+    }
+
+   
+}
+
+@keyframes zoom {
+    0% { 
+        transform: scale(1); // 초기 크기
+    }
+    100% { 
+        transform: scale(1.8); // 1.8배로 확대
+    }
+}
+
+// 로그인 컨테이너가 고정되도록 설정
+.no-zoom {
+    position: relative; // 상대적 위치 설정
+    z-index: 1; // 배경 위에 표시되도록 설정
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); // 반투명 검정색 레이어
+    z-index: 1; // 배경 아래에 위치
+}
+
+.login-header {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; // 바닥 정렬
+    font-size: 24px;
+    margin-bottom: 0;
+    color: white; // 텍스트 색상 변경
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); // 텍스트 그림자 추가
+    z-index: 2; // 레이어 위에 위치
+    font-weight: bold;
+
+      // 호버 애니메이션 추가
+      .hover-effect {
+        transition: text-shadow 0.3s, filter 0.3s; // 애니메이션 전환 추가
+        margin-left: 15px;
+    
+        &:hover {
+          animation: glow 0.8s forwards; // 텍스트 및 이미지에 애니메이션 적용
+        }
+      }
+
+      span{
+        margin: 0 15px;
+      }
+}
+
+// 애니메이션 정의
+@keyframes glow {
+    0% {
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+        filter: brightness(1);
+    }
+    100% {
+        text-shadow: 
+            0 0 15px rgba(255, 255, 255, 0.9), 
+            0 0 30px rgba(255, 255, 255, 0.8),
+            0 0 40px rgba(255, 255, 255, 0.7); // 더 강한 빛 효과
+        filter: brightness(2); // 밝기 증가
+    }
+}
+
+
+  .login-header span {
+    margin: 0 15px;
+  }
+  
+  .no-zoom img {
+    max-width: 100%;
+  }
+  
+  .outer-box, .no-zoom {
+    transform: none !important; /* 배경의 확대 효과가 적용되지 않도록 보장 */
+  }
