@@ -23,10 +23,8 @@ export const chatList = () => {
     (async () => {
       try {
         const res = await requestData('/chat/rooms', 'GET');
-        resolve(res.items); // 조회된 게시글 목록 반환
-        console.log(res);
+        resolve(res); // 조회된 게시글 목록 반환
       } catch (err) {
-        console.error(err);
         reject(err);
       }
     })();
@@ -40,9 +38,7 @@ export const chatHistory = (roomNo) => {
       try {
         const res = await requestData(`/chat/room/${roomNo}`, 'GET'); // roomNo 사용
         resolve(res); // 조회된 게시글 목록 반환
-        console.log(res);
       } catch (err) {
-        console.error(err);
         reject(err);
       }
     })();

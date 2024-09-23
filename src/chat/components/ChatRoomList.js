@@ -12,12 +12,16 @@ const List = ({ items }) => {
       {items && items.length > 0 ? (
         items.map((item, index) => (
           <tr key={index}>
-            <td>{item.roomNm}</td>
+            <td>
+              <a href={`/chat/room/${item.roomNo}`}>
+                {item.roomNm}
+              </a>
+            </td>
           </tr>
         ))
       ) : (
         <tr>
-          <td colSpan="6">조회된 채팅방이 없습니다.</td>
+          <td>조회된 채팅방이 없습니다.</td>
         </tr>
       )}
       </tbody>
