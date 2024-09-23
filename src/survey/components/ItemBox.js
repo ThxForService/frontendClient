@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'next/link';
 import styled from 'styled-components';
-
 
 const ItemBox = ({ item, className }) => {
   const { seq, title, address, description } = item;
@@ -9,7 +8,6 @@ const ItemBox = ({ item, className }) => {
   return (
     <li className={className}>
       <Link to={url}>
-        
         <div className="item-content">
           <div className="title">{title}</div>
           <div className="address">{address}</div>

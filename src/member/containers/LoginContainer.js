@@ -63,9 +63,9 @@ const LoginContainer = ({ searchParams }) => {
               setIsLogin(true); // 로그인 상태
               setUserInfo(user);
 
-              setIsAdmin(user.Authority === 'ADMIN'); // 관리자 여부
-              setIsStudent(user.Authority === 'STUDENT');
-              setIsCounselor(user.Authority === 'COUNSELOR');
+              setIsAdmin(user.authority === 'ADMIN'); // 관리자 여부
+              setIsStudent(user.authority === 'STUDENT');
+              setIsCounselor(user.authority === 'COUNSELOR');
 
               /**
                * 후속 처리 : 회원 전용 서비스 URL로 이동
@@ -73,7 +73,7 @@ const LoginContainer = ({ searchParams }) => {
                *
                */
               setForm({});
-              const redirectURL = searchParams.get('redirectUrl') || '/';
+              const redirectURL = searchParams.redirectUrl || '/';
               router.replace(redirectURL);
             } catch (err) {
               console.error(err);
