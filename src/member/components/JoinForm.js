@@ -4,11 +4,26 @@ import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { IoMdRadioButtonOn, IoMdRadioButtonOff } from 'react-icons/io';
-import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { StyledInput } from '@/commons/components/StyledInput';
 import StyledMessage from '@/commons/components/StyledMessage';
 import Authority from '../constants/Authority';
 import Status from '../constants/Status';
+import { StyledButton } from '@/commons/components/StyledButton';
+
+const ButtonGroup = styled.div`
+  display: flex;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
+  margin: 20px auto;
+
+  button {
+    width: 0;
+    flex-grow: 1;
+  }
+
+  button + button {
+    margin-left: 5px;
+  }
+`;
 
 const FormBox = styled.form`
   dl {
@@ -25,8 +40,13 @@ const FormBox = styled.form`
   }
 
   dl + dl {
-    margin-top: 5px;
+    margin-top: 10px;
   }
+
+  .radio {
+    margin-right: 10px;
+  }
+
 
   .agree {
     text-align: center;
@@ -35,11 +55,22 @@ const FormBox = styled.form`
     svg {
       font-size: 1.5rem;
       vertical-align: middle;
+      margin-right: 5px;
     }
+    
+  
   }
 `;
 
-const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
+const JoinForm = ({
+  form,
+  errors,
+  onSubmit,
+  onChange,
+  onToggle,
+  skey,
+  professors,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -50,7 +81,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
           {Object.keys(Authority)
             .filter((k) => k != 'ADMIN')
             .map((k, i) => (
-              <span
+              <span className='radio'
                 key={`Authority_${k}`}
                 onClick={() => onToggle('authority', k)}
               >
@@ -179,7 +210,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
         <dd>
           {form?.authority === 'STUDENT' ? (
             <>
-              <span onClick={() => onToggle('status', 'UNDERGRADUATE')}>
+              <span className='radio' onClick={() => onToggle('status', 'UNDERGRADUATE')}>
                 {form?.status === 'UNDERGRADUATE' ? (
                   <IoMdRadioButtonOn />
                 ) : (
@@ -187,7 +218,15 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 )}
                 {Status.UNDERGRADUATE}
               </span>
-              <span onClick={() => onToggle('status', 'GRADUATE')}>
+              <span className='radio' onClick={() => onToggle('status', 'POSTGRADUATE')}>
+                {form?.status === 'POSTGRADUATE' ? (
+                  <IoMdRadioButtonOn />
+                ) : (
+                  <IoMdRadioButtonOff />
+                )}
+                {Status.POSTGRADUATE}
+              </span>
+              <span className='radio' onClick={() => onToggle('status', 'GRADUATE')}>
                 {form?.status === 'GRADUATE' ? (
                   <IoMdRadioButtonOn />
                 ) : (
@@ -198,7 +237,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             </>
           ) : (
             <>
-              <span onClick={() => onToggle('status', 'EMPLOYED')}>
+              <span className='radio' onClick={() => onToggle('status', 'EMPLOYED')} >
                 {form?.status === 'EMPLOYED' ? (
                   <IoMdRadioButtonOn />
                 ) : (
@@ -206,7 +245,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 )}
                 {Status.EMPLOYED}
               </span>
-              <span onClick={() => onToggle('status', 'LEAVE')}>
+              <span className='radio' onClick={() => onToggle('status', 'LEAVE')}>
                 {form?.status === 'LEAVE' ? (
                   <IoMdRadioButtonOn />
                 ) : (
@@ -215,7 +254,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
                 {Status.LEAVE}
               </span>
               <span onClick={() => onToggle('status', 'RESIGN')}>
-                {form?.status === 'REGISN' ? (
+                {form?.status === 'RESIGN' ? (
                   <IoMdRadioButtonOn />
                 ) : (
                   <IoMdRadioButtonOff />
@@ -269,6 +308,35 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
               <StyledMessage variant="danger">{errors?.grade}</StyledMessage>
             </dd>
           </dl>
+          <dl>
+            <dt>{t('지도교수')}</dt>
+            <dd>
+              <StyledInput
+                type="text"
+                name="skey"
+                value={skey}
+                onChange={onChange}
+              />
+              <select
+                name="professor"
+                value={form?.professor}
+                onChange={onChange}
+              >
+                {professors && professors.length > 0 ? (
+                  professors.map(({ memberSeq, username, empNo }) => (
+                    <option key={memberSeq} value={memberSeq}>
+                      {username}({empNo})
+                    </option>
+                  ))
+                ) : (
+                  <option value="">{t('교수를_선택하세요')}</option>
+                )}
+              </select>
+              <StyledMessage variant="danger">
+                {errors?.professor}
+              </StyledMessage>
+            </dd>
+          </dl>
         </>
       ) : (
         <>
@@ -285,7 +353,7 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
             </dd>
           </dl>
           <dl>
-            <dt>{t('담당과목')}</dt>
+            <dt>{t('담당분야')}</dt>
             <dd>
               <StyledInput
                 type="text"
@@ -307,9 +375,11 @@ const JoinForm = ({ form, errors, onSubmit, onChange, onToggle }) => {
         {t('약관에_동의')}
       </div>
       <StyledMessage variant="danger">{errors?.agree}</StyledMessage>
-      <StyledButton type="submit" variant="primary">
-        {t('회원가입')}
-      </StyledButton>
+      <ButtonGroup>
+        <StyledButton type="submit" variant="primary">
+          {t('회원가입')}
+        </StyledButton>
+      </ButtonGroup>
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
     </FormBox>
   );

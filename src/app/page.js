@@ -1,3 +1,11 @@
-export default function Home() {
-  return <h1>테스트</h1>;
-}
+'use client';
+import React from 'react';
+import MainContainer from '@/main/containers/MainContainer';
+
+const Home = () => {
+  return (
+    <MainContainer/>
+  );
+};
+
+export default Home;
