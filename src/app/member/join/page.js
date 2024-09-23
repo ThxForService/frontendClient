@@ -3,7 +3,7 @@ import GuestOnlyContainer from '@/member/containers/GuestOnlyContainer';
 const JoinPage = () => {
   return (
     <GuestOnlyContainer>
-      <JoinContainer />
+      <JoinContainer/>
     </GuestOnlyContainer>
   );
 };
