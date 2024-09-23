@@ -1,5 +1,5 @@
 'use client';
-import React, { useLayoutEffect, useState, useCallback } from 'react';
+import React, { useLayoutEffect, useState, useCallback  } from 'react';
 import cookies from 'react-cookies';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
@@ -105,6 +105,7 @@ const LoginContainer = ({ searchParams }) => {
 
   return (
     <StyledWrapper>
+      {/* 기존의 LoginForm 컴포넌트 */}
       <LoginForm
         form={form}
         errors={errors}
