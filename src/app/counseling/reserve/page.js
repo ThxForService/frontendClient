@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import CounselingApplyContainer from '@/counseling/containers/CounselingApplyContainer';
 import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
-
+import CounselingForm from '@/counseling/components/CounselingForm';
 import Header from '@/commons/layouts/Header';
 import { OuterBox, ContentBox2 } from '@/commons/layouts/StyledWrapper';
 import SiteTitle from '@/commons/SiteTitle';
@@ -21,7 +21,8 @@ const Apply = () => {
         <Header />
         <ContentBox2>
           <SiteTitle>{pageTitle}</SiteTitle>
-          <CounselingApplyContainer setPageTitle={setPageTitle} />
+          {/* <CounselingApplyContainer setPageTitle={setPageTitle} /> */}
+          {/* <CounselingForm /> */}
         </ContentBox2>
       </OuterBox>
     </MemberOnlyContainer>
