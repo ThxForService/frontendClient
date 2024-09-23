@@ -302,7 +302,7 @@ const CounselingForm = ({
             <FcCloseUpMode />
             <h2>{t('예약하는_체험마을')}</h2>
           </div>
-          <p className="townNm">{data.townName}</p>
+          <p className="townNm">예약하는_체험마을</p>
           <div className="title">
             <FcCalendar />
             <h2>{t('예약일_선택')}</h2>
@@ -385,6 +385,41 @@ const CounselingForm = ({
             {/* // 드롭 다운 */}
             {errors?.persons && (
               <MessageBox color="danger" messages={errors.persons} />
+            )}
+          </div>
+          <div className="time_box">
+            {times && (
+              <div>
+                <div className="title">
+                  <FcAlarmClock />
+                  <h2>{t('예약시간_선택')}</h2>
+                </div>
+                <ul>
+                  {times[0] && (
+                    <li onClick={() => onTimeChange('AM')}>
+                      {form.ampm === 'AM' ? (
+                        <IoIosRadioButtonOn />
+                      ) : (
+                        <IoIosRadioButtonOff />
+                      )}
+                      {t('오전')}
+                    </li>
+                  )}
+                  {times[1] && (
+                    <li onClick={() => onTimeChange('PM')}>
+                      {form.ampm === 'PM' ? (
+                        <IoIosRadioButtonOn />
+                      ) : (
+                        <IoIosRadioButtonOff />
+                      )}
+                      {t('오후')}
+                    </li>
+                  )}
+                </ul>
+                {errors?.ampm && (
+                  <MessageBox color="danger" messages={errors.ampm} />
+                )}
+              </div>
             )}
           </div>
         </div>
