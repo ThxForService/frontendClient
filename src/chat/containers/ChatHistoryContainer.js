@@ -1,34 +1,33 @@
 'use client';
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import List from '@/chat/components/ChatHistoryComponent';
 import { chatHistory } from '@/chat/apis/apiChat';
 
-const ChatHistoryContainer = () => {
+const ChatHistoryContainer = ({ roomNo }) => {
   const [items, setItems] = useState([]);
 
-  // 게시판 목록 조회
+  // 채팅 내역 조회
   const fetchChatHistoryList = async () => {
     try {
-      const result = await chatHistory();
-      setItems(result);
+      if (roomNo) { // roomNo가 있을 때만 호출
+        const result = await chatHistory(roomNo); // roomNo 전달
+        console.log(result);
+        setItems(result);
+      }
     } catch (err) {
+      console.error('채팅 내역 조회 오류:', err);
     }
   };
 
-
-  // 컴포넌트 마운트 시 목록 조회
+  // roomNo가 변경될 때마다 목록 조회
   useEffect(() => {
     fetchChatHistoryList();
-  }, []);
-
+  }, [roomNo]);
 
   return (
     <section>
       <h1>채팅 목록</h1>
-
-      <List
-        items={items}
-      />
+      <List items={items} />
     </section>
   );
 };

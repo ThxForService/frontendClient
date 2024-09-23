@@ -17,7 +17,7 @@ export const startChat = () => {
   });
 };
 
-// 게시판 목록 조회 함수
+// 채팅 목록 조회 함수
 export const chatList = () => {
   return new Promise((resolve, reject) => {
     (async () => {
@@ -33,13 +33,13 @@ export const chatList = () => {
   });
 };
 
-// 게시판 목록 조회 함수
-export const chatHistory = () => {
+// 채팅 메세지 조회
+export const chatHistory = (roomNo) => {
   return new Promise((resolve, reject) => {
-    (async (roomNo) => {
+    (async () => {
       try {
-        const res = await requestData(`/chat/room/${roomNo}`, 'GET');
-        resolve(res.items); // 조회된 게시글 목록 반환
+        const res = await requestData(`/chat/room/${roomNo}`, 'GET'); // roomNo 사용
+        resolve(res); // 조회된 게시글 목록 반환
         console.log(res);
       } catch (err) {
         console.error(err);
@@ -49,6 +49,9 @@ export const chatHistory = () => {
   });
 };
 
+
+
+//메세지 전송
 export const sendMessage = async (form) => {
   try {
     const response = await apiRequest('/chat/message', 'POST', form);

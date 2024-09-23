@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import ChatMessageForm from '@/chat/components/ChatMessageForm';
-import { StyledWrapper } from '@/commons/components/layouts/StyledWrapper';
 import { sendMessage } from '@/chat/apis/apiChat';
 
 const ChatMessageContainer = ({ roomNo }) => { // roomNo를 props로 받습니다.
@@ -69,14 +68,12 @@ const ChatMessageContainer = ({ roomNo }) => { // roomNo를 props로 받습니�
   }, []);
 
   return (
-    <StyledWrapper>
       <ChatMessageForm
         form={form}
         onSubmit={onSubmit}
         onChange={onChange}
         errors={errors}
       />
-    </StyledWrapper>
   );
 };
 

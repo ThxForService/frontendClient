@@ -3,10 +3,10 @@ import React, { useState, useEffect} from 'react';
 import List from '@/chat/components/ChatRoomList';
 import {chatList } from '@/chat/apis/apiChat';
 
-const ChatHistoryContainer = () => {
+const ChatRoomListContainer = () => {
   const [items, setItems] = useState([]);
 
-  // 게시판 목록 조회
+  // 채팅방 목록 조회
   const fetchChatList = async () => {
     try {
       const result = await chatList();
@@ -34,4 +34,4 @@ const ChatHistoryContainer = () => {
   );
 };
 
-export default React.memo(ChatHistoryContainer);
+export default React.memo(ChatRoomListContainer);

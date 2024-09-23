@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { StyledButton } from '@/commons/components/StyledButton'
 import { FaPaperPlane } from "react-icons/fa";
 
 const ChatStartComponent = ({ onCreateChat }) => {

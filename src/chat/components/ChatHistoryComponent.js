@@ -5,7 +5,8 @@ const List = ({ items }) => {
     <table>
       <thead>
       <tr>
-        <th></th>
+        <th>Email</th>
+        <th>Message</th>
       </tr>
       </thead>
       <tbody>
@@ -18,7 +19,7 @@ const List = ({ items }) => {
         ))
       ) : (
         <tr>
-          <td colSpan="6">조회된 채팅내역이 없습니다.</td>
+          <td colSpan="3">조회된 채팅내역이 없습니다.</td>
         </tr>
       )}
       </tbody>

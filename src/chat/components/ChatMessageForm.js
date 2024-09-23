@@ -3,8 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'next-i18next';
-import { StyledInput } from '@/commons/components/inputs/StyledInput';
-import { StyledButton } from '@/commons/components/buttons/StyledButton';
+import { StyledInput } from '@/commons/components/StyledInput';
+import { StyledButton } from '@/commons/components/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 
 const FormBox = styled.form`
