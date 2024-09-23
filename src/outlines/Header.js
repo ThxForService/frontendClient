@@ -63,7 +63,7 @@ const Header = () => {
     cookies.remove('token', { path: '/' });
   }, [setIsLogin, setIsAdmin, setUserInfo]);
 
-  const adminUrl = 'https://www.youtube.com/';
+  const adminUrl = 'http://localhost:7001';
 
   return (
     showHeader && (
