@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
-import { StyledInput, StyledButton, StyledMessage } from '@/commons/components'; // 커스텀 스타일을 사용한다면 임포트
+import { StyledInput } from '@/commons/components/StyledInput'; // 커스텀 스타일을 사용한다면 임포트
+import { StyledButton } from '@/commons/components/StyledButton';
+import StyledMessage from '@/commons/components/StyledMessage';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 const CounselingForm = ({ onSubmit, userInfo }) => {
   const [form, setForm] = useState({
@@ -16,6 +19,7 @@ const CounselingForm = ({ onSubmit, userInfo }) => {
   const [errors, setErrors] = useState({});
   const [selectedDate, setSelectedDate] = useState(new Date());
 
+  const { t } = useTranslation();
   // 로그인 정보 불러오기
   useEffect(() => {
     if (userInfo) {
@@ -61,7 +65,7 @@ const CounselingForm = ({ onSubmit, userInfo }) => {
       setErrors(_errors);
       return;
     }
-    
+
     onSubmit(form); // 제출 처리 함수 호출
   };
 
@@ -113,9 +117,28 @@ const CounselingForm = ({ onSubmit, userInfo }) => {
       <div>
         <label>상담 유형</label>
         <select name="cCase" value={form.cCase} onChange={handleChange}>
-          <option value="PERSONAL">개인 상담</option>
-          <option value="GROUP">그룹 상담</option>
+          <option value="FAMILY">{t('가족')}</option>
+          <option value="ACADEMIC">{t('학업/진로')}</option>
+          <option value="RELATIONSHIPS">{t('대인관계')}</option>
+          <option value="EMOTIONAL">{t('심리정서')}</option>
+          <option value="BEHAVIOR">{t('생활습관 및 행동문제')}</option>
+          <option value="ROMANCE_SEX">{t('연애와 성')}</option>
+          <option value="LIFE_VALUES">{t('삶과 가치')}</option>
+          <option value="PERSONALITY">{t('성격')}</option>
+          <option value="OTHER">{t('기타')}</option>
         </select>
+        {form.cCase === 'OTHER' && (
+          <div>
+            <label>{t('기타 내용')}</label>
+            <input
+              type="text"
+              name="customCase"
+              value={form.customCase}
+              onChange={handleChange}
+              placeholder={t('원하는 상담 주제를 입력하세요')}
+            />
+          </div>
+        )}
       </div>
       <StyledButton type="submit">예약하기</StyledButton>
     </form>
