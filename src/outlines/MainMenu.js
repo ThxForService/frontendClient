@@ -92,50 +92,43 @@ const MainMenu = () => {
       <MenuContainer>
         <MenuList>
           <MenuItem>
-            <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('심리상담센터 소개')}
-            </a>
+            <a>{t('심리상담센터 소개')}</a>
             <SubMenu className="sub-menu">
-              <a href="/mypage/info">{t('센터 소개')}</a>
-              <a href="/mypage/info">{t('구성원 소개')}</a>
-              <a href="/mypage/info">{t('센터업무 및 이용안내')}</a>
-              <a href="/mypage/info">{t('오시는 길')}</a>
+              <a href="/introduce/center">{t('센터 소개')}</a>
+              <a href="/introduce/member">{t('구성원 소개')}</a>
+              <a href="/introduce/business">{t('센터업무 및 이용안내')}</a>
+              <a href="/introduce/directions">{t('오시는 길')}</a>
             </SubMenu>
           </MenuItem>
           <MenuItem>
-            <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('상담신청')}
-            </a>
+            <a>{t('상담신청')}</a>
             <SubMenu className="sub-menu">
-              <a href="/counseling/reserve">{t('상담')}</a>
+              <a href="/counseling/reserve">{t('개인 상담 신청')}</a>
+              <a href="/counseling/group">{t('집단 상담 프로그램')}</a>
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
-              <a href="/mypage/info">{t('zxc')}</a>
             </SubMenu>
           </MenuItem>
           <MenuItem>
             <a href="/">{t('Main')}</a>
             <SubMenu className="sub-menu">
-              <a href="/counseling/reserve">{t('로고넣고싶어')}</a>
-              <a href="/counseling/reserve">{t('메롱')}</a>
+              <a href="/">{t('로고넣고싶어')}</a>
+              <a href="/">{t('메롱')}</a>
             </SubMenu>
           </MenuItem>
           <MenuItem>
-            <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('자가 진단')}
-            </a>
+            <a>{t('자가 진단')}</a>
             <SubMenu className="sub-menu">
-              <a href="/mypage/info">{t('무슨 검사')}</a>
-              <a href="/mypage/info">{t('어쩌구 검사')}</a>
-              <a href="/mypage/info">{t('저쩌구 검사')}</a>
+              <a href="/survey/answer">{t('answer')}</a>
+              <a href="/survey/list">{t('list')}</a>
+              <a href="/survey/register">{t('register')}</a>
+              <a href="/survey/view">{t('view')}</a>
             </SubMenu>
           </MenuItem>
           <MenuItem>
-            <a className={({ isActive }) => (isActive ? 'on' : '')}>
-              {t('게시판')}
-            </a>
+            <a>{t('게시판')}</a>
             <SubMenu className="sub-menu">
-              <a href="/mypage/info">{t('공지사항')}</a>
-              <a href="/mypage/info">{t('QnA')}</a>
+              <a href="/board/list">{t('공지사항')}</a>
+              <a href="/board/list">{t('QnA')}</a>
             </SubMenu>
           </MenuItem>
         </MenuList>

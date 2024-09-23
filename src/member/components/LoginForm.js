@@ -21,7 +21,7 @@ const ButtonGroup = styled.div`
   button + button {
     margin-left: 5px;
   }
-  
+
   .linkjoin {
     color: ${colors.white};
   }
@@ -66,9 +66,9 @@ const LoginForm = ({ form, errors, onSubmit, onChange }) => {
   const { setShowHeader, setShowFooter, setShowMainMenu } = getCommonActions();
 
   useLayoutEffect(() => {
-    setShowHeader(false);
-    setShowFooter(false);
-    setShowMainMenu(false);
+    setShowHeader(true); // 가리기
+    setShowFooter(true);
+    setShowMainMenu(true);
   }, [setShowHeader, setShowFooter, setShowMainMenu]);
 
   return (
@@ -99,11 +99,11 @@ const LoginForm = ({ form, errors, onSubmit, onChange }) => {
       </dl>
 
       <ButtonGroup>
-          <StyledButton type="button" variant="primary">
-          <Link href="/member/join" className='linkjoin' >
+        <StyledButton type="button" variant="primary">
+          <Link href="/member/join" className="linkjoin">
             {t('회원가입')}
-            </Link>
-          </StyledButton>
+          </Link>
+        </StyledButton>
         <StyledButton type="submit" variant="primary">
           {t('로그인')}
         </StyledButton>
