@@ -31,7 +31,7 @@ const UserInfoProvider = ({ children }) => {
   const [isCounselor, setIsCounselor] = useState(false);
   const [isProfessor, setIsProfessor] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
- 
+
   const value = {
     states: { userInfo, isLogin, isAdmin, isStudent, isCounselor, isProfessor },
     actions: {

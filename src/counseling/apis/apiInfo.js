@@ -17,4 +17,4 @@ export const apiList = (search) => {
 };
 
 // 예약된 상세조회
-export const myApiGet = (seq) => requestData(`/counseling/list/${seq}`);
+export const myApiGet = (cSeq) => requestData(`/counseling/list/${cSeq}`);
