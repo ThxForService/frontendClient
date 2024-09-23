@@ -26,21 +26,19 @@ const UserInfoContext = createContext({
 
 const UserInfoProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
-  const [isLogin, setIsLogin] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
   const [isCounselor, setIsCounselor] = useState(false);
-  const [isProfessor, setIsProfessor] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   const value = {
-    states: { userInfo, isLogin, isAdmin, isStudent, isCounselor, isProfessor },
+    states: { userInfo, isLogin, isAdmin, isStudent, isCounselor },
     actions: {
       setUserInfo,
       setIsLogin,
       setIsAdmin,
-      setIsStudent,
       setIsCounselor,
-      setIsProfessor,
+      setIsStudent,
     },
   };
 
@@ -52,10 +50,8 @@ const UserInfoProvider = ({ children }) => {
 
         setUserInfo(user);
         setIsLogin(true);
-
         setIsAdmin(user.authority === 'ADMIN');
         setIsCounselor(user.authority === 'COUNSELOR');
-        setIsProfessor(user.authority === 'PROFESSOR');
         setIsStudent(user.authority === 'STUDENT');
       } catch (err) {
         // 토큰 만료, 토큰이 잘못된 경우
