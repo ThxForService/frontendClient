@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import ChatMessageForm from '@/chat/components/ChatMessageForm';
 import { sendMessage } from '@/chat/apis/apiChat';
+import ChatComponent from '@/chat/components/ChatComponent';
 
 const ChatMessageContainer = ({ roomNo }) => { // roomNo를 props로 받습니다.
   const { t } = useTranslation();
@@ -60,7 +61,7 @@ const ChatMessageContainer = ({ roomNo }) => { // roomNo를 props로 받습니�
         setErrors({ ..._errors });
       }
     },
-    [form, router, t]
+    [form, router, t],
   );
 
   const onChange = useCallback((e) => {
@@ -68,12 +69,15 @@ const ChatMessageContainer = ({ roomNo }) => { // roomNo를 props로 받습니�
   }, []);
 
   return (
+    <>
+      <ChatComponent />
       <ChatMessageForm
         form={form}
         onSubmit={onSubmit}
         onChange={onChange}
         errors={errors}
       />
+    </>
   );
 };
 

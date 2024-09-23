@@ -17,7 +17,6 @@ const ChatStartContainer = () => {
 
   return (
     <div>
-      {/* handleStartChat을 onCreateChat으로 전달 */}
       <ChatStartComponent onCreateChat={handleStartChat} />
     </div>
   );
