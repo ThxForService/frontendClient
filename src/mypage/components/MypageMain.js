@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
@@ -14,13 +14,19 @@ const MypageMain = () => {
         actions: { setUserInfo },
       } = useContext(UserInfoContext);
 
+      const { t } = useTranslation();
+    const router = useRouter();
+
       return (
-      <StyledButton>
+      <StyledButton
+      type="submit"
+      onClick={() => router.push('/mypage/info')} 
+      >
       <FaUserCircle style={{ 
               width: '14px',
               height: '20px',
               margin: 'auto 2',
-            }}/>
+            }}/>{t('회원정보_수정')}
       </StyledButton>
       );
 };
