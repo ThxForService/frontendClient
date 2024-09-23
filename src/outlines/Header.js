@@ -63,6 +63,8 @@ const Header = () => {
     cookies.remove('token', { path: '/' });
   }, [setIsLogin, setIsAdmin, setUserInfo]);
 
+  const adminUrl = 'https://www.youtube.com/';
+
   return (
     showHeader && (
       <HeaderBox>
@@ -70,13 +72,13 @@ const Header = () => {
           <div className="layout-width">
             {isLogin ? (
               <div>
-                {/* {isAdmin && (
+                {isAdmin && (
                   //컴포넌트를 교체하는 방식인데 a태그로 새 창 이동해서 페이지 교체
                   <a href={adminUrl} target="_blank">
                     <GrUserManager className="icon" />
                     {t('사이트_관리')}
                   </a>
-                )} */}
+                )}
                 <Link href="/mypage" passHref>
                   {t('마이페이지')}
                 </Link>
