@@ -6,6 +6,7 @@ import classNames from "classnames";
 import styled from "styled-components";
 import UserInfoContext from "@/commons/contexts/UserInfoContext";
 import { FaUserCircle } from "react-icons/fa";
+import { StyledButton } from "@/commons/components/StyledButton";
 
 const MypageMain = () => {
     const {
@@ -13,16 +14,15 @@ const MypageMain = () => {
         actions: { setUserInfo },
       } = useContext(UserInfoContext);
 
-      return 
-      <>
+      return (
+      <StyledButton>
       <FaUserCircle style={{ 
               width: '14px',
               height: '20px',
               margin: 'auto 2',
             }}/>
-      </>
-
-
+      </StyledButton>
+      );
 };
 
 export default React.memo(MypageMain);
