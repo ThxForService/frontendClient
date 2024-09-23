@@ -6,68 +6,8 @@ import StyledMessage from '@/commons/components/StyledMessage';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 
-const CounselingForm = ({ onSubmit, userInfo }) => {
-  const [form, setForm] = useState({
-    studentNo: '', // 로그인 정보에서 설정
-    username: '', // 로그인 정보에서 설정
-    email: '',
-    mobile: '',
-    rDate: '',
-    rTime: '',
-    cCase: 'PERSONAL', // 상담 유형 기본값 설정
-  });
-  const [errors, setErrors] = useState({});
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
+const CounselingForm = ({ form, errors, handleChange, handleDateChange, handleTimeChange, handleSubmit, selectedDate }) => {
   const { t } = useTranslation();
-  // 로그인 정보 불러오기
-  useEffect(() => {
-    if (userInfo) {
-      setForm((prevForm) => ({
-        ...prevForm,
-        studentNo: userInfo.studentNo,
-        username: userInfo.username,
-        email: userInfo.email,
-        mobile: userInfo.mobile,
-      }));
-    }
-  }, [userInfo]);
-
-  // 날짜 선택 처리
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setForm((prevForm) => ({
-      ...prevForm,
-      rDate: format(date, 'yyyy-MM-dd'),
-    }));
-  };
-
-  // 입력 필드 처리
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: value,
-    }));
-  };
-
-  // 폼 제출 처리
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 검증 로직 (이메일, 전화번호 등)
-    let _errors = {};
-    if (!form.email) _errors.email = '이메일을 입력해주세요.';
-    if (!form.mobile) _errors.mobile = '전화번호를 입력해주세요.';
-    if (!form.rDate) _errors.rDate = '날짜를 선택해주세요.';
-    if (!form.rTime) _errors.rTime = '시간을 선택해주세요.';
-
-    if (Object.keys(_errors).length > 0) {
-      setErrors(_errors);
-      return;
-    }
-
-    onSubmit(form); // 제출 처리 함수 호출
-  };
 
   return (
     <form onSubmit={handleSubmit}>
