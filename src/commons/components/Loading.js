@@ -28,9 +28,15 @@ const Wrapper = styled.div`
 const Loading = () => {
   return (
     <Wrapper>
-      <Image src="/images/loading.gif" alt="1" width={60} height={20} />
+      <Image
+        src="/images/loading.gif"
+        alt="1"
+        width={60}
+        height={20}
+        unoptimized
+      />
     </Wrapper>
-  );
+  ); //km unoptimized // 최적화를 비활성화합니다.
 };
 
 export default React.memo(Loading);

@@ -1,6 +1,9 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getList } from '../apis/apiInfo';
+import ListItems from '../components/ListItems';
+import Pagination from '@/commons/components/Pagination';
+import Loading from '@/commons/components/Loading';
 
 const SurveyListContainer = ({ searchParams }) => {
   const [items, setItems] = useState([]);
@@ -13,7 +16,7 @@ const SurveyListContainer = ({ searchParams }) => {
         const data = await getList(page);
         if (data) {
           setItems(data.items);
-          setItems(data.pagination);
+          setPagination(data.pagination);
         }
       } catch (err) {
         console.error(err);
@@ -21,7 +24,16 @@ const SurveyListContainer = ({ searchParams }) => {
     })();
   }, [page]);
 
-  return <></>;
+  if (!items || items.length === 0) {
+    return <Loading />;
+  }
+
+  return (
+    <>
+      <ListItems items={items} />
+      <Pagination pagination={pagination} onClick={setPage} />
+    </>
+  );
 };
 
 export default React.memo(SurveyListContainer);
