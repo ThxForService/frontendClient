@@ -11,10 +11,7 @@ export const colors = {
   black: '#000000',
   white: '#ffffff',
   text: '#000000',
-  gray: '#C9D7DD',
   midgray: '#758694',
-  black: '#000',
-  white: '#fff',
   sora: '#5697cc',
   darkPink: '#c48bc7',
   //추가 컬러

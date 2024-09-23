@@ -7,7 +7,8 @@ import Header from '@/commons/layouts/Header';
 import { OuterBox, ContentBox2 } from '@/commons/layouts/StyledWrapper';
 import SiteTitle from '@/commons/SiteTitle';
 import { useTranslation } from 'next-i18next';
-//
+import { UserInfoProvider } from '@/commons/contexts/UserInfoContext';
+
 const Apply = () => {
   const { t } = useTranslation();
   const [pageTitle, setPageTitle] = useState('');
@@ -17,14 +18,14 @@ const Apply = () => {
     <MemberOnlyContainer>
       {/* <SubTitleLink text={t('상담 예약')} href="" /> */}
       <title>{pageTitle}</title>
-      <OuterBox>
-        <Header />
-        <ContentBox2>
-          <SiteTitle>{pageTitle}</SiteTitle>
-          {/* <CounselingApplyContainer setPageTitle={setPageTitle} /> */}
-          {/* <CounselingForm /> */}
-        </ContentBox2>
-      </OuterBox>
+      <Header />
+      <ContentBox2>
+        <SiteTitle>{pageTitle}</SiteTitle>
+        <UserInfoProvider>
+          <CounselingApplyContainer setPageTitle={setPageTitle} />
+        </UserInfoProvider>
+        <CounselingForm />
+      </ContentBox2>
     </MemberOnlyContainer>
   );
 };

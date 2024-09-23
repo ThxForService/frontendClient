@@ -64,7 +64,6 @@ const Header = () => {
   }, [setIsLogin, setIsAdmin, setUserInfo]);
 
   const adminUrl = 'http://localhost:7001';
-
   return (
     showHeader && (
       <HeaderBox>
