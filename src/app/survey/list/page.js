@@ -1,8 +1,7 @@
-'use client';
-import SurveyListContainer from '@/survey/containers/SurveyListContainer';
+import TestListContainer from '@/survey/containers/TestListContainer';
 
-const ListPage = ({ searchParams }) => {
-  return <SurveyListContainer searchParams={searchParams} />;
+const TestListPage = () => {
+  return <TestListContainer />;
 };
 
-export default ListPage;
+export default TestListPage;

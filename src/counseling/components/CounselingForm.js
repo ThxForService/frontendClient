@@ -165,7 +165,7 @@ const CounselingForm = ({
 
       <div>
         <dt>{t('상담_유형')}</dt>
-        <select name="cCase" value={form.cCase} onChange={selectChange}>
+        <select name="cCase" value={form.cCase} onChange={onChange}>
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
