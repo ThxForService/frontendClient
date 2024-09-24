@@ -80,12 +80,12 @@ const ProfileForm = ({ form, errors, onChange, onSubmit }) => {
           <dd>
             <StyledInput
               type="text"
-              name="userName"
-              value={form?.userName}
+              name="username"
+              value={form?.username}
               onChange={onChange}
             />
-            {errors?.userName && (
-              <StyledMessage color="danger" messages={errors.userName} />
+            {errors?.username && (
+              <StyledMessage color="danger" messages={errors.username} />
             )}
           </dd>
         </dl>
