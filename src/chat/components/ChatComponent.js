@@ -14,7 +14,6 @@ const ChatComponent = () => {
   return (
     <div>
       <div>
-        <h3>채팅 내역</h3>
         <ul>
           {messages.map((msg, index) => (
             <li key={index}>{msg.message}</li>
