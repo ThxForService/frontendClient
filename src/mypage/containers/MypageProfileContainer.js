@@ -1,11 +1,12 @@
 'use client';
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
 import UserInfoContext from '@/commons/contexts/UserInfoContext';
 import { updateProfile } from '../apis/apiMypage';
 import ProfileForm from '../components/ProfileForm';
 import ProfileImage from '../components/ProfileImage';
+import { getProfessors } from '@/member/apis/apiInfo';
 
 const MypageProfileContainer = () => {
   const {
@@ -18,13 +19,40 @@ const MypageProfileContainer = () => {
 
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
+  const [professors, setProfessors] = useState([]);
+  const [skey, setSkey] = useState('');
 
   const { t } = useTranslation();
   const router = useRouter();
 
   const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+    const name = e.target.name;
+    const value = e.target.value;
+    if (name === 'skey') {
+      setSkey(value);
+    } else {
+      setForm((form) => ({ ...form, [name]: value }));
+    }
   }, []);
+
+  const onToggle = useCallback((name, value) => {
+    setForm((form) => ({ ...form, [name]: value }));
+  }, []);
+
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const professors = await getProfessors(skey);
+        setProfessors(professors);
+        if (professors && professors.length > 0) {
+          setForm((form) => ({ ...form, professor: professors[0].seq }));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, [skey]);
 
   const onSubmit = useCallback(
     (e) => {
@@ -115,9 +143,12 @@ const MypageProfileContainer = () => {
       />
       <ProfileForm
         form={form}
-        onChange={onChange}
         onSubmit={onSubmit}
+        onChange={onChange}
+        onToggle={onToggle}
         errors={errors}
+        skey={skey}
+        professors={professors}
       />
     </>
   );
