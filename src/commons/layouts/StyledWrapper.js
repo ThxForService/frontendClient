@@ -55,3 +55,20 @@ export const ContentBox3 = styled.div`
   padding: 10px 0 30px 0;
   margin: 0 auto;
 `;
+
+export const ChatBox = styled.div`
+    box-sizing: border-box;
+    width: 450px;
+    padding: 10px 0 30px 0;
+    margin: 0 auto;
+    border-radius: 3px;
+`;
+
+export const ChatMessageBox = styled.div`
+    overflow-y: scroll;
+    height: 350px;
+`;
+
+export const ChatMessageSendBox = styled.div`
+    padding: 10px 0 30px 0;
+`;

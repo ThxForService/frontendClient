@@ -28,7 +28,6 @@ const ChatContainer = ({ roomNo }) => {
 
 
   useEffect(() => {
-    console.log(userInfo?.email);
     if (socketMessages && socketMessages.length > 0) {
       const lastMessage = socketMessages[socketMessages.length - 1];
 
@@ -44,9 +43,13 @@ const ChatContainer = ({ roomNo }) => {
       return;
     }
 
+    const socketMessageData = {
+      message: form.message,
+      senderEmail: userInfo?.email,
+      roomNo
+    };
 
-
-    sendMessage({ message: form.message });
+    sendMessage(socketMessageData);
 
     try {
       await sendMessageAPI({ message: form.message, roomNo });
@@ -62,6 +65,7 @@ const ChatContainer = ({ roomNo }) => {
   };
 
   return (
+
     <ChatComponent
       messages={messages}
       form={form}
