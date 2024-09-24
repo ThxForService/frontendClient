@@ -1,11 +1,16 @@
+'use client';
 import React from 'react';
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 import { useTranslation } from 'next-i18next';
 import { IoIosRadioButtonOff, IoIosRadioButtonOn } from 'react-icons/io';
-import { BigButton } from '../../commons/components/Buttons';
-import InputBox from '../../commons/components/InputBox';
-import MessageBox from '../../commons/components/MessageBox';
+import { StyledButton } from '@/commons/components/StyledButton';
+import { StyledInput } from '../../commons/components/StyledInput';
+import MessageBox from '../../commons/components/StyledMessage';
+import { colors } from '@/theme/colors';
+import fontSizes from '@/theme/fontSizes';
+import { format } from 'date-fns';
+import moment from 'moment/moment';
 import Select from 'react-select';
 import {
   FcCloseUpMode,
@@ -31,18 +36,18 @@ const FormBox = styled.form`
 
   dl {
     padding: 10px 15px;
-    font-size: ${medium};
+    font-size: ${fontSizes.medium}px;
     line-height: 170%;
 
     dt {
       font-weight: bold;
       margin-bottom: 10px;
-      font-size: ${big};
+      font-size: ${fontSizes.big}px;
     }
 
     dd {
       width: calc(100% - 140px);
-      font-size: ${normal};
+      font-size: ${fontSizes.normal}px;
     }
   }
 
@@ -66,8 +71,8 @@ const FormBox = styled.form`
   }
 
   .react-calendar__navigation button:disabled {
-    background-color: ${white};
-    color: ${gray};
+    background-color: ${colors.white};
+    color: ${colors.gray};
   }
 
   .react-calendar__navigation__label {
@@ -76,7 +81,7 @@ const FormBox = styled.form`
 
   .react-calendar__navigation__label:hover,
   .react-calendar__navigation button:enabled:hover {
-    background: ${lightGreen};
+    background: ${colors.lightGreen};
     border-radius: 40px;
   }
 
@@ -88,22 +93,22 @@ const FormBox = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: ${normedium};
+    font-size: ${fontSizes.normal}px;
 
     &:enabled:hover {
-      background: ${lightGreen};
+      background: ${colors.lightGreen};
       border-radius: 40px;
     }
 
     &--active {
-      background: ${darkGreen};
-      color: ${white};
+      background: ${colors.darkGreen};
+      color: ${colors.white};
       border-radius: 40px;
     }
 
     &--now {
-      background: ${white};
-      color: ${midGreen};
+      background: ${colors.white};
+      color: ${colors.midGreen};
     }
   }
 
@@ -111,7 +116,7 @@ const FormBox = styled.form`
     width: 300px;
     height: 50px;
     padding: 0;
-    font-size: ${medium};
+    font-size: ${fontSizes.medium}px;
     margin-left: 10px;
 
     .css-13cymwt-control {
@@ -120,13 +125,13 @@ const FormBox = styled.form`
   }
 
   h2 {
-    font-size: ${extraBig};
+    font-size: ${fontSizes.extraBig}px;
   }
 
   li {
     display: flex;
     align-items: center;
-    font-size: ${big};
+    font-size: ${fontSizes.big}px;
     margin: 0 0 10px 10px;
 
     svg {
@@ -150,14 +155,14 @@ const FormBox = styled.form`
     height: 100%;
 
     .townNm {
-      font-size: ${big};
+      font-size: ${fontSizes.big}px;
       margin: 0 0 20px 40px;
       font-weight: bold;
     }
   }
 
   input {
-    font-size: ${medium};
+    font-size: ${fontSizes.medium}px;
   }
 
   .people {
@@ -169,17 +174,12 @@ const FormBox = styled.form`
     align-items: center;
 
     svg {
-      font-size: ${extraBig};
+      font-size: ${fontSizes.extraBig}px;
       margin-right: 10px;
-      color: ${primary};
+      color: ${colors.primary};
     }
   }
 `;
-
-const options = [...new Array(30).keys()].map((i) => ({
-  value: i + 1,
-  label: `${i + 1}명`,
-}));
 
 const GroupCounselingForm = ({
   data,
@@ -192,7 +192,7 @@ const GroupCounselingForm = ({
   selectChange,
 }) => {
   const { t } = useTranslation();
-  const { minDate, maxDate, times } = data;
+  const { minDate, maxDate, times, _availableDates } = data;
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
@@ -210,12 +210,16 @@ const GroupCounselingForm = ({
             minDate={minDate}
             maxDate={maxDate}
             onChange={onDateChange}
+            tileDisabled={({ date }) =>
+              !_availableDates.some((d) => format(date, 'yyyy-MM-dd') === d)
+            }
+            formatDay={(locale, date) => moment(date).format('DD')}
+            calendarType="gregory"
           />
           {errors?.rDate && (
             <MessageBox color="danger" messages={errors.rDate} />
           )}
         </div>
-
         <div className="select-time box">
           <div className="userInfo">
             <div className="title">
@@ -225,7 +229,7 @@ const GroupCounselingForm = ({
             <dl>
               <dt>{t('이름')}</dt>
               <dd>
-                <InputBox
+                <StyledInput
                   type="text"
                   name="name"
                   value={form?.name}
@@ -239,7 +243,7 @@ const GroupCounselingForm = ({
             <dl>
               <dt>{t('이메일')}</dt>
               <dd>
-                <InputBox
+                <StyledInput
                   type="email"
                   name="email"
                   value={form?.email}
@@ -253,7 +257,7 @@ const GroupCounselingForm = ({
             <dl>
               <dt>{t('전화번호')}</dt>
               <dd>
-                <InputBox
+                <StyledInput
                   type="text"
                   name="mobile"
                   value={form?.mobile}
@@ -265,7 +269,7 @@ const GroupCounselingForm = ({
               </dd>
             </dl>
           </div>
-
+  
           <div className="people">
             <div className="title">
               <h2>{t('인원수_선택')}</h2>
@@ -279,9 +283,9 @@ const GroupCounselingForm = ({
               <MessageBox color="danger" messages={errors.persons} />
             )}
           </div>
-
+  
           <div className="time_box">
-            {times && (
+            {times && times.length > 0 && (
               <div>
                 <div className="title">
                   <FcAlarmClock />
@@ -308,9 +312,9 @@ const GroupCounselingForm = ({
         </div>
       </div>
       <div className="btn_box">
-        <BigButton type="submit">
+        <StyledButton type="submit">
           {t('신청하기')}
-        </BigButton>
+        </StyledButton>
         {errors?.global && (
           <MessageBox color="danger" messages={errors.global} />
         )}
@@ -320,4 +324,3 @@ const GroupCounselingForm = ({
 };
 
 export default React.memo(GroupCounselingForm);
-
