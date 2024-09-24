@@ -1,8 +1,9 @@
 import BoardContainer from '@/mypage/containers/BoardContainer';
 import InfoContainer from '@/mypage/containers/InfoContainer';
 import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
+import MypageProfileContainer from '@/mypage/containers/MypageProfileContainer';
 
-const MypageModePage = ({ params }) => {
+const MypageModePage = ({ params, searchParams }) => {
   const { mode } = params;
 
   let Container = null;
@@ -11,12 +12,12 @@ const MypageModePage = ({ params }) => {
       Container = BoardContainer;
       break;
     default:
-      Container = InfoContainer;
+      Container = MypageProfileContainer;
   }
 
   return (
     <MemberOnlyContainer>
-      <Container />
+      <Container searchParams={searchParams} />
     </MemberOnlyContainer>
   );
 };
