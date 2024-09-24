@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import CounselingForm from '@/counseling/components/CounselingForm';
 import Loading from '@/commons/components/Loading';
-import { apiGetAvailableTimes, apiSubmitCounselingForm } from '@/counseling/apis/counselingApi';
 import { useTranslation } from 'react-i18next';
+import { apiList } from '../apis/apiInfo';
+import apiApply from '../apis/apiApply';
 
 const CounselingApplyContainer = ({ userInfo, setPageTitle }) => {
   const [form, setForm] = useState({
@@ -25,7 +26,7 @@ const CounselingApplyContainer = ({ userInfo, setPageTitle }) => {
   useEffect(() => {
     const fetchAvailableTimes = async () => {
       try {
-        const result = await apiGetAvailableTimes();
+        const result = await apiList();
         setData(result);
         setLoading(false);
       } catch (error) {
@@ -85,11 +86,13 @@ const CounselingApplyContainer = ({ userInfo, setPageTitle }) => {
     }
 
     try {
-      await apiSubmitCounselingForm(form);
+      await apiApply(form);
       router.push('/counseling/complete'); // 성공 시 완료 페이지로 이동
     } catch (error) {
       console.error('Error submitting form:', error);
-      setErrors({ global: t('제출 중 오류가 발생했습니다. 다시 시도해주세요.') });
+      setErrors({
+        global: t('제출 중 오류가 발생했습니다. 다시 시도해주세요.'),
+      });
     }
   };
 

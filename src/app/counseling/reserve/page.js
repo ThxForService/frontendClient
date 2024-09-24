@@ -21,7 +21,7 @@ const Apply = () => {
       <Header />
       <ContentBox2>
         <SiteTitle>{pageTitle}</SiteTitle>
-        <CounselingApplyContainer setPageTitle={setPageTitle} />
+        {/* <CounselingApplyContainer setPageTitle={setPageTitle} /> */}
         <CounselingForm />
       </ContentBox2>
     </MemberOnlyContainer>

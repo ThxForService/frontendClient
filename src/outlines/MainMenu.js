@@ -108,6 +108,9 @@ const MainMenu = () => {
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
             </SubMenu>
           </MenuItem>
+          {/* Main 뺴고 넣을 예정 S */}
+          {/* <Image src="/images/counsel1.jpg" alt="1" width={60} height={20} /> */}
+          {/* Main 뺴고 넣을 예정 E */}
           <MenuItem>
             <a href="/">{t('Main')}</a>
             <SubMenu className="sub-menu">
