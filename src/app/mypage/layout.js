@@ -6,7 +6,6 @@ const Wrapper = styled.div`
   display: flex;
   aside {
     width: 180px;
-    margin-right: 20px;
   }
 
   .content {

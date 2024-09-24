@@ -5,6 +5,7 @@ import { StyledInput } from '@/commons/components/StyledInput';
 import StyledMessage from '@/commons/components/StyledMessage';
 import { StyledButton } from '@/commons/components/StyledButton';
 
+
 const Container = styled.div`
   max-width: 500px;
   margin: 0 auto;
@@ -102,6 +103,48 @@ const ProfileForm = ({ form, errors, onChange, onSubmit }) => {
             )}
           </dd>
         </dl>
+        {form?.authority === 'STUDENT' ? (
+          <>
+            <dl>
+              <dt>{t('학번')}</dt>
+              <dd>{form?.studentNo}</dd>
+            </dl>
+            <dl>
+              <dt>{t('학과')}</dt>
+              <dd>
+                <StyledInput
+                  type="text"
+                  name="department"
+                  value={form?.department}
+                  onChange={onChange}
+                />
+                <StyledMessage variant="danger">
+                  {errors?.department}
+                </StyledMessage>
+              </dd>
+            </dl>
+            <dl>
+              <dt>{t('학년')}</dt>
+              <dd>
+                <StyledInput
+                  type="text"
+                  name="grade"
+                  value={form?.grade}
+                  onChange={onChange}
+                />
+                <StyledMessage variant="danger">{errors?.grade}</StyledMessage>
+              </dd>
+            </dl>
+          </>
+        ) : (
+          <>
+            <dl>
+              <dt>{t('사번')}</dt>
+              <dd>{form?.empNo}</dd>
+            </dl>
+          </>
+        )}
+
         {errors?.global && (
           <StyledMessage color="danger" messages={errors.global} />
         )}
