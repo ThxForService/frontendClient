@@ -1,122 +1,176 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Calendar from 'react-calendar';
-import { StyledInput } from '@/commons/components/StyledInput'; // 커스텀 스타일을 사용한다면 임포트
+import { StyledInput } from '@/commons/components/StyledInput';
 import { StyledButton } from '@/commons/components/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
-import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
+const FormBox = styled.form`
+  dl {
+    display: flex;
+    align-items: center;
 
-const CounselingForm = ({ onSubmit, userInfo }) => {
-  const [form, setForm] = useState({
-    studentNo: '', // 로그인 정보에서 설정
-    username: '', // 로그인 정보에서 설정
-    email: '',
-    mobile: '',
-    rDate: '',
-    rTime: '',
-    cCase: 'PERSONAL', // 상담 유형 기본값 설정
-  });
-  const [errors, setErrors] = useState({});
-  const [selectedDate, setSelectedDate] = useState(new Date());
+    dt {
+      width: 120px;
+    }
 
+    dd {
+      flex-grow: 1;
+    }
+  }
+
+  dl + dl {
+    margin-top: 10px;
+  }
+
+  .radio {
+    margin-right: 10px;
+  }
+
+  .agree {
+    text-align: center;
+    margin: 15px 0;
+
+    svg {
+      font-size: 1.5rem;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+  }
+`;
+const CounselingForm = ({
+  form,
+  errors,
+  onSubmit,
+  onChange,
+  selectedDate,
+  selectedTime,
+  handleTimeSelect,
+  selectChange,
+  onDateChange,
+}) => {
   const { t } = useTranslation();
-  // 로그인 정보 불러오기
-  useEffect(() => {
-    if (userInfo) {
-      setForm((prevForm) => ({
-        ...prevForm,
-        studentNo: userInfo.studentNo,
-        username: userInfo.username,
-        email: userInfo.email,
-        mobile: userInfo.mobile,
-      }));
-    }
-  }, [userInfo]);
-
-  // 날짜 선택 처리
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setForm((prevForm) => ({
-      ...prevForm,
-      rDate: format(date, 'yyyy-MM-dd'),
-    }));
+  const times = {
+    morning: ['09:00', '10:00', '11:00', '12:00'],
+    afternoon: ['13:00', '14:00', '15:00', '16:00', '17:00'],
   };
-
-  // 입력 필드 처리
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prevForm) => ({
-      ...prevForm,
-      [name]: value,
-    }));
-  };
-
-  // 폼 제출 처리
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 검증 로직 (이메일, 전화번호 등)
-    let _errors = {};
-    if (!form.email) _errors.email = '이메일을 입력해주세요.';
-    if (!form.mobile) _errors.mobile = '전화번호를 입력해주세요.';
-    if (!form.rDate) _errors.rDate = '날짜를 선택해주세요.';
-    if (!form.rTime) _errors.rTime = '시간을 선택해주세요.';
-
-    if (Object.keys(_errors).length > 0) {
-      setErrors(_errors);
-      return;
-    }
-
-    onSubmit(form); // 제출 처리 함수 호출
-  };
+  const options = [
+    { value: 'FAMILY', label: '가족' },
+    { value: 'ACADEMIC', label: '학업/진로' },
+    { value: 'RELATIONSHIPS', label: '대인관계' },
+    { value: 'EMOTIONAL', label: '심리정서' },
+    { value: 'BEHAVIOR', label: '생활습관 및 행동문제' },
+    { value: 'ROMANCE_SEX', label: '연애와 성' },
+    { value: 'LIFE_VALUES', label: '삶과 가치' },
+    { value: 'PERSONALITY', label: '성격' },
+    { value: 'OTHER', label: '기타' },
+  ];
 
   return (
-    <form onSubmit={handleSubmit}>
+    <FormBox onSubmit={onSubmit} autoComplete="off">
       <div>
-        <label>학번</label>
-        <StyledInput type="text" value={form.studentNo} readOnly />
-      </div>
-      <div>
-        <label>이름</label>
-        <StyledInput type="text" value={form.username} readOnly />
-      </div>
-      <div>
-        <label>이메일</label>
+        <dt>{t('학번')}</dt>
         <StyledInput
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleChange}
+          type="text"
+          name="studentNo"
+          value={form?.studentNo}
+          onChange={onChange}
         />
-        {errors.email && <StyledMessage>{errors.email}</StyledMessage>}
       </div>
       <div>
-        <label>전화번호</label>
+        <dt>{t('이름')}</dt>
+        <StyledInput
+          type="text"
+          name="username"
+          value={form?.username}
+          onChange={onChange}
+        />
+      </div>
+      <div>
+        <dt>{t('이메일')}</dt>
+        <StyledInput
+          type="text"
+          name="email"
+          value={form?.email}
+          onChange={onChange}
+        />
+        {errors?.email && (
+          <StyledMessage color="danger" messages={errors.email} />
+        )}
+      </div>
+      <div>
+        <dt>{t('전화번호')}</dt>
         <StyledInput
           type="text"
           name="mobile"
-          value={form.mobile}
-          onChange={handleChange}
+          value={form?.mobile}
+          onChange={onChange}
         />
-        {errors.mobile && <StyledMessage>{errors.mobile}</StyledMessage>}
+        {errors?.mobile && (
+          <StyledMessage color="danger" messages={errors.mobile} />
+        )}
       </div>
       <div>
-        <label>상담 날짜</label>
-        <Calendar onChange={handleDateChange} value={selectedDate} />
-        {errors.rDate && <StyledMessage>{errors.rDate}</StyledMessage>}
+        <dt>{t('상담_날짜')}</dt>
+        <Calendar onChange={onDateChange} value={selectedDate} />{' '}
+        {errors?.rDate && (
+          <StyledMessage color="danger" messages={errors.rDate} />
+        )}
       </div>
+
       <div>
-        <label>상담 시간</label>
-        <StyledInput
-          type="time"
-          name="rTime"
-          value={form.rTime}
-          onChange={handleChange}
-        />
-        {errors.rTime && <StyledMessage>{errors.rTime}</StyledMessage>}
+        <dt>{t('상담_시간')}</dt>
+        <div>
+          <h4>{t('오전')}</h4>
+          {times.morning.map((time) => (
+            <button
+              key={time}
+              onClick={() => handleTimeSelect(time)}
+              style={{
+                backgroundColor: selectedTime === time ? 'green' : 'white',
+                color: selectedTime === time ? 'white' : 'black',
+                padding: '10px',
+                margin: '5px',
+                border: '1px solid gray',
+                borderRadius: '5px',
+              }}
+            >
+              {time}
+            </button>
+          ))}
+        </div>
+        <div>
+          <h4>{t('오후')}</h4>
+          {times.afternoon.map((time) => (
+            <button
+              key={time}
+              onClick={() => handleTimeSelect(time)}
+              style={{
+                backgroundColor: selectedTime === time ? 'green' : 'white',
+                color: selectedTime === time ? 'white' : 'black',
+                padding: '10px',
+                margin: '5px',
+                border: '1px solid gray',
+                borderRadius: '5px',
+              }}
+            >
+              {time}
+            </button>
+          ))}
+        </div>
+        {errors?.rTime && (
+          <StyledMessage color="danger" messages={errors.rTime} />
+        )}
       </div>
+
       <div>
-        <label>상담 유형</label>
-        <select name="cCase" value={form.cCase} onChange={handleChange}>
+        <dt>{t('상담_유형')}</dt>
+        <select name="cCase" value={form.cCase} onChange={onChange}>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
           <option value="FAMILY">{t('가족')}</option>
           <option value="ACADEMIC">{t('학업/진로')}</option>
           <option value="RELATIONSHIPS">{t('대인관계')}</option>
@@ -127,21 +181,21 @@ const CounselingForm = ({ onSubmit, userInfo }) => {
           <option value="PERSONALITY">{t('성격')}</option>
           <option value="OTHER">{t('기타')}</option>
         </select>
-        {form.cCase === 'OTHER' && (
+        {form?.cCase === 'OTHER' && (
           <div>
             <label>{t('기타 내용')}</label>
             <input
               type="text"
               name="customCase"
               value={form.customCase}
-              onChange={handleChange}
-              placeholder={t('원하는 상담 주제를 입력하세요')}
+              onChange={onChange}
+              placeholder={t('하고싶은_말을_전달해보세요')}
             />
           </div>
         )}
       </div>
-      <StyledButton type="submit">예약하기</StyledButton>
-    </form>
+      <StyledButton type="submit">{t('예약하기')}</StyledButton>
+    </FormBox>
   );
 };
 

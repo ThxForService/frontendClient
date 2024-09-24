@@ -1,5 +1,4 @@
 import requestData from '@/commons/libs/requestData';
 
-export const getList = (page) => requestData(`/survey?page=${page || 1}`);
-
-export const getInfo = (sNo) => requestData(`/survey/info/${sNo}`);
+// 질문지 조회
+export const getTest = (type) => requestData(`/survey/${type}`);

@@ -1,14 +1,17 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import useWebSocket from '@/chat/hooks/useWebSocket';
 import { sendMessageAPI, chatHistory } from '@/chat/apis/apiChat';
 import ChatComponent from '@/chat/components/ChatComponent';
+import useWebSocket from '@/chat/hooks/useWebSocket';
+import { getUserContext } from '@/commons/contexts/UserInfoContext';
+
 
 const ChatContainer = ({ roomNo }) => {
   const [form, setForm] = useState({ message: '' });
   const [errors, setErrors] = useState({});
   const [messages, setMessages] = useState([]);
-  const { messages: socketMessages, sendMessage } = useWebSocket('ws://52.78.186.242:5006/chat');
+  const { states: {userInfo} } = getUserContext();
+  const { messages: socketMessages, sendMessage } = useWebSocket(`ws://52.78.186.242:5006/chat/room/${roomNo}`);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -23,11 +26,15 @@ const ChatContainer = ({ roomNo }) => {
     fetchMessages();
   }, [roomNo]);
 
+
   useEffect(() => {
     if (socketMessages && socketMessages.length > 0) {
-      setMessages((prevMessages) => [...prevMessages, ...socketMessages]);
+      const lastMessage = socketMessages[socketMessages.length - 1];
+
+      setMessages((prevMessages) => [...prevMessages, lastMessage]);
     }
   }, [socketMessages]);
+
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -36,10 +43,16 @@ const ChatContainer = ({ roomNo }) => {
       return;
     }
 
-    sendMessage({ message: form.message });
+    const socketMessageData = {
+      message: form.message,
+      senderEmail: userInfo?.email,
+      roomNo
+    };
+
+    sendMessage(socketMessageData);
 
     try {
-      await sendMessageAPI(form); // API 전송
+      await sendMessageAPI({ message: form.message, roomNo });
     } catch (error) {
       console.error('메시지 저장 중 오류 발생:', error);
     }
@@ -52,6 +65,7 @@ const ChatContainer = ({ roomNo }) => {
   };
 
   return (
+
     <ChatComponent
       messages={messages}
       form={form}
