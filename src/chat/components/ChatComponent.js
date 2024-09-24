@@ -12,7 +12,7 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
       <div>
         <ul>
           {messages.map((msg, index) => (
-            <li key={index}>{msg.email}: {msg.message}</li>
+            <li key={index}>{msg.message}</li>
           ))}
         </ul>
       </div>

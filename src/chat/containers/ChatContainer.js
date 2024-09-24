@@ -1,20 +1,20 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import useWebSocket from '@/chat/hooks/useWebSocket';
 import { sendMessageAPI, chatHistory } from '@/chat/apis/apiChat';
 import ChatComponent from '@/chat/components/ChatComponent';
+import useWebSocket from '@/chat/hooks/useWebSocket';
 
 const ChatContainer = ({ roomNo }) => {
   const [form, setForm] = useState({ message: '' });
   const [errors, setErrors] = useState({});
   const [messages, setMessages] = useState([]);
-  const { messages: socketMessages, sendMessage } = useWebSocket('ws://52.78.186.242:5006/chat');
+  const { messages: socketMessages, sendMessage } = useWebSocket(`ws://52.78.186.242:5006/chat/room/${roomNo}`);
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
         const dbMessages = await chatHistory(roomNo);
-        setMessages(dbMessages);
+        setMessages(dbMessages); // 초기 채팅 내역 설정
       } catch (error) {
         console.error('메시지 불러오기 오류:', error);
       }
@@ -39,7 +39,7 @@ const ChatContainer = ({ roomNo }) => {
     sendMessage({ message: form.message });
 
     try {
-      await sendMessageAPI(form); // API 전송
+      await sendMessageAPI({ message: form.message, roomNo });
     } catch (error) {
       console.error('메시지 저장 중 오류 발생:', error);
     }
