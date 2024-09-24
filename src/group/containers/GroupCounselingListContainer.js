@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import Pagination from '@/commons/components/Pagination';
 import Link from 'next/link';
 import { StyledButton } from '@/commons/components/StyledButton';
+import { groupApiApply } from '../apis/groupApiApply';
 
 const GroupListContainer = ({ searchParams }) => {
   const { setMenuCode, setSubMenuCode } = getCommonActions();
@@ -52,6 +53,17 @@ const GroupListContainer = ({ searchParams }) => {
     [router],
   );
 
+  const onApply = useCallback(async (pgmSeq) => {
+    console.log(pgmSeq);
+    try {
+      await groupApiApply(pgmSeq); // 신청하기 API 호출
+      alert(`${pgmSeq} 프로그램에 신청했습니다!`); // 성공 메시지
+    } catch (error) {
+      setErrors(error.message); // 에러 처리
+      alert('신청에 실패했습니다.'); // 에러 메시지
+    }
+  }, []);
+
   return (
     <div>
       <h1>집단 상담 프로그램 목록</h1>
@@ -60,12 +72,14 @@ const GroupListContainer = ({ searchParams }) => {
           programs.length > 0 &&
           programs.map(({ pgmSeq, pgmNm }) => (
             <li key={pgmSeq}>
-              {pgmNm}
-              <Link href={`/group/apply`}>
-                <StyledButton type="button" variant="primary">
-                  {t('신청하기')}
-                </StyledButton>
-              </Link>
+              <Link href={`/group/program/info/${pgmSeq}`}>{pgmNm}</Link>
+              <StyledButton
+                type="button"
+                variant="primary"
+                onClick={() => onApply(pgmSeq)}
+              >
+                {t('신청하기')}
+              </StyledButton>
             </li>
           ))}
       </ul>
