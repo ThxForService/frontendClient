@@ -1,55 +1,65 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/router';
+'use client';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
+import { useRouter } from 'next/navigation';
 import CounselingForm from '@/counseling/components/CounselingForm';
 import Loading from '@/commons/components/Loading';
-import { useTranslation } from 'react-i18next';
 import { apiList } from '../apis/apiInfo';
 import apiApply from '../apis/apiApply';
+import { useTranslation } from 'react-i18next';
+import _useConfirm from '@/commons/hooks/useConfirm';
+import UserInfoContext from '@/commons/contexts/UserInfoContext';
+import { useParams } from 'next/navigation';
 
-const CounselingApplyContainer = ({ userInfo, setPageTitle }) => {
+const CounselingApplyContainer = ({ setPageTitle }) => {
+  const router = useRouter();
+  const { cSeq } = useParams();
+  const {
+    states: { userInfo },
+  } = useContext(UserInfoContext);
+
+  const [data, setData] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [selectedTime, setSelectedTime] = useState('');
+
   const [form, setForm] = useState({
     studentNo: userInfo?.studentNo || '',
-    username: userInfo?.username || '',
+    ame: userInfo?.username || '',
     email: userInfo?.email || '',
     mobile: userInfo?.mobile || '',
     rDate: '',
     rTime: '',
     cCase: 'FAMILY', // 기본 상담 유형
   });
-  const [errors, setErrors] = useState({});
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+
   const { t } = useTranslation();
 
   // 예약 가능한 시간대 가져오기
   useEffect(() => {
-    const fetchAvailableTimes = async () => {
+    (async () => {
       try {
-        const result = await apiList();
-        setData(result);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching available times:', error);
-        setLoading(false);
+        const res = await apiList(cSeq);
+        console.log('이진표 api작업 확인중:', res); // 데이터 확인용 로그 추가
+        setPageTitle(`${res.usernname} ${t('예약하기')}`);
+
+        /* 예약 가능일 문자열 -> Date 객체  */
+        const availableDates = Object.keys(res.availableDates).sort();
+        res.minDate = new Date(availableDates[0]);
+        res.maxDate = new Date(availableDates.pop());
+        res._availableDates = availableDates;
+        res._availableDates = availableDates;
+
+        setData(res);
+      } catch (err) {
+        console.error(err);
       }
-    };
-    fetchAvailableTimes();
-  }, []);
+    })();
+  }, [cSeq, t, setPageTitle]);
 
-  // 페이지 타이틀 설정
-  useEffect(() => {
-    if (setPageTitle) {
-      setPageTitle(t('상담 예약'));
-    }
-  }, [setPageTitle, t]);
-
-  // 입력 값 변경 처리
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleTimeSelect = (time) => {
+    setSelectedTime(time); // 선택된 시간 상태 업데이트
     setForm((prevForm) => ({
       ...prevForm,
-      [name]: value,
+      rTime: time, // form 상태에 선택된 시간을 저장
     }));
   };
 
@@ -61,56 +71,106 @@ const CounselingApplyContainer = ({ userInfo, setPageTitle }) => {
     }));
   };
 
-  // 시간 선택 처리
-  const handleTimeChange = (time) => {
+  // 날짜 선택 처리
+  const onDateChange = useCallback(
+    (date) => {
+      const rDate = format(date, 'yyyy-MM-dd');
+      const times = data.availableDates[rDate];
+      setData((data) => ({ ...data, times }));
+      setForm((form) => ({ ...form, rDate }));
+    },
+    [data, setForm],
+  );
+
+  const onChange = useCallback((e) => {
+    setForm(
+      produce((draft) => {
+        draft[e.target.name] = e.target.value.trim();
+      }),
+    );
+  }, []);
+
+  // 상담사유
+  const selectChange = (e) => {
+    const { name, value } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
-      rTime: time,
+      [name]: value,
     }));
   };
 
   // 폼 제출 처리
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const _errors = {};
+  const onSubmit = useCallback(
+    //Submit = 검증
+    (e) => {
+      e.preventDefault();
 
-    // 필수 입력 항목 검증
-    if (!form.email) _errors.email = t('이메일을 입력해주세요.');
-    if (!form.mobile) _errors.mobile = t('전화번호를 입력해주세요.');
-    if (!form.rDate) _errors.rDate = t('날짜를 선택해주세요.');
-    if (!form.rTime) _errors.rTime = t('시간을 선택해주세요.');
+      let _errors = {};
+      let hasErrors = false;
 
-    if (Object.keys(_errors).length > 0) {
-      setErrors(_errors);
-      return;
-    }
+      setErrors({});
 
-    try {
-      await apiApply(form);
-      router.push('/counseling/complete'); // 성공 시 완료 페이지로 이동
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setErrors({
-        global: t('제출 중 오류가 발생했습니다. 다시 시도해주세요.'),
+      /* 필수 항목 검증 S */
+      const requiredFields = {
+        rDate: t('예약일을_선택하세요'),
+        rTime: t('시간대를_선택하세요'),
+        email: t('예약자_이메일을_입력하세요'),
+        mobile: t('예약자_전화번호를_입력하세요'),
+      };
+
+      for (const [field, message] of Object.entries(requiredFields)) {
+        if (
+          (typeof form[field] === 'string' && !form[field].trim()) ||
+          (typeof form[field] !== 'string' && !form[field])
+        ) {
+          _errors[field] = _errors[field] ?? [];
+          _errors[field].push(message);
+          hasErrors = true;
+        }
+      }
+      /* 필수 항목 검증 E */
+
+      if (hasErrors) {
+        setErrors(_errors);
+        return;
+      }
+
+      /* 예약 접수 처리 S */
+      _useConfirm(t('정말_예약하시겠습니까'), () => {
+        (async () => {
+          try {
+            const res = await apiApply(form);
+            // 예약 접수 성공시 예약 완료 페이지 이동
+            router.push(`/counseling/complete/${res.cSeq}`, { replace: true });
+          } catch (err) {
+            console.error(err);
+            setErrors({ global: [err.message] });
+          }
+        })();
       });
-    }
-  };
+      /* 예약 접수 처리 E */
+    },
+    [t, form, router],
+  );
 
-  if (loading) {
+  if (!data) {
     return <Loading />;
   }
 
   return (
     <CounselingForm
-      form={form}
       data={data}
+      form={form}
       errors={errors}
-      onChange={handleChange}
-      onDateChange={handleDateChange}
-      onTimeChange={handleTimeChange}
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
+      onChange={onChange}
+      handleDateChange={handleDateChange}
+      selectedDate={form.rDate}
+      selectedTime={selectedTime}
+      selectChange={selectChange}
+      onDateChange={onDateChange}
+      handleTimeSelect={handleTimeSelect}
     />
   );
 };
-
 export default CounselingApplyContainer;

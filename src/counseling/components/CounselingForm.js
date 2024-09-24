@@ -41,17 +41,30 @@ const FormBox = styled.form`
 const CounselingForm = ({
   form,
   errors,
-  onChange,
-  handleDateChange,
-  handleTimeChange,
   onSubmit,
+  onChange,
   selectedDate,
+  selectedTime,
+  handleTimeSelect,
+  selectChange,
+  onDateChange,
 }) => {
   const { t } = useTranslation();
   const times = {
     morning: ['09:00', '10:00', '11:00', '12:00'],
     afternoon: ['13:00', '14:00', '15:00', '16:00', '17:00'],
   };
+  const options = [
+    { value: 'FAMILY', label: '가족' },
+    { value: 'ACADEMIC', label: '학업/진로' },
+    { value: 'RELATIONSHIPS', label: '대인관계' },
+    { value: 'EMOTIONAL', label: '심리정서' },
+    { value: 'BEHAVIOR', label: '생활습관 및 행동문제' },
+    { value: 'ROMANCE_SEX', label: '연애와 성' },
+    { value: 'LIFE_VALUES', label: '삶과 가치' },
+    { value: 'PERSONALITY', label: '성격' },
+    { value: 'OTHER', label: '기타' },
+  ];
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
@@ -59,8 +72,8 @@ const CounselingForm = ({
         <dt>{t('학번')}</dt>
         <StyledInput
           type="text"
-          name="email"
-          value={form?.studentNo ?? ''}
+          name="studentNo"
+          value={form?.studentNo}
           onChange={onChange}
         />
       </div>
@@ -69,34 +82,40 @@ const CounselingForm = ({
         <StyledInput
           type="text"
           name="username"
-          value={form?.username ?? ''}
+          value={form?.username}
           onChange={onChange}
         />
       </div>
       <div>
         <dt>{t('이메일')}</dt>
         <StyledInput
-          type="email"
+          type="text"
           name="email"
-          value={form?.email ?? ''}
+          value={form?.email}
           onChange={onChange}
         />
-        {errors.email && <StyledMessage>{errors.email}</StyledMessage>}
+        {errors?.email && (
+          <StyledMessage color="danger" messages={errors.email} />
+        )}
       </div>
       <div>
         <dt>{t('전화번호')}</dt>
         <StyledInput
-          type="mobile"
+          type="text"
           name="mobile"
-          value={form?.mobile ?? ''}
+          value={form?.mobile}
           onChange={onChange}
         />
-        {errors.mobile && <StyledMessage>{errors.mobile}</StyledMessage>}
+        {errors?.mobile && (
+          <StyledMessage color="danger" messages={errors.mobile} />
+        )}
       </div>
       <div>
         <dt>{t('상담_날짜')}</dt>
-        <Calendar onChange={handleDateChange} value={selectedDate} />{' '}
-        {errors.rDate && <StyledMessage>{errors.rDate}</StyledMessage>}
+        <Calendar onChange={onDateChange} value={selectedDate} />{' '}
+        {errors?.rDate && (
+          <StyledMessage color="danger" messages={errors.rDate} />
+        )}
       </div>
 
       <div>
@@ -139,12 +158,19 @@ const CounselingForm = ({
             </button>
           ))}
         </div>
-        {errors.rTime && <StyledMessage>{errors.rTime}</StyledMessage>}
+        {errors?.rTime && (
+          <StyledMessage color="danger" messages={errors.rTime} />
+        )}
       </div>
 
       <div>
         <dt>{t('상담_유형')}</dt>
-        <select name="cCase" value={form.cCase} onChange={onChange}>
+        <select name="cCase" value={form.cCase} onChange={selectChange}>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
           <option value="FAMILY">{t('가족')}</option>
           <option value="ACADEMIC">{t('학업/진로')}</option>
           <option value="RELATIONSHIPS">{t('대인관계')}</option>
@@ -155,7 +181,7 @@ const CounselingForm = ({
           <option value="PERSONALITY">{t('성격')}</option>
           <option value="OTHER">{t('기타')}</option>
         </select>
-        {form.cCase === 'OTHER' && (
+        {form?.cCase === 'OTHER' && (
           <div>
             <label>{t('기타 내용')}</label>
             <input
@@ -163,7 +189,7 @@ const CounselingForm = ({
               name="customCase"
               value={form.customCase}
               onChange={onChange}
-              placeholder={t('원하는 상담 주제를 입력하세요')}
+              placeholder={t('하고싶은_말을_전달해보세요')}
             />
           </div>
         )}
