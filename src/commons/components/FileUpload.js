@@ -4,8 +4,6 @@ import apiRequest from '../libs/apiRequest';
 import { StyledButton } from '@/commons/components/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import { useTranslation } from 'react-i18next';
-import Image from 'next/image';
-
 
 const FileUpload = ({
   children,
@@ -18,7 +16,7 @@ const FileUpload = ({
   callback,
   width,
   imageUrl,
-  className
+  className,
 }) => {
   const [message, setMessage] = useState('');
 
@@ -102,7 +100,8 @@ const FileUpload = ({
   return (
     <div className={className}>
       {imageUrl ? (
-        <Image
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
           src={imageUrl}
           width={width}
           alt="profile"

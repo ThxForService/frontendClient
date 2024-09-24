@@ -33,9 +33,8 @@ export const apiUser = () =>
 
         const user = res.data.data;
 
-        (async() => {
+        (async () => {
           try {
-            
             const files = await getFiles(user.gid);
             if (files && files.length > 0) {
               const file = files[0];
@@ -43,7 +42,6 @@ export const apiUser = () =>
               user.profileImage = profileImage;
             }
           } catch (err) {
-           
             console.error(err);
           }
         })();

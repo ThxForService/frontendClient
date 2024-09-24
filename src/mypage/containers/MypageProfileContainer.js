@@ -98,20 +98,20 @@ const MypageProfileContainer = () => {
         return;
       }
 
-      setForm((form) => ({ ...form, profileImage: files[0] }));
+      const file = files[0];
+      const profileImage = `${file.thumbUrl}?seq=${file.seq}&width=300&height=400`;
+      setForm((form) => ({ ...form, profileImage }));
       setUserInfo((userInfo) => ({ ...userInfo, profileImage: files[0] }));
     },
     [setUserInfo],
   );
 
-  const profileImage = form?.profileImage?.fileUrl;
-
   return (
     <>
-     <ProfileImage
+      <ProfileImage
         gid={form?.gid}
         fileUploadCallback={fileUploadCallback}
-        profileImage={profileImage}
+        profileImage={form?.profileImage}
       />
       <ProfileForm
         form={form}

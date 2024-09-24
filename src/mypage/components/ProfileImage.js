@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import FileUpload from "@/commons/components/FileUpload";
-import NoProfile from '../../../public/images/profile.webp';
+import React from 'react';
+import styled from 'styled-components';
+import FileUpload from '@/commons/components/FileUpload';
+import NoProfile from '../../../public/images/basicprofile.jpg';
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,7 +11,6 @@ const Wrapper = styled.div`
   border: 2px solid #ccc;
   border-radius: 50%;
   overflow: hidden;
-
 `;
 
 const ProfileImage = ({ gid, profileImage, fileUploadCallback, className }) => {
