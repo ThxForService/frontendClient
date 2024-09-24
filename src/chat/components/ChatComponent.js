@@ -1,36 +1,40 @@
-import React, { useState } from 'react';
-import useWebSocket from '@/chat/hooks/useWebSocket';
+import React from 'react';
+import { useTranslation } from 'next-i18next';
+import { StyledInput } from '@/commons/components/StyledInput';
+import { StyledButton } from '@/commons/components/StyledButton';
+import StyledMessage from '@/commons/components/StyledMessage';
 
-const ChatComponent = () => {
-  const [message, setMessage] = useState('');
-  const { messages, sendMessage } = useWebSocket('ws://52.78.186.242:5006/chat'); // 백엔드 WebSocket URL
-
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    sendMessage({ message });
-    setMessage(''); // 메시지 전송 후 입력 필드 초기화
-  };
+const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
+  const { t } = useTranslation();
 
   return (
     <div>
       <div>
         <ul>
           {messages.map((msg, index) => (
-            <li key={index}>{msg.message}</li>
+            <li key={index}>{msg.email}: {msg.message}</li>
           ))}
         </ul>
       </div>
-      <form onSubmit={handleSendMessage}>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="메시지를 입력하세요"
-        />
-        <button type="submit">전송</button>
+
+      <form onSubmit={onSubmit}>
+        <dl>
+          <dt>{t('메세지')}</dt>
+          <dd>
+            <StyledInput
+              type="text"
+              name="message"
+              value={form.message}
+              onChange={onChange}
+              placeholder={t('메시지를 입력하세요')}
+            />
+            <StyledMessage variant="danger">{errors?.message}</StyledMessage>
+          </dd>
+        </dl>
+        <StyledButton type="submit">{t('제출')}</StyledButton>
       </form>
     </div>
   );
 };
 
-export default ChatComponent;
+export default React.memo(ChatComponent);

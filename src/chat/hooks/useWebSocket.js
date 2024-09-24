@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import ChatComponent from '@/chat/components/ChatComponent';
 
 const useWebSocket = (url) => {
   const [socket, setSocket] = useState(null);
@@ -22,14 +21,14 @@ const useWebSocket = (url) => {
     };
 
     ws.onerror = (error) => {
-      console.error('WebSocket 오류:', error);ChatComponent
+      console.error('WebSocket 오류:', error);
 
     };
 
     setSocket(ws);
 
     return () => {
-      ws.close(); // 컴포넌트 언마운트 시 WebSocket 연결 닫기
+      ws.close();
     };
   }, [url]);
 
