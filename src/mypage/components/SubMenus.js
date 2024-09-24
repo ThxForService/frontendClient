@@ -5,10 +5,12 @@ import { useTranslation } from 'react-i18next';
 
 const SubMenuBox = styled.aside`
   min-height: 650px;
-  background: ${({ theme }) => theme.colors.black};
+  
+  background: ${({ theme }) => theme.colors.white};
   a {
+    border-top: 1px solid ${({ theme }) => theme.colors.black};
     display: block;
-    background: ${({ theme }) => theme.colors.gray};
+    background: ${({ theme }) => theme.colors.white};
     color: ${({ theme }) => theme.colors.black};
     font-size: ${({ theme }) => theme.fontSizes.medium}px;
     padding: 15px 20px;
