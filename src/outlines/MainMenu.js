@@ -83,7 +83,7 @@ const SubMenu = styled.div`
 const Logo = styled.div`
   display: flex;
   align-items: center;
-  margin-left: -190px; /* 왼쪽으로 이동시키기 위해 margin-left 사용 */
+  margin-left: -10px; /* 왼쪽으로 이동시키기 위해 margin-left 사용 */
   margin-top: -10px; 
 
   img {
@@ -94,7 +94,7 @@ const Logo = styled.div`
 
 const CenterText = styled.div`
   position: relative;
-  top: -75px; /* 이 값을 조정해서 문구를 더 위로 올릴 수 있습니다 */
+  top: 3px; /* 이 값을 조정해서 문구를 더 위로 올릴 수 있습니다 */
 `;
 
 const MainMenu = () => {
@@ -106,12 +106,17 @@ const MainMenu = () => {
       <MenuContainer>
         <MenuList>
           <MenuItem>
-            <a href="/introduce/center">
+            <a href="/"> {/* http://localhost:7000/*/}
               <Logo>
                 <img src="/images/smilelogo.png" />
               </Logo>
+              </a>
+              </MenuItem>
+
+              <MenuItem>
+              <a href="/introduce/center">
               <CenterText>{t('심리상담센터 소개')}</CenterText>
-            </a>
+                </a>
             <SubMenu className="sub-menu">
               <a href="/introduce/center">{t('센터 소개')}</a>
               <a href="/introduce/member">{t('구성원 소개')}</a>
