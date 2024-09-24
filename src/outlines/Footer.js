@@ -80,7 +80,7 @@ const Footer = () => {
       <FooterBox>
         <FooterWrap>
           <FooterContentBox>
-            <Address>이진표</Address>
+            <Address>개인정보처리방침</Address>
             <Information>
               <br />
             </Information>
@@ -94,7 +94,7 @@ const Footer = () => {
               counselyic@yonsei.ac.kr
               <br />
               <br />
-              Copyrights (c) 2017 Yonsei University Counseling Center. All
+              Copyrights (c) 2024 THX Counseling Center. All
               rights reserved.
             </Information2>
           </FooterContentBox>
