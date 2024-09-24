@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import { StyledInput } from '@/commons/components/StyledInput'; // 커스텀 스타일을 사용한다면 임포트
 import { StyledButton } from '@/commons/components/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
@@ -14,12 +15,18 @@ const CounselingForm = ({ onSubmit, userInfo }) => {
     mobile: '',
     rDate: '',
     rTime: '',
-    cCase: 'PERSONAL', // 상담 유형 기본값 설정
+    cCase: 'FAMILY', // 상담 유형 기본값 설정
   });
   const [errors, setErrors] = useState({});
   const [selectedDate, setSelectedDate] = useState(new Date());
-
+  const [selectedTime, setSelectedTime] = useState('');
   const { t } = useTranslation();
+
+  const times = {
+    morning: ['09:00', '10:00', '11:00', '12:00'],
+    afternoon: ['13:00', '14:00', '15:00', '16:00', '17:00'],
+  };
+
   // 로그인 정보 불러오기
   useEffect(() => {
     if (userInfo) {
@@ -48,6 +55,15 @@ const CounselingForm = ({ onSubmit, userInfo }) => {
     setForm((prevForm) => ({
       ...prevForm,
       [name]: value,
+    }));
+  };
+
+  // 시간 선택 처리
+  const handleTimeSelect = (time) => {
+    setSelectedTime(time);
+    setForm((prevForm) => ({
+      ...prevForm,
+      rTime: time,
     }));
   };
 
@@ -106,12 +122,45 @@ const CounselingForm = ({ onSubmit, userInfo }) => {
       </div>
       <div>
         <label>상담 시간</label>
-        <StyledInput
-          type="time"
-          name="rTime"
-          value={form.rTime}
-          onChange={handleChange}
-        />
+        <div>
+          <h4>오전</h4>
+          {times.morning.map((time) => (
+            <button
+              className="amTime"
+              key={time}
+              onClick={() => handleTimeSelect(time)}
+              style={{
+                backgroundColor: selectedTime === time ? 'green' : 'white',
+                color: selectedTime === time ? 'white' : 'black',
+                padding: '10px',
+                margin: '5px',
+                border: '1px solid gray',
+                borderRadius: '5px',
+              }}
+            >
+              {time}
+            </button>
+          ))}
+        </div>
+        <div>
+          <h4>오후</h4>
+          {times.afternoon.map((time) => (
+            <button
+              key={time}
+              onClick={() => handleTimeSelect(time)}
+              style={{
+                backgroundColor: selectedTime === time ? 'green' : 'white',
+                color: selectedTime === time ? 'white' : 'black',
+                padding: '10px',
+                margin: '5px',
+                border: '1px solid gray',
+                borderRadius: '5px',
+              }}
+            >
+              {time}
+            </button>
+          ))}
+        </div>
         {errors.rTime && <StyledMessage>{errors.rTime}</StyledMessage>}
       </div>
       <div>
