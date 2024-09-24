@@ -3,18 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { sendMessageAPI, chatHistory } from '@/chat/apis/apiChat';
 import ChatComponent from '@/chat/components/ChatComponent';
 import useWebSocket from '@/chat/hooks/useWebSocket';
+import { getUserContext } from '@/commons/contexts/UserInfoContext';
+
 
 const ChatContainer = ({ roomNo }) => {
   const [form, setForm] = useState({ message: '' });
   const [errors, setErrors] = useState({});
   const [messages, setMessages] = useState([]);
+  const { states: {userInfo} } = getUserContext();
   const { messages: socketMessages, sendMessage } = useWebSocket(`ws://52.78.186.242:5006/chat/room/${roomNo}`);
 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
         const dbMessages = await chatHistory(roomNo);
-        setMessages(dbMessages); // 초기 채팅 내역 설정
+        setMessages(dbMessages);
       } catch (error) {
         console.error('메시지 불러오기 오류:', error);
       }
@@ -23,11 +26,16 @@ const ChatContainer = ({ roomNo }) => {
     fetchMessages();
   }, [roomNo]);
 
+
   useEffect(() => {
+    console.log(userInfo?.email);
     if (socketMessages && socketMessages.length > 0) {
-      setMessages((prevMessages) => [...prevMessages, ...socketMessages]);
+      const lastMessage = socketMessages[socketMessages.length - 1];
+
+      setMessages((prevMessages) => [...prevMessages, lastMessage]);
     }
   }, [socketMessages]);
+
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -35,6 +43,8 @@ const ChatContainer = ({ roomNo }) => {
       setErrors({ message: '메세지를 입력하세요' });
       return;
     }
+
+
 
     sendMessage({ message: form.message });
 
