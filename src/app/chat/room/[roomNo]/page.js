@@ -1,13 +1,11 @@
 'use client';
 
-import ChatHistoryContainer from '@/chat/containers/ChatHistoryContainer';
-import ChatMessageContainer from '@/chat/containers/ChatMessageContainer';
+import ChatMessageContainer from '@/chat/containers/ChatContainer';
 
 const ChatPage = ({ params }) => {
   const { roomNo } = params;
   return (
     <>
-      <ChatHistoryContainer  roomNo={roomNo}/>
       <ChatMessageContainer roomNo={roomNo} />
     </>
   );

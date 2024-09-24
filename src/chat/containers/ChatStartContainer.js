@@ -5,7 +5,6 @@ import { startChat } from '@/chat/apis/apiChat';
 import ChatStartComponent from '@/chat/components/ChatStartComponent';
 
 const ChatStartContainer = () => {
-  // 버튼 클릭 시 호출할 함수 정의
   const handleStartChat = useCallback(async () => {
     try {
       await startChat();
@@ -17,7 +16,6 @@ const ChatStartContainer = () => {
 
   return (
     <div>
-      {/* handleStartChat을 onCreateChat으로 전달 */}
       <ChatStartComponent onCreateChat={handleStartChat} />
     </div>
   );

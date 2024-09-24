@@ -48,7 +48,7 @@ export const chatHistory = (roomNo) => {
 
 
 //메세지 전송
-export const sendMessage = async (form) => {
+export const sendMessageAPI = async (form) => {
   try {
     const response = await apiRequest('/chat/message', 'POST', form);
     return response;
