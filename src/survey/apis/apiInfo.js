@@ -28,4 +28,4 @@ export const getInfo = (sNo) => requestData(`/survey/info/${sNo}`);
 
 
 export const getList = (page) => requestData(`/survey?page=${page || 1}`);
-
+  
