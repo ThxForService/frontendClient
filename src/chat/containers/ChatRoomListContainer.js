@@ -1,13 +1,9 @@
-'use client';
 import React, { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
 import List from '@/chat/components/ChatRoomList';
-import ChatStartComponent from '@/chat/components/ChatStartComponent';
 import { chatList, startChat } from '@/chat/apis/apiChat';
 
-const ChatRoomListContainer = () => {
+const ChatRoomListContainer = ({ onChatRoomClick }) => {
   const [items, setItems] = useState([]);
-  const router = useRouter();
 
   // 채팅방 목록 조회
   const fetchChatList = async () => {
@@ -19,32 +15,25 @@ const ChatRoomListContainer = () => {
     }
   };
 
-  // 채팅 시작
+  // 채팅 시작 버튼 눌렀을 때 roomNo를 받아서 부모 컴포넌트로 전달
   const handleStartChat = useCallback(async () => {
     try {
       const res = await startChat();
       const { roomNo } = res;
       console.log('채팅방 생성 성공');
-      router.replace('/chat/room/' + roomNo);
+      onChatRoomClick(roomNo);  // 생성된 roomNo를 부모 컴포넌트로 전달하여 UI 전환
     } catch (err) {
       console.error('채팅방 생성 오류', err);
     }
-  }, []);
-
+  }, [onChatRoomClick]);
 
   useEffect(() => {
     fetchChatList();
   }, []);
 
-
   return (
     <section>
-      <h1>채팅 메세지</h1>
-
-      <List
-        items={items}
-      />
-      <ChatStartComponent onCreateChat={handleStartChat} />
+      <List items={items} onChatRoomClick={onChatRoomClick} onCreateChat={handleStartChat} />
     </section>
   );
 };
