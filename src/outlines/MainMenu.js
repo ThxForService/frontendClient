@@ -52,15 +52,14 @@ const MenuItem = styled.li`
   }
 
   &:hover .sub-menu {
-    display: flex; 
+    display: flex;
   }
 `;
-
 const SubMenu = styled.div`
   position: absolute;
   top: 80px;
   background: ${white};
-  display: none; 
+  display: none;
   flex-direction: column;
   width: 200px;
   height: auto;
@@ -104,14 +103,11 @@ const MainMenu = () => {
           <MenuItem>
             <a>{t('상담신청')}</a>
             <SubMenu className="sub-menu">
-              <a href="/counseling/reserve">{t('상담')}</a>
-              <a href="/group/program/info">{t('집단 상담')}</a>
+              <a href="/counseling/reserve">{t('개인 상담 신청')}</a>
+              <a href="/counseling/group">{t('집단 상담 프로그램')}</a>
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
             </SubMenu>
           </MenuItem>
-          {/* Main 뺴고 넣을 예정 S */}
-          {/* <Image src="/images/counsel1.jpg" alt="1" width={60} height={20} /> */}
-          {/* Main 뺴고 넣을 예정 E */}
           <MenuItem>
             <a href="/">{t('Main')}</a>
             <SubMenu className="sub-menu">
@@ -120,16 +116,14 @@ const MainMenu = () => {
             </SubMenu>
           </MenuItem>
           <MenuItem>
-            <a>{t('자가 진단')}</a>
-            <SubMenu className="sub-menu">
-              <a href="/survey/list">{t('심리 검사')}</a>
-            </SubMenu>
+
+            <a href="/survey/list">{t('자가 진단')}</a>
           </MenuItem>
           <MenuItem>
             <a>{t('게시판')}</a>
             <SubMenu className="sub-menu">
-              <a href="/board/list/1">{t('공지사항')}</a>
-              <a href="/board/list/2">{t('QnA')}</a>
+              <a href="/board/list">{t('공지사항')}</a>
+              <a href="/board/list">{t('QnA')}</a>
             </SubMenu>
           </MenuItem>
         </MenuList>

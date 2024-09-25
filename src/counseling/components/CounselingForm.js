@@ -46,7 +46,6 @@ const CounselingForm = ({
   selectedDate,
   selectedTime,
   handleTimeSelect,
-  selectChange,
   onDateChange,
 }) => {
   const { t } = useTranslation();
@@ -124,8 +123,9 @@ const CounselingForm = ({
           <h4>{t('오전')}</h4>
           {times.morning.map((time) => (
             <button
+              type="button"
               key={time}
-              onClick={() => handleTimeSelect(time)}
+              onClick={(e) => handleTimeSelect(time, e)}
               style={{
                 backgroundColor: selectedTime === time ? 'green' : 'white',
                 color: selectedTime === time ? 'white' : 'black',
@@ -143,8 +143,9 @@ const CounselingForm = ({
           <h4>{t('오후')}</h4>
           {times.afternoon.map((time) => (
             <button
+              type="button"
               key={time}
-              onClick={() => handleTimeSelect(time)}
+              onClick={(e) => handleTimeSelect(time, e)}
               style={{
                 backgroundColor: selectedTime === time ? 'green' : 'white',
                 color: selectedTime === time ? 'white' : 'black',
