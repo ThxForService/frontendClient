@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors } from '@/theme/colors';
+import { buttonColor } from '@/theme/colors';
 import fontSizes from '@/theme/fontSizes';
 import fontWeight from '@/theme/fontWeight';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
 
-const { dark, light, midGreen, white, lightGreen } = colors;
+const { dark, light, midGreen, white, lightGreen } = buttonColor;
 
 const MenuContainer = styled.nav`
   position: relative;
@@ -52,14 +52,15 @@ const MenuItem = styled.li`
   }
 
   &:hover .sub-menu {
-    display: flex;
+    display: flex; 
   }
 `;
+
 const SubMenu = styled.div`
   position: absolute;
   top: 80px;
   background: ${white};
-  display: none;
+  display: none; 
   flex-direction: column;
   width: 200px;
   height: auto;
@@ -103,8 +104,8 @@ const MainMenu = () => {
           <MenuItem>
             <a>{t('상담신청')}</a>
             <SubMenu className="sub-menu">
-              <a href="/counseling/reserve">{t('개인 상담 신청')}</a>
-              <a href="/counseling/group">{t('집단 상담 프로그램')}</a>
+              <a href="/counseling/reserve">{t('상담')}</a>
+              <a href="/group/program/info">{t('집단 상담')}</a>
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
             </SubMenu>
           </MenuItem>
