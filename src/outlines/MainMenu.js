@@ -60,7 +60,7 @@ const SubMenu = styled.div`
   z-index: 1000;
   opacity: 0; /* 서브메뉴를 처음에 보이지 않게 설정 */
   transform: translateY(-20px); /* 처음에는 약간 위쪽에 위치 */
-  transition: opacity 0.5s ease, transform 0.5s ease; /* 부드러운 애니메이션 효과 추가 */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* 부드러운 애니메이션 효과 추가 */
   border-radius: 20px; /* 박스를 둥글게 설정 */
   pointer-events: none; /* 서브메뉴가 안보일 때는 클릭 불가 */
  
@@ -127,8 +127,13 @@ const MainMenu = () => {
           </MenuItem>
 
           <MenuItem>
-
-            <a href="/survey/list">{t('자가 진단')}</a>
+            <a>{t('자가 진단')}</a>
+            <SubMenu className="sub-menu">
+              <a href="/survey/answer">{t('answer')}</a>
+              <a href="/survey/list">{t('list')}</a>
+              <a href="/survey/register">{t('register')}</a>
+              <a href="/survey/view">{t('view')}</a>
+            </SubMenu>
           </MenuItem>
           <MenuItem>
             <a>{t('게시판')}</a>
