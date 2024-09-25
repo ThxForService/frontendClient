@@ -1,5 +1,3 @@
-import { save } from 'react-cookies';
-import requestData from '../../commons/libs/requestData';
 import saveProcess from '@/commons/libs/saveProcess';
 import apiRequest from '@/commons/libs/apiRequest';
 
