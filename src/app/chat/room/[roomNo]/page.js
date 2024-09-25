@@ -1,14 +1,13 @@
 'use client';
 
-import ChatHistoryContainer from '@/chat/containers/ChatHistoryContainer';
-import ChatMessageContainer from '@/chat/containers/ChatMessageContainer';
+import ChatContainer from '@/chat/containers/ChatContainer';
+import { ChatBox, ChatMessageBox } from '@/commons/layouts/StyledWrapper';
 
 const ChatPage = ({ params }) => {
   const { roomNo } = params;
   return (
     <>
-      <ChatHistoryContainer  roomNo={roomNo}/>
-      <ChatMessageContainer roomNo={roomNo} />
+      <ChatContainer roomNo={roomNo} />
     </>
   );
 };

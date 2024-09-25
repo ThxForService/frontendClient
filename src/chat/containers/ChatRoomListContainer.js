@@ -17,7 +17,6 @@ const ChatRoomListContainer = () => {
   };
 
 
-  // 컴포넌트 마운트 시 목록 조회
   useEffect(() => {
     fetchChatList();
   }, []);
