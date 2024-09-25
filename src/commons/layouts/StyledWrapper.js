@@ -58,15 +58,20 @@ export const ContentBox3 = styled.div`
 
 export const ChatBox = styled.div`
     box-sizing: border-box;
-    width: 450px;
-    padding: 10px 0 30px 0;
+    width: 400px;
+    height: 600px;
+    padding: 0;
     margin: 0 auto;
-    border-radius: 3px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
 `;
 
 export const ChatMessageBox = styled.div`
     overflow-y: scroll;
-    height: 350px;
+    height: 500px;
 `;
 
 export const ChatMessageSendBox = styled.div`
