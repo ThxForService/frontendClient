@@ -14,7 +14,7 @@ const MypageMain = () => {
         actions: { setUserInfo },
       } = useContext(UserInfoContext);
 
-      const { t } = useTranslation();
+    const { t } = useTranslation();
     const router = useRouter();
 
       return (

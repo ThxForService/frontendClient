@@ -16,7 +16,7 @@ export const apiList = (search) => {
   return requestData(url);
 };
 
-// 예약된 상세조회
+// 예약된 상세조회, 예약 성공
 export const myApiGet = (cSeq) =>
   requestData(`/reservation/counseling/list/${cSeq}`);
 

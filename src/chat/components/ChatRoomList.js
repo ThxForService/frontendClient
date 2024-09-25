@@ -1,6 +1,6 @@
 import React from 'react';
 
-const List = ({ items }) => {
+const ChatRoomList = ({ items }) => {
   return (
     <table>
       <thead>
@@ -29,4 +29,4 @@ const List = ({ items }) => {
   );
 };
 
-export default List;
+export default ChatRoomList;
