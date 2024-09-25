@@ -1,3 +1,11 @@
-export default function CounselingCompletePage() {
-  return <h1>상담 신청 완료 페이지</h1>;
-}
+import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
+
+const CounselingComplete = ({ params }) => {
+  return (
+    <MemberOnlyContainer>
+      {/* <CounselingCompleteContainer params={params} /> */}
+    </MemberOnlyContainer>
+  );
+};
+
+export default CounselingComplete;
