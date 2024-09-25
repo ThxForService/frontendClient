@@ -36,14 +36,20 @@ const CounselingApplyContainer = () => {
   }, []);
 
   // 날짜 선택 처리
-  const onDateChange = useCallback((date) => {
-    setForm((form) => ({ ...form, rDate: date }));
-  }, []);
+  const onDateChange = (date) => {
+    const formattedDate = date.toISOString().split('T')[0]; // 날짜 부분만 추출 (YYYY-MM-DD)
+    setForm((form) => ({ ...form, rDate: formattedDate }));
+  };
 
   // 시간 선택 처리
   const onTimeSelect = useCallback((time) => {
     setForm((form) => ({ ...form, rTime: time }));
   }, []);
+
+  const handleTimeSelect = (time, e) => {
+    e.preventDefault(); // 폼 제출 방지
+    setForm((form) => ({ ...form, rTime: time }));
+  };
 
   // 유효성 검사 함수
   const validateForm = () => {
@@ -97,8 +103,10 @@ const CounselingApplyContainer = () => {
               : err.message;
           setErrors((prevErrors) => ({ ...prevErrors, ...apiErrors }));
         }
+        console.log('예약확인으로가야되는데');
       })();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [form, router],
   );
 
@@ -111,7 +119,8 @@ const CounselingApplyContainer = () => {
         onCaseChange={onCaseChange}
         onSubmit={onSubmit}
         onDateChange={onDateChange}
-        handleTimeSelect={onTimeSelect}
+        onTimeSelect={onTimeSelect}
+        handleTimeSelect={handleTimeSelect}
       />
     </StyledWrapper>
   );
