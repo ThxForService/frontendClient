@@ -3,9 +3,7 @@ import React from 'react';
 import MainContainer from '@/main/containers/MainContainer';
 
 const Home = () => {
-  return (
-    <MainContainer/>
-  );
+  return <MainContainer />;
 };
 
 export default Home;

@@ -4,9 +4,13 @@ export default function apiApply(form) {
   return new Promise((resolve, reject) => {
     (async () => {
       try {
-        const res = await apiRequest(`/counseling/apply`, 'POST', form);
+        const res = await apiRequest(
+          `/reservation/counseling/apply`,
+          'POST',
+          form,
+        );
         if (res.status === 201) {
-          resolve(res.data.data);
+          resolve(res.data);
           return;
         }
 

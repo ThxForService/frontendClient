@@ -1,5 +1,6 @@
 'use client';
-import AnswerContainer from '@/psychologicalTest/containers/AnswerContainer';
+
+import AnswerContainer from '@/survey/containers/AnswerContainer';
 import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
 import { getUserStates } from '@/commons/contexts/UserInfoContext';
 
