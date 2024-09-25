@@ -1,17 +1,17 @@
 'use client';
 import React, {useLayoutEffect} from 'react';
 import { useTranslation } from 'react-i18next';
-import MyPosts from '../components/MyPosts';
+import MyHistory from '../components/MyHistory';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 
-const BoardContainer = () => {
+const MyHistoryContainer = () => {
   const { t } = useTranslation();
   const { setMainTitle } = getCommonActions();
   useLayoutEffect(() => {
     setMainTitle(t('마이페이지'));
   }, [setMainTitle, t]);
 
-  return <MyPosts />;
+  return <MyHistory />;
 };
 
-export default React.memo(BoardContainer);
+export default React.memo(MyHistoryContainer);

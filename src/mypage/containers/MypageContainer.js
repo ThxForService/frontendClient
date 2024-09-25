@@ -73,7 +73,7 @@ const MypageContainer = () => {
   },[memberSeq]);
 
   return (
-    <MypageMain />
+    <MypageMain item={item} />
 );
 };
 

@@ -59,6 +59,13 @@ const Wrapper = styled.div`
   }
 `;
 
+const Seperator = styled.div`
+  margin: 10px 0;
+  width: 100%;
+  height: 8px;
+  background-color: #ececec;
+`;
+
 const MypageMain = ({ item }) => {
   const {
     states: { userInfo },
@@ -72,25 +79,6 @@ const MypageMain = ({ item }) => {
   };
 
   const { t } = useTranslation();
-  const {
-    authority,
-    username,
-    email,
-    mobile,
-    birthdate,
-    address,
-    addressSub,
-    zonecode,
-    studentNo,
-    grade,
-    department,
-    professor,
-    status,
-    empNo,
-    introduction,
-    subject,
-    rating,
-  } = userInfo;
   const router = useRouter();
 
   return (
@@ -105,64 +93,66 @@ const MypageMain = ({ item }) => {
 
       <Wrapper>
         <dl>
-          <dt>{username}</dt>
+          <dt>{userInfo?.username}</dt>
           <dd></dd>
         </dl>
         <dl>
           <dt>{t('ID')}</dt>
-          <dd>{email}</dd>
+          <dd>{userInfo?.email}</dd>
         </dl>
-        {mobile && (
+        {userInfo?.mobile && (
           <dl>
             <dt>{t('연락처')}</dt>
-            <dd>{mobile || '등록정보 없음'}</dd>
+            <dd>{userInfo?.mobile || '등록정보 없음'}</dd>
           </dl>
         )}
-        {(address || addressSub || zonecode) && (
+        {(userInfo?.address || userInfo?.addressSub || userInfo?.zonecode) && (
           <dl>
             <dt>{t('주소')}</dt>
             <dd>
-              {address || '등록정보 없음'}
-              {addressSub ? '등록정보 없음' : ''} {zonecode || '등록정보 없음'}
+              {userInfo?.address || '등록정보 없음'}
+              {userInfo?.addressSub ? '등록정보 없음' : ''}{' '}
+              {userInfo?.zonecode || '등록정보 없음'}
             </dd>
           </dl>
         )}
         <dl>
           <dt>{t('생년월일')}</dt>
-          <dd>{formatDate(birthdate)}</dd>
+          <dd>{formatDate(userInfo?.birthdate)}</dd>
         </dl>
-        {studentNo && (
+        <Seperator />
+        {userInfo?.studentNo && (
           <dl>
             <dt>{t('학번')}</dt>
-            <dd>{studentNo}</dd>
+            <dd>{userInfo?.studentNo}</dd>
           </dl>
         )}
-        {empNo && (
+        {userInfo?.empNo && (
           <dl>
             <dt>{t('사번')}</dt>
-            <dd>{empNo}</dd>
+            <dd>{userInfo?.empNo}</dd>
           </dl>
         )}
-        {department && (
+        {userInfo?.department && (
           <dl>
             <dt>{t('학과')}</dt>
-            <dd>{department}</dd>
+            <dd>{userInfo?.department}</dd>
           </dl>
         )}
-        {grade && (
+        {userInfo?.grade && (
           <dl>
             <dt>{t('학과')}</dt>
-            <dd>{grade}</dd>
+            <dd>{userInfo?.grade}</dd>
           </dl>
         )}
         <dl>
           <dt>{t('상태')}</dt>
-          <dd>{status || '등록정보 없음'}</dd>
+          <dd>{userInfo?.status || '등록정보 없음'}</dd>
         </dl>
-        {authority === 'STUDENT' && (
+        {userInfo?.authority === 'STUDENT' && (
           <dl>
             <dt>{t('지도교수')}</dt>
-            <dd>{professor || '등록정보 없음'}</dd>
+            <dd>{userInfo?.professor?.username || '등록정보 없음'}</dd>
           </dl>
         )}
       </Wrapper>
