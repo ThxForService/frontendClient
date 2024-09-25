@@ -52,6 +52,7 @@ const GroupListContainer = ({ searchParams }) => {
           department: userInfo.department,
           email: userInfo.email,
           mobile: userInfo.mobile,
+          status: 'APPLY',
         };
         console.log('form', form);
         await groupApiApply(pgmSeq, form); // 신청하기 API 호출

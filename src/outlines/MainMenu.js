@@ -1,5 +1,5 @@
 import React from 'react';
-import { buttonColor } from '@/theme/colors';
+import { colors } from '@/theme/colors';
 import fontSizes from '@/theme/fontSizes';
 import fontWeight from '@/theme/fontWeight';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
 
-const { dark, light, midGreen, white, lightGreen } = buttonColor;
+const { dark, light, midGreen, white, lightGreen } = colors;
 
 const MenuContainer = styled.nav`
   position: relative;
