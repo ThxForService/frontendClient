@@ -1,48 +1,64 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'next-i18next';
-import { StyledInput } from '@/commons/components/StyledInput';
-import { StyledButton } from '@/commons/components/StyledButton';
-import StyledMessage from '@/commons/components/StyledMessage';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
-import { ChatBox, ChatMessageBox, ChatMessageSendBox } from '@/commons/layouts/StyledWrapper';
+import { ChatBox, ChatHeader, ChatFooter, ChatMessageBox, ChatMessageSendBox } from '@/commons/layouts/StyledWrapper';
 import styled from 'styled-components';
 
-
 const MessageBox = styled.form`
+    overflow-y: auto;
     .chat-message {
         display: flex;
-        justify-content: flex-start; /* 기본적으로 왼쪽 정렬 */
+        justify-content: flex-start;
         margin-bottom: 10px;
     }
 
     .chat-message.right {
-        justify-content: flex-end; /* 오른쪽 정렬 */
+        justify-content: flex-end;
     }
 
     .message-text {
+        font-size: 15px;
+        color: #FFFFFFCC;
         padding: 10px;
         border-radius: 15px;
         max-width: 60%;
-    }
-
-    .message-text.sender {
-        background-color: #5697cc;
-    }
-
-    .message-text.receiver {
-        background-color: #5697cc;
+        background-color: rgba(255, 255, 255, 0.08);  // 기본 수신 메시지 색상
+        &.sender {
+            margin-right: 10px;
+        }
+        &.receiver{
+            margin-left: 10px;
+        }
     }
 `;
 
 const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
   const { t } = useTranslation();
   const { states: { userInfo } } = getUserContext();
+  const messageEndRef = useRef(null);
 
+
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
+
+  const handleKeyPress = (e) => {
+    // Enter 키가 눌렸을 때
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // 기본 Enter 동작 방지
+      onSubmit(e); // onSubmit 호출
+    }
+  };
 
   return (
-
     <div>
       <ChatBox>
+        <ChatHeader>
+          <header>
+          </header>
+        </ChatHeader>
         <ChatMessageBox>
           <MessageBox>
             <div>
@@ -52,38 +68,33 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
                     key={index}
                     className={`chat-message ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'right' : ''}`}
                   >
-                    <div key={index}
-                         className={`message-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
+                    <div className={`time-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
+                      {msg.createdAt ? msg.createdAt.split(' ')[1].slice(0, 5) : new Date().toTimeString().slice(0, 5)}
+                    </div>
+                    <div className={`message-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
                       {msg.message}
                     </div>
                   </li>
                 ))}
+                <div ref={messageEndRef} />
               </ul>
             </div>
           </MessageBox>
         </ChatMessageBox>
-        <ChatMessageBox>
+        <ChatFooter>
           <form onSubmit={onSubmit}>
-            <dl>
-              <dt></dt>
-              <dd>
-                <StyledInput
-                  type="text"
-                  name="message"
-                  value={form.message}
-                  onChange={onChange}
-                  placeholder={t('메시지를 입력하세요')}
-                />
-                <StyledMessage variant="danger">{errors?.message}</StyledMessage>
-              </dd>
-            </dl>
-            <StyledButton type="submit">{t('제출')}</StyledButton>
+            <ChatMessageSendBox type="text" autoComplete="off" name="message" value={form.message} onChange={onChange}
+                         onKeyPress={handleKeyPress}
+                         placeholder={t('메시지를 입력하세요')} />
+            {/*<StyledButton type="submit">{t('제출')}</StyledButton>*/}
+            {/*{errors.message && <StyledMessage variant="danger">{errors.message}</StyledMessage>}*/}
           </form>
-        </ChatMessageBox>
+        </ChatFooter>
       </ChatBox>
+      <footer>
+      </footer>
     </div>
-  )
-    ;
+  );
 };
 
 export default React.memo(ChatComponent);

@@ -1,14 +1,14 @@
 'use client';
 
 import ChatContainer from '@/chat/containers/ChatContainer';
-import { ChatBox, ChatMessageBox } from '@/commons/layouts/StyledWrapper';
+import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
 
 const ChatPage = ({ params }) => {
   const { roomNo } = params;
   return (
-    <>
+    <MemberOnlyContainer>
       <ChatContainer roomNo={roomNo} />
-    </>
+    </MemberOnlyContainer>
   );
 };
 
