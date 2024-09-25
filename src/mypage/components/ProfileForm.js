@@ -295,7 +295,7 @@ const ProfileForm = ({
           <StyledMessage color="danger" messages={errors.global} />
         )}
 
-        {/* 하단에 배치된 StyledButton */}
+        
         <StyledButton className="update" type="submit">
           {t('수정하기')}
         </StyledButton>
