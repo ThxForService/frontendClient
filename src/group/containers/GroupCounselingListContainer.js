@@ -1,30 +1,18 @@
 'use client';
-import React, {
-  useLayoutEffect,
-  useEffect,
-  useState,
-  useCallback,
-} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getCommonActions } from '@/commons/contexts/CommonContext';
 import groupApiProgramList from '../apis/groupApiProgramList';
 import { useRouter } from 'next/navigation';
 import Pagination from '@/commons/components/Pagination';
-import Link from 'next/link';
-import { StyledButton } from '@/commons/components/StyledButton';
 import { groupApiApply } from '../apis/groupApiApply';
+import ListItems from '../components/ListItems';
+import { getUserStates } from '@/commons/contexts/UserInfoContext';
 
 const GroupListContainer = ({ searchParams }) => {
-  const { setMenuCode, setSubMenuCode } = getCommonActions();
-
-  //   useLayoutEffect(() => {
-  //     setMenuCode('counseling');
-  //     setSubMenuCode('group');
-  //   }, [setMenuCode, setSubMenuCode]);
+  const { userInfo } = getUserStates();
 
   const [programs, setPrograms] = useState([]);
   const [pagination, setPagination] = useState(null);
-  const [errors, setErrors] = useState({});
   const router = useRouter();
   const { t } = useTranslation();
 
@@ -53,36 +41,34 @@ const GroupListContainer = ({ searchParams }) => {
     [router],
   );
 
-  const onApply = useCallback(async (pgmSeq) => {
-    console.log(pgmSeq);
-    try {
-      await groupApiApply(pgmSeq); // 신청하기 API 호출
-      alert(`${pgmSeq} 프로그램에 신청했습니다!`); // 성공 메시지
-    } catch (error) {
-      setErrors(error.message); // 에러 처리
-      alert('신청에 실패했습니다.'); // 에러 메시지
-    }
-  }, []);
+  const onApply = useCallback(
+    async (pgmSeq) => {
+      try {
+        const form = {
+          pgmSeq,
+          studentNo: userInfo.studentNo,
+          username: userInfo.username,
+          grade: userInfo.grade,
+          department: userInfo.department,
+          email: userInfo.email,
+          mobile: userInfo.mobile,
+        };
+        console.log('form', form);
+        await groupApiApply(pgmSeq, form); // 신청하기 API 호출
+        alert(`${pgmSeq} 프로그램에 신청했습니다!`); // 성공 메시지
+        router.replace('/counseling/list');
+      } catch (error) {
+        console.error(error);
+        alert('신청에 실패했습니다.'); // 에러 메시지
+      }
+    },
+    [userInfo, router],
+  );
 
   return (
     <div>
-      <h1>집단 상담 프로그램 목록</h1>
-      <ul>
-        {programs &&
-          programs.length > 0 &&
-          programs.map(({ pgmSeq, pgmNm }) => (
-            <li key={pgmSeq}>
-              <Link href={`/group/program/info/${pgmSeq}`}>{pgmNm}</Link>
-              <StyledButton
-                type="button"
-                variant="primary"
-                onClick={() => onApply(pgmSeq)}
-              >
-                {t('신청하기')}
-              </StyledButton>
-            </li>
-          ))}
-      </ul>
+      <h1>{t('집단_상담_프로그램_목록')}</h1>
+      <ListItems items={programs} onApply={onApply} />
       {pagination && (
         <Pagination pagination={pagination} onClick={onChangePage} />
       )}

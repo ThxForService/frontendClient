@@ -1,10 +1,10 @@
 import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
-import GroupCounselingApplyContainer from '@/group/containers/GroupCounselingApplyContainer';
+import GroupCounselingListContainer from '@/group/containers/GroupCounselingListContainer';
 
 const GroupProgramViewPage = ({ params }) => {
   return (
     <MemberOnlyContainer>
-      <GroupCounselingApplyContainer params={params} />
+      <GroupCounselingListContainer params={params} />
     </MemberOnlyContainer>
   );
 };

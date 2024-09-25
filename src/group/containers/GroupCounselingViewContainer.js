@@ -3,10 +3,9 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { groupApiProgramInfo } from '../apis/groupApiProgramInfo';
 import { useRouter } from 'next/navigation';
-import programStatus from '../constants/programStatus';
+import ViewItems from '../components/ViewItems';
 
 const GroupCounselingViewContainer = ({ params }) => {
-  const { setMenuCode, setSubMenuCode } = getCommonActions();
   const router = useRouter();
 
   const { pgmSeq } = params; // URL 파라미터에서 pgmSeq 가져오기
@@ -45,40 +44,7 @@ const GroupCounselingViewContainer = ({ params }) => {
 
   return (
     <div>
-      {/* **프로그램 세부 정보 표시** */}
-      {programs && ( // programs가 null이 아닐 때만 렌더링
-        <>
-          <h1>{programs.pgmNm}</h1>
-          <p>
-            <strong>설명:</strong> {programs.description}
-          </p>
-          <p>
-            <strong>일시:</strong>{' '}
-            {new Date(programs.pgmStartDate).toLocaleString('ko-KR', {
-              year: 'numeric',
-              month: 'numeric',
-              day: 'numeric',
-              weekday: 'long', // 요일 표시
-              hour: 'numeric',
-              minute: 'numeric',
-              hour12: true, // 12시간제
-            }).replace(/(\d{4})\.(\s*\d{1,2})\.(\s*\d{1,2})/, '$1. $2. $3')}
-          </p>
-          <p>
-            <strong>정원:</strong> {programs.capacity}
-          </p>
-          <p>
-            <strong>신청 가능 기간:</strong> {programs.startDate} ~{' '}
-            {programs.endDate}
-          </p>
-          <p>
-            <strong>접수 상태:</strong>{' '}
-            {programStatus[programs.status] || '상태 미정'}
-          </p>
-          <button onClick={onChange}>목록으로 돌아가기</button>{' '}
-          {/* 목록으로 돌아가기 버튼 */}
-        </>
-      )}
+      <ViewItems programs={programs} onChange={onChange} />
     </div>
   );
 };

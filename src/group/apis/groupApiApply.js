@@ -1,11 +1,23 @@
-import { SourceEditing } from 'ckeditor5';
-import apiRequest from '../../commons/libs/apiRequest';
+import saveProcess from '@/commons/libs/saveProcess';
 
-export function groupApiApply(pgmSeq) {
+export function groupApiApply(pgmSeq, form) {
+  return saveProcess(
+    `/reservation/group/program/apply/${pgmSeq}`,
+    'POST',
+    form,
+  );
+}
+
+/*
+export function groupApiApply(pgmSeq, form) {
   return new Promise((resolve, reject) => {
     (async () => {
       try {
-        const res = await apiRequest(`/reservation/group/program/apply/${pgmSeq}`, 'POST');
+        const res = await apiRequest(
+          `/reservation/group/program/apply/${pgmSeq}`,
+          'POST',
+          form,
+        );
         if (res.status === 201) {
           resolve(res.data);
           return;
@@ -17,3 +29,4 @@ export function groupApiApply(pgmSeq) {
     })();
   });
 }
+*/
