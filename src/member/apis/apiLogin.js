@@ -44,9 +44,9 @@ export const apiUser = () =>
           } catch (err) {
             console.error(err);
           }
-        })();
 
-        resolve(user);
+          resolve(user);
+        })();
       })
       .catch((err) => {
         cookies.remove('token', { path: '/' });
