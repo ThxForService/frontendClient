@@ -1,7 +1,10 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
+import styled from "styled-components";
 
-const MyHistory = () => {
-    return <h1>상담이력</h1>;
+const MyHistory = ({items}) => {
+
+   
 };
 
 export default React.memo(MyHistory);

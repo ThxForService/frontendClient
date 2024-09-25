@@ -67,7 +67,6 @@ const MypageContainer = () => {
       } catch (err) {
         console.error(err);
       }
-
     })();
 
   },[memberSeq]);
