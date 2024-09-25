@@ -1,7 +1,7 @@
-const status = {
-    APPLY: "예약완료",
-    CANCEL: "예약취소",
-    END: "상담종료",
+const Status = {
+  APPLY: '예약 완료',
+  CANCEL: '예약 취소',
+  END: '상담 종료',
 };
 
-export default status;
+export default Status;
