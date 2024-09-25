@@ -6,4 +6,4 @@ const surveyType = {
   EATING_DISORDER: '섭식장애',
 };
 
-export default surveyTestType;
+export default surveyType;

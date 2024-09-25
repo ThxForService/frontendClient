@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import ItemList from '../components/ItemList';
-import { apisurveyList } from '../apis/apiList';
+import { apiSurveyList } from '../apis/apiList';
 
 const TestListContainer = () => {
   const [items, setItems] = useState([]);
@@ -9,7 +9,7 @@ const TestListContainer = () => {
   useEffect(() => {
     (async () => {
       try {
-        const items = await apisurveyList();
+        const items = await apiSurveyList();
         setItems(items);
         setTimeout(function () {
           setLoading(true);
