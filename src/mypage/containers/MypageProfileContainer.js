@@ -7,6 +7,7 @@ import { updateProfile } from '../apis/apiMypage';
 import ProfileForm from '../components/ProfileForm';
 import ProfileImage from '../components/ProfileImage';
 import { getProfessors } from '@/member/apis/apiInfo';
+import Image from 'next/image';
 
 const MypageProfileContainer = () => {
   const {

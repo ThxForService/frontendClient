@@ -63,7 +63,7 @@ const JoinContainer = () => {
         authority: t('가입유형을_선택하세요.'),
         zonecode: t('우편번호를_입력하세요.'),
         address: t('주소를_입력하세요.'),
-        birth: t('생년월일을_입력하세요.'),
+        birthDate: t('생년월일을_입력하세요.'),
       };
 
       if (form?.authority === 'STUDENT') {
