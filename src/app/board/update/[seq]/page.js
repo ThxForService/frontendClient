@@ -1,5 +1,12 @@
-const UpdatePage = (props) => {
-  return <h1>글수정</h1>;
+import MemberOnlyContainer from "@/member/containers/MemberOnlyContainer";
+import RegisterContainer from "@/board/containers/RegisterContainer";
+
+const UpdatePage = () => {
+  return (
+    <MemberOnlyContainer>
+      <RegisterContainer />
+    </MemberOnlyContainer>
+  );
 };
 
 export default UpdatePage;
