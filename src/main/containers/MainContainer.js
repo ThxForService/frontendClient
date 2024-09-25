@@ -5,7 +5,7 @@ const MainContainer = () => {
   return( 
   
    <div>
-     <Maincomponents /><h1></h1>;
+     <Maincomponents /><h1></h1>
      </div>
   );
 };

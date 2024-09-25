@@ -16,7 +16,7 @@ const Page = () => {
 
   return (
     <div>
-      <h1>채팅 페이지</h1>
+      <h1></h1>
       <ModalButton onClick={openModal} />  {/* 모달 열기 버튼 */}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <ChatRoomListContainer/>

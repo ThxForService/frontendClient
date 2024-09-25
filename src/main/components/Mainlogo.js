@@ -7,7 +7,7 @@ import smilelogo from '/public/images/smilelogo.png'; // 이미지 경로
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-left: -170px;
+  margin-left: -200px;
   margin-top: -4px;
   position: absolute;
 `;
