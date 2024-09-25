@@ -13,8 +13,9 @@ const initialForm = {
   mobile: '',
   rDate: null, // 날짜 초기값
   rTime: '', // 시간 초기값
-  cCase: 'FAMILY', // 기본 상담 유형
+  ccase: 'FAMILY', // 기본 상담 유형
   customCase: '',
+  creason: '',
 };
 
 const CounselingApplyContainer = () => {
@@ -23,21 +24,10 @@ const CounselingApplyContainer = () => {
   const router = useRouter(); // 페이지 이동을 위한 useRouter
   const { t } = useTranslation();
 
-  // 폼 데이터 변경 처리
-  const onChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setForm((form) => ({ ...form, [name]: value }));
-  }, []);
-
-  // 상담 유형 선택 처리
-  const onCaseChange = useCallback((e) => {
-    const { value } = e.target;
-    setForm((form) => ({ ...form, cCase: value })); // 상담 유형 선택 시 상태 업데이트
-  }, []);
-
   // 날짜 선택 처리
   const onDateChange = (date) => {
     const formattedDate = date.toISOString().split('T')[0]; // 날짜 부분만 추출 (YYYY-MM-DD)
+    console.log('onDateChange', formattedDate);
     setForm((form) => ({ ...form, rDate: formattedDate }));
   };
 
@@ -46,8 +36,22 @@ const CounselingApplyContainer = () => {
     setForm((form) => ({ ...form, rTime: time }));
   }, []);
 
+  // 폼 데이터 변경 처리
+  const onChange = useCallback((e) => {
+    const { name, value } = e.target;
+
+    console.log('onChange', name, value);
+
+    // ccase 또는 creason일 경우 처리 로직 분리 가능
+    if (name === 'ccase' || name === 'creason') {
+      setForm((form) => ({ ...form, [name]: value }));
+    } else {
+      setForm((form) => ({ ...form, [name]: value }));
+    }
+  }, []);
+
   const handleTimeSelect = (time, e) => {
-    e.preventDefault(); // 폼 제출 방지
+    console.log('handleTimeSelect', time, e);
     setForm((form) => ({ ...form, rTime: time }));
   };
 
@@ -57,12 +61,14 @@ const CounselingApplyContainer = () => {
     let hasErrors = false;
 
     const requiredFields = {
-      studentNo: t('학번을 입력하세요.'),
-      username: t('이름을 입력하세요.'),
-      email: t('이메일을 입력하세요.'),
-      mobile: t('전화번호를 입력하세요.'),
-      rDate: t('예약 날짜를 선택하세요.'),
-      rTime: t('예약 시간을 선택하세요.'),
+      studentNo: t('학번을_입력하세요.'),
+      username: t('이름을_입력하세요.'),
+      email: t('이메일을_입력하세요.'),
+      mobile: t('전화번호를_입력하세요.'),
+      rDate: t('예약_날짜를_선택하세요.'),
+      rTime: t('예약_시간을_선택하세요.'),
+      creason: t('상담_경위를_선택하세요.'),
+      customCase: t('상담_사유를_적어보세요.'),
     };
 
     for (const [field, message] of Object.entries(requiredFields)) {
@@ -87,15 +93,18 @@ const CounselingApplyContainer = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
+      console.log('폼데이터', form);
       const hasErrors = validateForm();
       if (hasErrors) return; // 유효성 검사를 통과하지 못하면 종료
 
+      console.log('api요청전', form);
       // API 요청을 통한 예약 처리
       (async () => {
         try {
           await apiApply(form);
           router.replace('/counseling/complete'); // 예약 성공 후 페이지 이동
         } catch (err) {
+          console.log('api요청오류', err);
           // 오류 처리
           const apiErrors =
             typeof err.message === 'string'
@@ -103,7 +112,6 @@ const CounselingApplyContainer = () => {
               : err.message;
           setErrors((prevErrors) => ({ ...prevErrors, ...apiErrors }));
         }
-        console.log('예약확인으로가야되는데');
       })();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -116,7 +124,6 @@ const CounselingApplyContainer = () => {
         form={form}
         errors={errors}
         onChange={onChange}
-        onCaseChange={onCaseChange}
         onSubmit={onSubmit}
         onDateChange={onDateChange}
         onTimeSelect={onTimeSelect}

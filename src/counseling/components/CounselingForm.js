@@ -1,10 +1,17 @@
 import React from 'react';
 import Calendar from 'react-calendar';
 import { StyledInput } from '@/commons/components/StyledInput';
-import { StyledButton } from '@/commons/components/StyledButton';
+import {
+  StyledButton,
+  StyledTimeButton,
+} from '@/commons/components/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import ccase from '../constants/cCase';
+import creason from '../constants/cReason';
+import { IoIosRadioButtonOn, IoIosRadioButtonOff } from 'react-icons/io';
+
 const FormBox = styled.form`
   dl {
     display: flex;
@@ -38,13 +45,26 @@ const FormBox = styled.form`
     }
   }
 `;
+const RadioLabel = styled.label`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  span {
+    margin-left: 8px;
+  }
+`;
+const RadioWrapper = styled.div`
+  margin-top: 15px;
+`;
+
 const CounselingForm = ({
   form,
   errors,
   onSubmit,
   onChange,
   selectedDate,
-  selectedTime,
   handleTimeSelect,
   onDateChange,
 }) => {
@@ -53,17 +73,10 @@ const CounselingForm = ({
     morning: ['09:00', '10:00', '11:00', '12:00'],
     afternoon: ['13:00', '14:00', '15:00', '16:00', '17:00'],
   };
-  const options = [
-    { value: 'FAMILY', label: '가족' },
-    { value: 'ACADEMIC', label: '학업/진로' },
-    { value: 'RELATIONSHIPS', label: '대인관계' },
-    { value: 'EMOTIONAL', label: '심리정서' },
-    { value: 'BEHAVIOR', label: '생활습관 및 행동문제' },
-    { value: 'ROMANCE_SEX', label: '연애와 성' },
-    { value: 'LIFE_VALUES', label: '삶과 가치' },
-    { value: 'PERSONALITY', label: '성격' },
-    { value: 'OTHER', label: '기타' },
-  ];
+  const options = Object.keys(ccase).map((key) => ({
+    value: key,
+    label: ccase[key],
+  }));
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
@@ -109,6 +122,7 @@ const CounselingForm = ({
           <StyledMessage color="danger" messages={errors.mobile} />
         )}
       </div>
+      <div></div>
       <div>
         <dt>{t('상담_날짜')}</dt>
         <Calendar onChange={onDateChange} value={selectedDate} />{' '}
@@ -117,46 +131,66 @@ const CounselingForm = ({
         )}
       </div>
 
+      <RadioWrapper>
+        <dt>{t('상담_경위')}</dt>
+        <dd>
+          <RadioLabel
+            onClick={() =>
+              onChange({ target: { name: 'creason', value: 'VOLUNTARY' } })
+            }
+          >
+            {form?.creason === 'VOLUNTARY' ? (
+              <IoIosRadioButtonOn />
+            ) : (
+              <IoIosRadioButtonOff />
+            )}
+            <span>{creason.VOLUNTARY}</span>
+          </RadioLabel>
+
+          <RadioLabel
+            onClick={() =>
+              onChange({ target: { name: 'creason', value: 'RECOMMENDED' } })
+            }
+          >
+            {form?.creason === 'RECOMMENDED' ? (
+              <IoIosRadioButtonOn />
+            ) : (
+              <IoIosRadioButtonOff />
+            )}
+            <span>{creason.RECOMMENDED}</span>
+          </RadioLabel>
+          {errors?.creason && (
+            <StyledMessage color="danger" messages={errors.creason} />
+          )}
+        </dd>
+      </RadioWrapper>
+
       <div>
         <dt>{t('상담_시간')}</dt>
         <div>
           <h4>{t('오전')}</h4>
           {times.morning.map((time) => (
-            <button
+            <StyledTimeButton
               type="button"
               key={time}
+              selected={form.rTime === time} // form.rTime이 선택된 시간인지 확인
               onClick={(e) => handleTimeSelect(time, e)}
-              style={{
-                backgroundColor: selectedTime === time ? 'green' : 'white',
-                color: selectedTime === time ? 'white' : 'black',
-                padding: '10px',
-                margin: '5px',
-                border: '1px solid gray',
-                borderRadius: '5px',
-              }}
             >
               {time}
-            </button>
+            </StyledTimeButton>
           ))}
         </div>
         <div>
           <h4>{t('오후')}</h4>
           {times.afternoon.map((time) => (
-            <button
+            <StyledTimeButton
               type="button"
               key={time}
+              selected={form.rTime === time} // form.rTime이 선택된 시간인지 확인
               onClick={(e) => handleTimeSelect(time, e)}
-              style={{
-                backgroundColor: selectedTime === time ? 'green' : 'white',
-                color: selectedTime === time ? 'white' : 'black',
-                padding: '10px',
-                margin: '5px',
-                border: '1px solid gray',
-                borderRadius: '5px',
-              }}
             >
               {time}
-            </button>
+            </StyledTimeButton>
           ))}
         </div>
         {errors?.rTime && (
@@ -166,23 +200,14 @@ const CounselingForm = ({
 
       <div>
         <dt>{t('상담_유형')}</dt>
-        <select name="cCase" value={form.cCase} onChange={onChange}>
+        <select name="ccase" value={form.ccase} onChange={onChange}>
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
           ))}
-          <option value="FAMILY">{t('가족')}</option>
-          <option value="ACADEMIC">{t('학업/진로')}</option>
-          <option value="RELATIONSHIPS">{t('대인관계')}</option>
-          <option value="EMOTIONAL">{t('심리정서')}</option>
-          <option value="BEHAVIOR">{t('생활습관 및 행동문제')}</option>
-          <option value="ROMANCE_SEX">{t('연애와 성')}</option>
-          <option value="LIFE_VALUES">{t('삶과 가치')}</option>
-          <option value="PERSONALITY">{t('성격')}</option>
-          <option value="OTHER">{t('기타')}</option>
         </select>
-        {form?.cCase === 'OTHER' && (
+        {form?.ccase === 'OTHER' && (
           <div>
             <label>{t('기타 내용')}</label>
             <input
