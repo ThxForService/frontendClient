@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import cookies from 'react-cookies';
+import Link from 'next/link';
 
 const { darkPink, black } = colors;
 
@@ -80,7 +81,11 @@ const Footer = () => {
       <FooterBox>
         <FooterWrap>
           <FooterContentBox>
-            <Address>개인정보처리방침</Address>
+            <Address>
+          <Link href="/privacy-policy">
+                개인정보처리방침 {/* 클릭하면 PrivacyPolicy 페이지로 이동 */}
+              </Link>
+            </Address>
             <Information>
               <br />
             </Information>
@@ -94,8 +99,7 @@ const Footer = () => {
               counselyic@yonsei.ac.kr
               <br />
               <br />
-              Copyrights (c) 2024 THX Counseling Center. All
-              rights reserved.
+              Copyrights (c) 2024 THX Counseling Center. All rights reserved.
             </Information2>
           </FooterContentBox>
           <FooterImageBox>
