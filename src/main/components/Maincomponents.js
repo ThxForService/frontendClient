@@ -59,19 +59,26 @@ const InquiryBox = styled.div`
   color: #fff;
   font-size: 1.5rem;
   text-align: center;
-  width: 800px; /* 상자의 너비 */
-  height: 300px;
+  width: 780px; /* 상자의 너비 */
+  height: auto;
   overflow-y: auto; /* 내용이 많을 경우 스크롤 생성을 허용 */
 `;
 
 const FlexContainer = styled.div`
   display: flex;
   justify-content: space-between; /* 좌우 간격을 동일하게 유지 */
-  margin-top: 30px;
+  margin-top: 20px;
+`;
+
+const BoxWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 텍스트 왼쪽 정렬 */
+  margin: 60px;
 `;
 
 const AddressBox = styled.div`
-  margin-top: 20px; /* 상단 여백 */
+  margin-top: -20px; /* 상단 여백 */
   padding: 10px;
   border: 1px solid #fff;
   border-radius: 5px;
@@ -79,12 +86,12 @@ const AddressBox = styled.div`
   font-size: 1.2rem;
   color: #fff;
   width: 55px;
-  margin-left: auto;
+  margin-left: 20px;
   margin-right: auto;
 `;
 
 const PhoneBox = styled.div`
-  margin-top: 20px;
+  margin-top: -20px;
   padding: 10px;
   border: 1px solid #fff;
   border-radius: 5px;
@@ -92,12 +99,11 @@ const PhoneBox = styled.div`
   font-size: 1.2rem;
   color: #fff;
   width: 55px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: -10px;
 `;
 
 const EmailBox = styled.div`
-  margin-top: 20px; /* 상단 여백 */
+  margin-top: -20px; /* 상단 여백 */
   padding: 10px;
   border: 1px solid #fff;
   border-radius: 5px;
@@ -105,8 +111,31 @@ const EmailBox = styled.div`
   font-size: 1.2rem;
   color: #fff;
   width: 70px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: -0px;
+`;
+
+const AddressText = styled.p`
+  margin-top: 20px; /* 아래로 이동 */
+  margin-left: -20px; /* 왼쪽으로 이동 */
+  font-size: 1.2rem;
+`;
+
+const AddressText2 = styled.p`
+  margin-top: -10px; /* 아래로 이동 */
+  margin-left: 20px; /* 왼쪽으로 이동 */
+  font-size: 1.2rem;
+`;
+
+const EmailText = styled.p`
+  margin-top: 20px; /* 아래로 이동 */
+  margin-left: -40px; /* 왼쪽으로 이동 */
+  font-size: 1.2rem;
+`;
+
+const PhoneText = styled.p`
+  margin-top: 20px; /* 아래로 이동 */
+  margin-left: -30px; /* 왼쪽으로 이동 */
+  font-size: 1.2rem;
 `;
 
 const Maincomponents = () => {
@@ -142,22 +171,30 @@ const Maincomponents = () => {
       </div>
 
       <InquiryBox>
-        이대점 센터 상담문의
+        <h3>🌿이대점 센터 상담문의🌿</h3>
         <FlexContainer>
-          <AddressBox>
-            <strong>주소</strong>
-          </AddressBox>
-          <p>서울 마포구 신촌로 176</p>
+          <BoxWrapper>
+            <AddressBox>
+              <strong>주소</strong>
+            </AddressBox>
+            <AddressText>서울 마포구 신촌로 176</AddressText>
+            <AddressText2>5층 502호</AddressText2>
+          </BoxWrapper>
 
-          <EmailBox>
-            <strong>이메일</strong>
-          </EmailBox>
-          <p>byby5583@gmail.com</p>
+          <BoxWrapper>
+            <EmailBox>
+              <strong>이메일</strong>
+            </EmailBox>
+            <EmailText>byby5583@gmail.com</EmailText>
+          </BoxWrapper>
+
+          <BoxWrapper>
+            <PhoneBox>
+              <strong>전화</strong>
+            </PhoneBox>
+            <PhoneText>02-777-6666</PhoneText>
+          </BoxWrapper>
         </FlexContainer>
-        <PhoneBox>
-          <strong>전화</strong>
-        </PhoneBox>
-        <p>02-777-6666</p>
       </InquiryBox>
     </MainContainerWrapper>
   );
