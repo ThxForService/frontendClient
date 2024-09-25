@@ -134,8 +134,8 @@ const MainMenu = () => {
           <MenuItem>
             <a>{t('게시판')}</a>
             <SubMenu className="sub-menu">
-              <a href="/board/list">{t('공지사항')}</a>
-              <a href="/board/list">{t('QnA')}</a>
+              <a href="/board/list/1">{t('공지사항')}</a>
+              <a href="/board/list/2">{t('QnA')}</a>
             </SubMenu>
           </MenuItem>
         </MenuList>
