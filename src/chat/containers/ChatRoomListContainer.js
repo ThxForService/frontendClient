@@ -39,8 +39,6 @@ const ChatRoomListContainer = () => {
 
   return (
     <section>
-      <h1>채팅 메세지</h1>
-
       <List
         items={items}
       />

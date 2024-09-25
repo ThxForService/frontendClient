@@ -1,10 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'next-i18next';
-import { StyledInput } from '@/commons/components/StyledInput';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import { ChatBox, ChatHeader, ChatFooter, ChatMessageBox, ChatMessageSendBox } from '@/commons/layouts/StyledWrapper';
 import styled from 'styled-components';
-import { white } from 'next/dist/lib/picocolors';
 
 const MessageBox = styled.form`
     overflow-y: auto;
