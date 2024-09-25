@@ -16,14 +16,14 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const FormBox = styled.form` 
+const FormBox = styled.form`
   width: 100%;
   padding: 20px;
   background-color: #f8f8f8;
   border-radius: 15px;
   margin: 0 auto;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
-  
+
   display: flex;
   flex-direction: column; /* 세로 정렬 */
   align-items: center;
@@ -55,7 +55,7 @@ const StyledInputWithMargin = styled(StyledInput)`
 const StatusContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px; 
+  gap: 20px;
   margin-bottom: 10px;
   align-items: center;
 `;
@@ -70,7 +70,7 @@ const StatusSpan = styled.span`
   svg {
     margin-right: 5px;
   }
-  
+
   &:hover {
     color: #007bff;
   }
@@ -100,7 +100,9 @@ const ProfileForm = ({
         <ColumnWrapper>
           <Column>
             <dl>
-              <h3>{t('이메일')} : {form?.email}</h3>
+              <h3>
+                {t('이메일')} : {form?.email}
+              </h3>
             </dl>
             <Divider />
             <dl>
@@ -127,7 +129,10 @@ const ProfileForm = ({
                   onChange={onChange}
                 />
                 {errors?.confirmPassword && (
-                  <StyledMessage color="danger" messages={errors.confirmPassword} />
+                  <StyledMessage
+                    color="danger"
+                    messages={errors.confirmPassword}
+                  />
                 )}
               </dd>
             </dl>
@@ -167,11 +172,15 @@ const ProfileForm = ({
                 <h3>{t('학생정보')}</h3>
                 <Divider />
                 <dl>
-                  <h3>{t('학번')} : {form?.studentNo}</h3>
+                  <h3>
+                    {t('학번')} : {form?.studentNo}
+                  </h3>
                 </dl>
 
                 <StatusContainer>
-                  <StatusSpan onClick={() => onToggle('status', 'UNDERGRADUATE')}>
+                  <StatusSpan
+                    onClick={() => onToggle('status', 'UNDERGRADUATE')}
+                  >
                     {form?.status === 'UNDERGRADUATE' ? (
                       <IoMdRadioButtonOn />
                     ) : (
@@ -180,7 +189,9 @@ const ProfileForm = ({
                     {Status.UNDERGRADUATE}
                   </StatusSpan>
 
-                  <StatusSpan onClick={() => onToggle('status', 'POSTGRADUATE')}>
+                  <StatusSpan
+                    onClick={() => onToggle('status', 'POSTGRADUATE')}
+                  >
                     {form?.status === 'POSTGRADUATE' ? (
                       <IoMdRadioButtonOn />
                     ) : (
@@ -223,21 +234,26 @@ const ProfileForm = ({
                   <dd>
                     <StyledInputWithMargin
                       type="text"
-                      name="professor"
-                      value={form?.professor}
+                      name="skey"
+                      placeholder={t('검색어를_입력하세요.')}
                       onChange={onChange}
                     />
-                    <select>
-                      {professors && professors.length > 0 ? (
-                        professors.map(({ memberSeq, username, empNo }) => (
-                          <option key={memberSeq} value={memberSeq}>
-                            {username}({empNo})
-                          </option>
-                        ))
-                      ) : (
-                        <option value="">{t('교수를_선택하세요')}</option>
-                      )}
-                    </select>
+                    {skey ? (
+                      <select name="professor" onChange={onChange}>
+                        {professors && professors.length > 0 ? (
+                          professors.map(({ memberSeq, username, empNo }) => (
+                            <option key={memberSeq} value={memberSeq}>
+                              {username}({empNo})
+                            </option>
+                          ))
+                        ) : (
+                          <option value="">{t('교수를_선택하세요')}</option>
+                        )}
+                      </select>
+                    ) : (
+                      form?.professorInfo &&
+                      `${form.professorInfo.username}(${form.professorInfo.empNo})`
+                    )}
                     <StyledMessage variant="danger">
                       {errors?.professor}
                     </StyledMessage>
@@ -249,7 +265,9 @@ const ProfileForm = ({
                 <h3>{t('상담사 정보')}</h3>
                 <Divider />
                 <dl>
-                  <dt>{t('사번')} : {form?.empNo}</dt>        
+                  <dt>
+                    {t('사번')} : {form?.empNo}
+                  </dt>
                 </dl>
 
                 <StatusContainer>
@@ -295,7 +313,6 @@ const ProfileForm = ({
           <StyledMessage color="danger" messages={errors.global} />
         )}
 
-        
         <StyledButton className="update" type="submit">
           {t('수정하기')}
         </StyledButton>
