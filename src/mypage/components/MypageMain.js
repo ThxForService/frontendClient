@@ -1,20 +1,21 @@
-import React, { useContext } from "react";
-import { useRouter } from "next/navigation";
+import React, { useContext } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
-import classNames from "classnames";
-import styled from "styled-components";
-import UserInfoContext from "@/commons/contexts/UserInfoContext";
-import { FaUserCircle } from "react-icons/fa";
-import { StyledButton } from "@/commons/components/StyledButton";
-import basicprofileimage from "../../../public/images/basicprofile.jpg"
+import classNames from 'classnames';
+import styled from 'styled-components';
+import UserInfoContext from '@/commons/contexts/UserInfoContext';
+import { FaUserCircle } from 'react-icons/fa';
+import { StyledButton } from '@/commons/components/StyledButton';
+import basicprofileimage from '../../../public/images/basicprofile.jpg';
+import Loading from '@/commons/components/Loading';
 
 const MyPageMainContainer = styled.div`
   background-color: white;
   border-radius: 10px;
-  padding: 20px; 
-  width: 350px; 
-  margin: 0 auto; 
+  padding: 20px;
+  width: 350px;
+  margin: 0 auto;
 `;
 
 const ImageBox = styled.img`
@@ -24,40 +25,149 @@ const ImageBox = styled.img`
   border: 2px solid #ccc;
   border-radius: 70%;
   overflow: hidden;
-  
 `;
 
+const Wrapper = styled.div`
+  width: 100%;
+  word-break: break-all;
+  margin: 10px 0;
 
-const MypageMain = () => {
-    const {
-        states: { userInfo },
-        actions: { setUserInfo },
-      } = useContext(UserInfoContext);
+  dl {
+    display: flex;
 
-    const { t } = useTranslation();
-    const router = useRouter();
+    padding: 10px 15px;
 
-      return (
-      <MyPageMainContainer>
-          {userInfo?.profileImage ? (
+    dt {
+      width: 100px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    dd {
+      width: calc(100% - 120px) l;
+    }
+
+    a {
+      height: 100%;
+    }
+  }
+
+  dl:first-child {
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+`;
+
+const MypageMain = ({ item }) => {
+  const {
+    states: { userInfo },
+    actions: { setUserInfo },
+  } = useContext(UserInfoContext);
+
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Not available';
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
+
+  const { t } = useTranslation();
+  const {
+    authority,
+    username,
+    email,
+    mobile,
+    birthdate,
+    address,
+    addressSub,
+    zonecode,
+    studentNo,
+    grade,
+    department,
+    professor,
+    status,
+    empNo,
+    introduction,
+    subject,
+    rating,
+  } = userInfo;
+  const router = useRouter();
+
+  return (
+    <MyPageMainContainer>
+      {userInfo?.profileImage ? (
         <Link href="/mypage">
           <ImageBox src={userInfo.profileImage} alt="profile" />
         </Link>
       ) : (
-        <ImageBox src='/images/basicprofile.png' alt="default profile" />
+        <ImageBox src="/images/basicprofile.png" alt="default profile" />
       )}
-      <StyledButton
-      type="submit"
-      onClick={() => router.push('/mypage/info')} 
-      >
-      <FaUserCircle style={{ 
-              width: '14px',
-              height: '20px',
-              margin: 'auto 2',
-            }}/>{t('회원정보_수정')}
-      </StyledButton>
-      </MyPageMainContainer>
-      );
+
+      <Wrapper>
+        <dl>
+          <dt>{username}</dt>
+          <dd></dd>
+        </dl>
+        <dl>
+          <dt>{t('ID')}</dt>
+          <dd>{email}</dd>
+        </dl>
+        {mobile && (
+          <dl>
+            <dt>{t('연락처')}</dt>
+            <dd>{mobile || '등록정보 없음'}</dd>
+          </dl>
+        )}
+        {(address || addressSub || zonecode) && (
+          <dl>
+            <dt>{t('주소')}</dt>
+            <dd>
+              {address || '등록정보 없음'}
+              {addressSub ? '등록정보 없음' : ''} {zonecode || '등록정보 없음'}
+            </dd>
+          </dl>
+        )}
+        <dl>
+          <dt>{t('생년월일')}</dt>
+          <dd>{formatDate(birthdate)}</dd>
+        </dl>
+        {studentNo && (
+          <dl>
+            <dt>{t('학번')}</dt>
+            <dd>{studentNo}</dd>
+          </dl>
+        )}
+        {empNo && (
+          <dl>
+            <dt>{t('사번')}</dt>
+            <dd>{empNo}</dd>
+          </dl>
+        )}
+        {department && (
+          <dl>
+            <dt>{t('학과')}</dt>
+            <dd>{department}</dd>
+          </dl>
+        )}
+        {grade && (
+          <dl>
+            <dt>{t('학과')}</dt>
+            <dd>{grade}</dd>
+          </dl>
+        )}
+        <dl>
+          <dt>{t('상태')}</dt>
+          <dd>{status || '등록정보 없음'}</dd>
+        </dl>
+        {authority === 'STUDENT' && (
+          <dl>
+            <dt>{t('지도교수')}</dt>
+            <dd>{professor || '등록정보 없음'}</dd>
+          </dl>
+        )}
+      </Wrapper>
+    </MyPageMainContainer>
+  );
 };
 
 export default React.memo(MypageMain);
