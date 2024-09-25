@@ -93,9 +93,9 @@ const MainMenu = () => {
         <MenuList>
           <MenuItem>
             <Mainlogo />
-            </MenuItem>
+          </MenuItem>
 
-            <MenuItem>
+          <MenuItem>
             <StyledLogoText href="/introduce/center">
               {t('심리상담센터 소개')}
             </StyledLogoText>
@@ -106,7 +106,7 @@ const MainMenu = () => {
               <a href="/introduce/directions">{t('오시는 길')}</a>
             </SubMenu>
           </MenuItem>
-          
+
           <MenuItem>
             <a>{t('상담신청')}</a>
             <SubMenu className="sub-menu">
