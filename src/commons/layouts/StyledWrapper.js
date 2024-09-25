@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { theme } from '@/theme';
 
 export const StyledWrapper = styled.div``;
 
@@ -56,24 +57,45 @@ export const ContentBox3 = styled.div`
   margin: 0 auto;
 `;
 
+
 export const ChatBox = styled.div`
     box-sizing: border-box;
-    width: 400px;
-    height: 600px;
+    width: 390px;
+    height: 690px;
     padding: 0;
     margin: 0 auto;
     border-radius: 15px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #313234;
     color: white;
     display: flex;
     flex-direction: column;
 `;
 
-export const ChatMessageBox = styled.div`
-    overflow-y: scroll;
-    height: 500px;
+export const ChatHeader = styled.div`
+    width: 370px;
+    height: 40px;
+    padding: 10px;
 `;
 
-export const ChatMessageSendBox = styled.div`
-    padding: 10px 0 30px 0;
+export const ChatFooter = styled.div`
+    width: 100%;
+    height: 60px;
+`;
+
+export const ChatMessageBox = styled.div`
+    overflow-y: scroll;
+    height: 600px;
+`;
+
+export const ChatMessageSendBox = styled.input`
+    border: 1px solid ${({ theme }) => theme.colors.gray};
+    border-radius: 24px;
+    padding: 10px;
+    width: 370px;
+    height: 45px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.08);
+    font-size: 15px;
+    color: #FFFFFFCC;
 `;
