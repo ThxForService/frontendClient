@@ -1,439 +1,202 @@
-'use client';
 import React from 'react';
-import styled from 'styled-components';
 import Calendar from 'react-calendar';
-import { useTranslation } from 'next-i18next';
-import { IoIosRadioButtonOff, IoIosRadioButtonOn } from 'react-icons/io';
+import { StyledInput } from '@/commons/components/StyledInput';
 import { StyledButton } from '@/commons/components/StyledButton';
-import { StyledInput } from '../../commons/components/StyledInput';
-import MessageBox from '../../commons/components/StyledMessage';
-import { colors } from '@/theme/colors';
-import fontSizes from '@/theme/fontSizes';
-import { format } from 'date-fns';
-import moment from 'moment/moment';
-import Select from 'react-select';
-import {
-  FcCloseUpMode,
-  FcConferenceCall,
-  FcAlarmClock,
-  FcCalendar,
-} from 'react-icons/fc';
-import { BsFillPersonLinesFill } from 'react-icons/bs';
-
-const { gray, primary, lightGreen, darkGreen, white, midGreen, dark } = colors;
-const { normal, medium, normedium, big, extraBig } = fontSizes;
-
+import StyledMessage from '@/commons/components/StyledMessage';
+import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 const FormBox = styled.form`
-  .infoBox {
-    display: flex;
-    height: 780px;
-  }
-
-  .box {
-    flex-grow: 1;
-    width: 0;
-  }
-
-  .box + .box {
-    margin-left: 60px;
-  }
-
   dl {
-    padding: 10px 15px;
-    font-size: ${medium};
-    line-height: 170%;
+    display: flex;
+    align-items: center;
 
     dt {
-      font-weight: bold;
-      margin-bottom: 10px;
-      font-size: ${big};
+      width: 120px;
     }
 
     dd {
-      width: calc(100% - 140px);
-      font-size: ${normal};
+      flex-grow: 1;
     }
   }
 
-  .react-calendar {
-    width: 95%;
-    height: 500px;
-    padding: 15px;
-    border-radius: 20px;
-    align-content: center;
-    display: flex;
-    flex-direction: column;
+  dl + dl {
+    margin-top: 10px;
   }
 
-  /* 네비게이션 가운데 정렬 */
-  .react-calendar__navigation {
-    justify-content: center;
-    align-content: center;
+  .radio {
+    margin-right: 10px;
   }
 
-  // 연도 옮기는 버튼 없애기
-  .react-calendar__navigation__next2-button,
-  .react-calendar__navigation__prev2-button {
-    display: none;
-  }
-
-  /* 네비게이션 비활성화 됐을때 스타일 */
-  .react-calendar__navigation button:disabled {
-    background-color: ${white};
-    color: ${gray};
-  }
-
-  /* 년/월 상단 네비게이션 칸 크기 줄이기 */
-  .react-calendar__navigation__label {
-    flex-grow: 0 !important;
-  }
-
-  //hover 했을 때, 선택한 날짜 색상 변경
-  .react-calendar__navigation__label:hover,
-  .react-calendar__navigation button:enabled:hover {
-    background: ${lightGreen};
-    border-radius: 40px;
-  }
-
-  .react-calendar__viewContainer {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* 요일 밑줄 제거 */
-  .react-calendar__month-view__weekdays abbr {
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .react-calendar__navigation button:focus {
-    background-color: ${white};
-  }
-
-  .react-calendar__tile:disabled {
-    background-color: ${gray};
-  }
-
-  .react-calendar__navigation__label > span {
-    // 달력 상단 년/월 글씨 커스텀
-    font-size: ${normedium};
-    font-weight: bold;
-    line-height: 140%;
-  }
-
-  /* 주말에만 빨간 폰트 */
-  .react-calendar__month-view__weekdays__weekday--weekend {
-    color: #red;
-  }
-
-  .react-calendar__month-view__weekdays__weekday {
-    padding: 15px;
-    font-size: ${medium};
-    font-weight: bold;
-    border-bottom: solid 1px ${dark};
-    margin-bottom: 5px;
-  }
-
-  //hover 했을 때, 선택한 날짜 색상 변경
-  .react-calendar__tile:enabled:hover {
-    background: ${lightGreen};
-    border-radius: 40px;
-  }
-  .react-calendar__tile:enabled:focus,
-  .react-calendar__tile--active {
-    background: ${darkGreen};
-    color: ${white};
-    border-radius: 40px;
-  }
-
-  .react-calendar__tile--now {
-    // 오늘 날짜 하이라이트 커스텀
-    background: ${white};
-    color: ${midGreen};
-  }
-
-  /* 네비게이션 현재 선택한 월 스타일 적용 */
-  .react-calendar__tile--hasActive {
-    abbr {
-      color: ${primary};
-    }
-  }
-
-  /* 네비게이션 월, 연도 스타일 적용 */
-  .react-calendar__year-view__months__month,
-  .react-calendar__decade-view__years__year,
-  .react-calendar__century-view__decades__decade {
-    flex: 0 0 calc(33.3333% - 10px) !important;
-    margin-inline-start: 5px !important;
-    margin-inline-end: 5px !important;
-    margin-block-end: 10px;
-    font-weight: bold;
-    border-radius: 10px;
-    background-color: ${lightGreen};
-  }
-
-  /* 일 날짜 간격 */
-  .react-calendar__tile {
-    position: relative;
+  .agree {
     text-align: center;
-    height: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: ${normedium};
-  }
-
-  .select {
-    width: 230px;
-
-    height: 40px;
-    padding: 5px 10px;
-    border-radius: 4px;
-    outline: 0 none;
-    position: relative;
-    font-size: ${medium};
-    line-height: 170%;
-    margin-left: 10px;
-
-    //Option 태그에 대한 스타일은 직접적으로 적용할 수 없다.(os 영역)
-    .options {
-      font-size: ${medium};
-      margin-bottom: 5px;
-      background: ${white};
-    }
-  }
-
-  h2 {
-    font-size: ${extraBig};
-  }
-
-  li {
-    display: flex;
-    align-items: center;
-    font-size: ${big};
-    margin: 0 0 10px 10px;
+    margin: 15px 0;
 
     svg {
+      font-size: 1.5rem;
+      vertical-align: middle;
       margin-right: 5px;
     }
   }
-
-  .btn_box {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-
-    .rsv_btn {
-      width: 350px;
-      height: 50px;
-    }
-  }
-
-  .select_date {
-    padding-left: 50px;
-    height: 100%;
-
-    .townNm {
-      font-size: ${big};
-      margin: 0 0 20px 40px;
-      font-weight: bold;
-    }
-  }
-
-  input {
-    font-size: ${medium};
-  }
-
-  .select {
-    height: 50px;
-    width: 300px;
-    padding: 0;
-    font-size: ${medium};
-
-    .css-13cymwt-control {
-      height: 50px;
-    }
-
-    .css-1nmdiq5-menu {
-    }
-  }
-
-  .people {
-    margin-bottom: 40px;
-  }
-
-  .title {
-    display: flex;
-    align-items: center;
-
-    svg {
-      font-size: ${extraBig};
-      margin-right: 10px;
-      color: ${primary};
-    }
-  }
 `;
-
-const options = [...new Array(30).keys()].map((i) => ({
-  value: i + 1,
-  label: `${i + 1}명`,
-}));
-
 const CounselingForm = ({
-  data,
   form,
-  onSubmit,
-  onDateChange,
-  onTimeChange,
-  onChange,
   errors,
+  onSubmit,
+  onChange,
+  selectedDate,
+  selectedTime,
+  handleTimeSelect,
   selectChange,
+  onDateChange,
 }) => {
   const { t } = useTranslation();
-  const { minDate, maxDate, times, _availableDates } = data;
+  const times = {
+    morning: ['09:00', '10:00', '11:00', '12:00'],
+    afternoon: ['13:00', '14:00', '15:00', '16:00', '17:00'],
+  };
+  const options = [
+    { value: 'FAMILY', label: '가족' },
+    { value: 'ACADEMIC', label: '학업/진로' },
+    { value: 'RELATIONSHIPS', label: '대인관계' },
+    { value: 'EMOTIONAL', label: '심리정서' },
+    { value: 'BEHAVIOR', label: '생활습관 및 행동문제' },
+    { value: 'ROMANCE_SEX', label: '연애와 성' },
+    { value: 'LIFE_VALUES', label: '삶과 가치' },
+    { value: 'PERSONALITY', label: '성격' },
+    { value: 'OTHER', label: '기타' },
+  ];
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
-      <div className="infoBox">
-        <div className="select_date box">
-          <div className="title">
-            <FcCloseUpMode />
-            <h2>{t('예약하는_체험마을')}</h2>
-          </div>
-          <p className="townNm">예약하는_체험마을</p>
-          <div className="title">
-            <FcCalendar />
-            <h2>{t('예약일_선택')}</h2>
-          </div>
-          <h3>{t('예약은_당일로부터_한달_이내만_가능합니다')}</h3>
-          <Calendar
-            minDate={minDate}
-            maxDate={maxDate}
-            onChange={onDateChange}
-            tileDisabled={({ _, date }) =>
-              !_availableDates.some((d) => format(date, 'yyyy-MM-dd') === d)
-            }
-            formatDay={(locale, date) => moment(date).format('DD')}
-            calendarType="gregory" //일요일부터 시작
-          />
-          {errors?.rDate && (
-            <MessageBox color="danger" messages={errors.rDate} />
-          )}
-        </div>
-        <div className="select-time box">
-          <div className="userInfo">
-            <div className="title">
-              <BsFillPersonLinesFill />
-              <h2>{t('예약자_정보_입력')}</h2>
-            </div>
-            <dl>
-              <dt>{t('예약자명')}</dt>
-              <dd>
-                <StyledInput
-                  type="text"
-                  name="name"
-                  value={form?.name}
-                  onChange={onChange}
-                />
-                {errors?.name && (
-                  <MessageBox color="danger" messages={errors.name} />
-                )}
-              </dd>
-            </dl>
-            <dl>
-              <dt>{t('이메일')}</dt>
-              <dd>
-                <StyledInput
-                  type="text"
-                  name="email"
-                  value={form?.email}
-                  onChange={onChange}
-                />
-                {errors?.email && (
-                  <MessageBox color="danger" messages={errors.email} />
-                )}
-              </dd>
-            </dl>
-            <dl>
-              <dt>{t('전화번호')}</dt>
-              <dd>
-                <StyledInput
-                  type="text"
-                  name="mobile"
-                  value={form?.mobile}
-                  onChange={onChange}
-                />
-                {errors?.mobile && (
-                  <MessageBox color="danger" messages={errors.mobile} />
-                )}
-              </dd>
-            </dl>
-          </div>
-          <div className="people">
-            <div className="title">
-              <FcConferenceCall />
-              <h2>{t('인원수_선택')}</h2>
-            </div>
-            <Select
-              value={options.find((option) => option.value === form?.persons)}
-              onChange={selectChange}
-              className="select"
-              options={options}
-            />
-            {/* // 드롭 다운 */}
-            {errors?.persons && (
-              <MessageBox color="danger" messages={errors.persons} />
-            )}
-          </div>
-          <div className="time_box">
-            {times && (
-              <div>
-                <div className="title">
-                  <FcAlarmClock />
-                  <h2>{t('예약시간_선택')}</h2>
-                </div>
-                <ul>
-                  {times[0] && (
-                    <li onClick={() => onTimeChange('AM')}>
-                      {form.ampm === 'AM' ? (
-                        <IoIosRadioButtonOn />
-                      ) : (
-                        <IoIosRadioButtonOff />
-                      )}
-                      {t('오전')}
-                    </li>
-                  )}
-                  {times[1] && (
-                    <li onClick={() => onTimeChange('PM')}>
-                      {form.ampm === 'PM' ? (
-                        <IoIosRadioButtonOn />
-                      ) : (
-                        <IoIosRadioButtonOff />
-                      )}
-                      {t('오후')}
-                    </li>
-                  )}
-                </ul>
-                {errors?.ampm && (
-                  <MessageBox color="danger" messages={errors.ampm} />
-                )}
-              </div>
-            )}
-          </div>
-        </div>
+      <div>
+        <dt>{t('학번')}</dt>
+        <StyledInput
+          type="text"
+          name="studentNo"
+          value={form?.studentNo}
+          onChange={onChange}
+        />
       </div>
-      <div className="btn_box">
-        <StyledButton type="submit" color="midGreen" className="rsv_btn">
-          {t('예약하기')}
-        </StyledButton>
-        {errors?.global && (
-          <MessageBox color="danger" messages={errors.global} />
+      <div>
+        <dt>{t('이름')}</dt>
+        <StyledInput
+          type="text"
+          name="username"
+          value={form?.username}
+          onChange={onChange}
+        />
+      </div>
+      <div>
+        <dt>{t('이메일')}</dt>
+        <StyledInput
+          type="text"
+          name="email"
+          value={form?.email}
+          onChange={onChange}
+        />
+        {errors?.email && (
+          <StyledMessage color="danger" messages={errors.email} />
         )}
       </div>
+      <div>
+        <dt>{t('전화번호')}</dt>
+        <StyledInput
+          type="text"
+          name="mobile"
+          value={form?.mobile}
+          onChange={onChange}
+        />
+        {errors?.mobile && (
+          <StyledMessage color="danger" messages={errors.mobile} />
+        )}
+      </div>
+      <div>
+        <dt>{t('상담_날짜')}</dt>
+        <Calendar onChange={onDateChange} value={selectedDate} />{' '}
+        {errors?.rDate && (
+          <StyledMessage color="danger" messages={errors.rDate} />
+        )}
+      </div>
+
+      <div>
+        <dt>{t('상담_시간')}</dt>
+        <div>
+          <h4>{t('오전')}</h4>
+          {times.morning.map((time) => (
+            <button
+              key={time}
+              onClick={() => handleTimeSelect(time)}
+              style={{
+                backgroundColor: selectedTime === time ? 'green' : 'white',
+                color: selectedTime === time ? 'white' : 'black',
+                padding: '10px',
+                margin: '5px',
+                border: '1px solid gray',
+                borderRadius: '5px',
+              }}
+            >
+              {time}
+            </button>
+          ))}
+        </div>
+        <div>
+          <h4>{t('오후')}</h4>
+          {times.afternoon.map((time) => (
+            <button
+              key={time}
+              onClick={() => handleTimeSelect(time)}
+              style={{
+                backgroundColor: selectedTime === time ? 'green' : 'white',
+                color: selectedTime === time ? 'white' : 'black',
+                padding: '10px',
+                margin: '5px',
+                border: '1px solid gray',
+                borderRadius: '5px',
+              }}
+            >
+              {time}
+            </button>
+          ))}
+        </div>
+        {errors?.rTime && (
+          <StyledMessage color="danger" messages={errors.rTime} />
+        )}
+      </div>
+
+      <div>
+        <dt>{t('상담_유형')}</dt>
+        <select name="cCase" value={form.cCase} onChange={onChange}>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+          <option value="FAMILY">{t('가족')}</option>
+          <option value="ACADEMIC">{t('학업/진로')}</option>
+          <option value="RELATIONSHIPS">{t('대인관계')}</option>
+          <option value="EMOTIONAL">{t('심리정서')}</option>
+          <option value="BEHAVIOR">{t('생활습관 및 행동문제')}</option>
+          <option value="ROMANCE_SEX">{t('연애와 성')}</option>
+          <option value="LIFE_VALUES">{t('삶과 가치')}</option>
+          <option value="PERSONALITY">{t('성격')}</option>
+          <option value="OTHER">{t('기타')}</option>
+        </select>
+        {form?.cCase === 'OTHER' && (
+          <div>
+            <label>{t('기타 내용')}</label>
+            <input
+              type="text"
+              name="customCase"
+              value={form.customCase}
+              onChange={onChange}
+              placeholder={t('하고싶은_말을_전달해보세요')}
+            />
+          </div>
+        )}
+      </div>
+      <StyledButton type="submit">{t('예약하기')}</StyledButton>
     </FormBox>
   );
 };
 
-export default React.memo(CounselingForm);
+export default CounselingForm;

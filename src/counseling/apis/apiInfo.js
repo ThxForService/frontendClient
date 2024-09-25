@@ -10,11 +10,16 @@ export const apiList = (search) => {
     qs.push(`${k}=${v}`);
   }
 
-  let url = '/counseling/list';
+  let url = '/reservation/counseling/list';
   if (qs.length > 0) url += `?${qs.join('&')}`; //검색 조건이 있을 때
 
   return requestData(url);
 };
 
 // 예약된 상세조회
-export const myApiGet = (seq) => requestData(`/counseling/list/${seq}`);
+export const myApiGet = (cSeq) =>
+  requestData(`/reservation/counseling/list/${cSeq}`);
+
+// 예약 취소
+export const apiCancel = (cSeq) =>
+  requestData(`/reservation/counseling/cancel/${cSeq}`);

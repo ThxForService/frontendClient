@@ -108,6 +108,9 @@ const MainMenu = () => {
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
             </SubMenu>
           </MenuItem>
+          {/* Main 뺴고 넣을 예정 S */}
+          {/* <Image src="/images/counsel1.jpg" alt="1" width={60} height={20} /> */}
+          {/* Main 뺴고 넣을 예정 E */}
           <MenuItem>
             <a href="/">{t('Main')}</a>
             <SubMenu className="sub-menu">
@@ -118,10 +121,7 @@ const MainMenu = () => {
           <MenuItem>
             <a>{t('자가 진단')}</a>
             <SubMenu className="sub-menu">
-              <a href="/survey/answer">{t('answer')}</a>
-              <a href="/survey/list">{t('list')}</a>
-              <a href="/survey/register">{t('register')}</a>
-              <a href="/survey/view">{t('view')}</a>
+              <a href="/survey/list">{t('심리 검사')}</a>
             </SubMenu>
           </MenuItem>
           <MenuItem>
