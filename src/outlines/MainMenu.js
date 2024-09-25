@@ -118,6 +118,7 @@ const MainMenu = () => {
           <MenuItem>
 
             <a href="/survey/list">{t('자가 진단')}</a>
+
           </MenuItem>
           <MenuItem>
             <a>{t('게시판')}</a>
