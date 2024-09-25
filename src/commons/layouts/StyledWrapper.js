@@ -69,11 +69,14 @@ export const ChatBox = styled.div`
     color: white;
     display: flex;
     flex-direction: column;
+    position: fixed;
+    bottom: 110px;
+    right: 30px;
 `;
 
 export const ChatHeader = styled.div`
     width: 370px;
-    height: 40px;
+    height: 60px;
     padding: 10px;
 `;
 
@@ -85,6 +88,15 @@ export const ChatFooter = styled.div`
 export const ChatMessageBox = styled.div`
     overflow-y: scroll;
     height: 600px;
+`;
+
+export const ChatListBox = styled.div`
+    width: 100%;
+    height: 600px;
+    overflow-y: scroll;
+    .tr.td.button{
+        background-color: #313234;
+    }
 `;
 
 export const ChatMessageSendBox = styled.input`

@@ -10,8 +10,8 @@ const ButtonContainer = styled.div`
 `;
 
 const OpenModalButton = styled.button`
-    background-color: #1aa7ec; /* 버튼 색상 */
-    color: white; /* 글자 색상 */
+    background-color: #1aa7ec; 
+    color: white; 
     border: none;
     height: 60px;
     width: 60px;
@@ -20,7 +20,7 @@ const OpenModalButton = styled.button`
     cursor: pointer;
 
     &:hover {
-        background-color: #0056b3; /* 호버 시 색상 변화 */
+        background-color: #0056b3;
     }
 `;
 
