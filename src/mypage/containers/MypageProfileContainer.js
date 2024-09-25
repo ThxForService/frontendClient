@@ -1,11 +1,12 @@
 'use client';
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
 import UserInfoContext from '@/commons/contexts/UserInfoContext';
 import { updateProfile } from '../apis/apiMypage';
 import ProfileForm from '../components/ProfileForm';
 import ProfileImage from '../components/ProfileImage';
+import { getProfessors } from '@/member/apis/apiInfo';
 
 const MypageProfileContainer = () => {
   const {
@@ -13,18 +14,52 @@ const MypageProfileContainer = () => {
     actions: { setUserInfo },
   } = useContext(UserInfoContext);
 
-  const initialForm = userInfo;
+  const initialForm = { ...userInfo };
+  initialForm.professorInfo = userInfo?.professor;
+  initialForm.professor = userInfo?.professor?.memberSeq;
   delete initialForm.password;
 
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
+  const [professors, setProfessors] = useState([]);
+  const [skey, setSkey] = useState('');
 
   const { t } = useTranslation();
   const router = useRouter();
 
   const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+    const name = e.target.name;
+    const value = e.target.value;
+    if (name === 'skey') {
+      setSkey(value);
+      if (!value || !value.trim()) {
+        setForm((form) => ({
+          ...form,
+          professor: form?.professorInfo?.memberSeq,
+        }));
+      }
+    } else {
+      setForm((form) => ({ ...form, [name]: value }));
+    }
   }, []);
+
+  const onToggle = useCallback((name, value) => {
+    setForm((form) => ({ ...form, [name]: value }));
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const professors = await getProfessors(skey);
+        setProfessors(professors);
+        if (professors && professors.length > 0) {
+          setForm((form) => ({ ...form, professor: professors[0].memberSeq }));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, [skey]);
 
   const onSubmit = useCallback(
     (e) => {
@@ -70,7 +105,6 @@ const MypageProfileContainer = () => {
       (async () => {
         try {
           const res = await updateProfile(form);
-          console.log('Res', res);
           // 회원 정보 수정 완료 후 -> context api 쪽 정보 업데이트
           // form 초기화, 마이페이지 메인으로 이동
           setUserInfo(res);
@@ -105,21 +139,25 @@ const MypageProfileContainer = () => {
     },
     [setUserInfo],
   );
-
   return (
-    <>
-      <ProfileImage
-        gid={form?.gid}
-        fileUploadCallback={fileUploadCallback}
-        profileImage={form?.profileImage}
-      />
-      <ProfileForm
-        form={form}
-        onChange={onChange}
-        onSubmit={onSubmit}
-        errors={errors}
-      />
-    </>
+    userInfo && (
+      <>
+        <ProfileImage
+          gid={userInfo?.gid}
+          fileUploadCallback={fileUploadCallback}
+          profileImage={userInfo?.profileImage}
+        />
+        <ProfileForm
+          form={form}
+          onSubmit={onSubmit}
+          onChange={onChange}
+          onToggle={onToggle}
+          errors={errors}
+          skey={skey}
+          professors={professors}
+        />
+      </>
+    )
   );
 };
 
