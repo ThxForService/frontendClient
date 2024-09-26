@@ -53,7 +53,7 @@ const InquiryBox = styled.div`
   top: 60%; /* 센터의 비전 아래에 위치 */
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #5697cc;
+  background-color: #95bad7;
   padding: 20px 40px;
   border-radius: 10px;
   color: #fff;

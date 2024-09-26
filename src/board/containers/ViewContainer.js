@@ -5,18 +5,18 @@ import { useTranslation } from 'react-i18next';
 import { produce } from 'immer';
 import { getInfo, deleteBoardData } from '../apis/apiboard';
 import { write as writeComment } from '../apis/apiComment';
-import { getList } from '../apis/apiComment'; 
-import UserInfoContext from '../../commons/contexts/UserInfoContext';
+import { getList } from '../apis/apiComment';
+import { getUserStates } from '../../commons/contexts/UserInfoContext';
 import Loading from '../../commons/components/Loading';
 import View from '../components/View';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import ListContainer from './ListContainer';
 
 const ViewContainer = () => {
-  const { seq } = useParams(); 
+  const { seq } = useParams();
   const [board, setBoard] = useState(null);
   const [data, setData] = useState(null);
-  const [comments, setComments] = useState([]); 
+  const [comments, setComments] = useState([]);
   const [commentForm, setCommentForm] = useState({
     boardDataSeq: '',
     mode: 'write',
@@ -26,11 +26,13 @@ const ViewContainer = () => {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
   const { t } = useTranslation();
-  const router = useRouter(); 
+  const router = useRouter();
 
-  const {
-    states: { userInfo, isLogin },
-  } = useContext(UserInfoContext);
+  const { isLogin, userInfo } = getUserStates();
+
+  useEffect(() => {
+    setCommentForm((form) => ({ ...form, commenter: userInfo?.username }));
+  }, [isLogin, userInfo]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,11 +44,10 @@ const ViewContainer = () => {
         setCommentForm((prev) => ({
           ...prev,
           boardDataSeq: seq,
-          commenter: userInfo?.userName || '',
         }));
 
-        const commentsRes = await getList(seq); 
-        setComments(commentsRes); 
+        const commentsRes = await getList(seq);
+        setComments(commentsRes);
 
         window.scrollTo(0, 0);
       } catch (err) {
@@ -83,17 +84,16 @@ const ViewContainer = () => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-  
+
       const _errors = {};
       let hasErrors = false;
-  
+
       // 필수 항목 검증
       const requiredFields = {
         commenter: t('작성자를 입력하세요'),
         content: t('댓글을 입력하세요'),
       };
-    
-  
+
       for (const [field, message] of Object.entries(requiredFields)) {
         if (!commentForm[field]?.trim()) {
           _errors[field] = _errors[field] ?? [];
@@ -101,37 +101,36 @@ const ViewContainer = () => {
           hasErrors = true;
         }
       }
-  
+
       setErrors(_errors);
-  
+
       if (hasErrors) {
         return;
       }
-  
+
       (async () => {
         try {
           await writeComment(commentForm);
-      
-          const commentsRes = await getList(commentForm.boardDataSeq); 
-          setComments(commentsRes); 
+
+          const commentsRes = await getList(commentForm.boardDataSeq);
+          setComments(commentsRes);
           setCommentForm((prev) => ({
             ...prev,
-            content: '', 
+            content: '',
           }));
         } catch (err) {
-          console.error(err); 
-          setErrors({ content: [err.message] }); 
+          console.error(err);
+          setErrors({ content: [err.message] });
         }
       })();
     },
     [t, isLogin, commentForm],
   );
-  
 
   if (!data) {
     return (
       <>
-        {message && <div style={{ color: 'red' }}>{message}</div>} 
+        {message && <div style={{ color: 'red' }}>{message}</div>}
         <Loading />
       </>
     );
@@ -143,7 +142,7 @@ const ViewContainer = () => {
     <>
       <View
         board={board}
-        data={{ ...data, comments }} 
+        data={{ ...data, comments }}
         commentForm={commentForm}
         onChange={onChange}
         onSubmit={onSubmit}
