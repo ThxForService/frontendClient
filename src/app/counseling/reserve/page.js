@@ -7,7 +7,7 @@ import { OuterBox, ContentBox2 } from '@/commons/layouts/StyledWrapper';
 import SiteTitle from '@/commons/SiteTitle';
 import { useTranslation } from 'next-i18next';
 import { UserInfoProvider } from '@/commons/contexts/UserInfoContext';
-
+import GuestOnlyContainer from '@/member/containers/GuestOnlyContainer';
 const Apply = () => {
   const { t } = useTranslation();
   const [pageTitle, setPageTitle] = useState('');
@@ -15,8 +15,6 @@ const Apply = () => {
 
   return (
     <MemberOnlyContainer>
-      {/* <SubTitleLink text={t('상담 예약')} href="" /> */}
-      <title>{pageTitle}</title>
       <Header />
       <ContentBox2>
         <SiteTitle>{pageTitle}</SiteTitle>

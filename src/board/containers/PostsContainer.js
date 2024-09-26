@@ -20,11 +20,11 @@ const ViewContainer = () => {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const data = await boardDataList({ page: 1, limit: 10 }); // 페이지 및 한 페이지당 게시글 수 설정
+      const data = await boardDataList({ page: 1, limit: 10 });
       setPosts(data);
     } catch (err) {
       setError(err);
-      console.error('Error fetching posts:', err);
+      console.error(err);
     } finally {
       setLoading(false);
     }

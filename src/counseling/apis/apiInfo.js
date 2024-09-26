@@ -23,3 +23,10 @@ export const myApiGet = (cSeq) =>
 // 예약 취소
 export const apiCancel = (cSeq) =>
   requestData(`/reservation/counseling/cancel/${cSeq}`);
+
+// export function groupApiCancel(cSeq) {
+//   return saveProcess(
+//     `/reservation/counseling/cancel/${cSeq}`,
+//     'DELETE'
+//   );
+// }

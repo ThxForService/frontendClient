@@ -5,7 +5,6 @@ const CounselingComplete = ({ params }) => {
   return (
     <MemberOnlyContainer>
       {/* <CounselingCompleteContainer params={params} /> */}
-      {/* <CounselingListContainer /> */}
     </MemberOnlyContainer>
   );
 };

@@ -36,7 +36,7 @@ const GroupListContainer = ({ searchParams }) => {
   const onChange = useCallback(
     (pgmSeq) => {
       // 프로그램 상세, 수정 페이지로 이동
-      router.replace(`/counseling/group/${pgmSeq}`);
+      router.replace(`/counseling/complete`);
     },
     [router],
   );

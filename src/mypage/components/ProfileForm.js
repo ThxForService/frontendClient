@@ -164,7 +164,50 @@ const ProfileForm = ({
                 )}
               </dd>
             </dl>
+            <dl>
+              <dt>{t('우편번호')}</dt>
+              <dd>
+                <StyledInputWithMargin
+                  type="text"
+                  name="zonecode"
+                  value={form?.zonecode}
+                  onChange={onChange}
+                />
+                {errors?.zonecode && (
+                  <StyledMessage color="danger" messages={errors.zonecode} />
+                )}
+              </dd>
+            </dl>
+            <dl>
+              <dt>{t('주소')}</dt>
+              <dd>
+                <StyledInputWithMargin
+                  type="text"
+                  name="address"
+                  value={form?.address}
+                  onChange={onChange}
+                />
+                {errors?.address && (
+                  <StyledMessage color="danger" messages={errors.address} />
+                )}
+              </dd>
+            </dl>
+            <dl>
+              <dt>{t('나머지주소')}</dt>
+              <dd>
+                <StyledInputWithMargin
+                  type="text"
+                  name="addressSub"
+                  value={form?.addressSub}
+                  onChange={onChange}
+                />
+                {errors?.addressSub && (
+                  <StyledMessage color="danger" messages={errors.addressSub} />
+                )}
+              </dd>
+            </dl>
           </Column>
+          
 
           <Column>
             {form?.authority === 'STUDENT' ? (
