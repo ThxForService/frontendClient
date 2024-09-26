@@ -13,6 +13,7 @@ const ViewContainer = () => {
   const router = useRouter();
   const { t } = useTranslation();
   const { setMainTitle } = getCommonActions();
+
   useLayoutEffect(() => {
     setMainTitle(t('게시판'));
   }, [setMainTitle, t]);

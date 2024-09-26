@@ -44,13 +44,11 @@ const UserInfoProvider = ({ children }) => {
 
   const token = cookies.load('token');
 
-
   useEffect(() => {
     if (!isLogin && token && token.trim()) {
       (async () => {
         try {
           const user = await apiUser();
-  
           setUserInfo(user);
           setIsLogin(true);
           setIsAdmin(user.authority === 'ADMIN');
@@ -63,9 +61,6 @@ const UserInfoProvider = ({ children }) => {
       })();
     }
   }, [isLogin, token]);
-
-
-  
 
   return (
     <UserInfoContext.Provider value={value}>

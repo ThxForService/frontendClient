@@ -27,8 +27,6 @@ const commonStyles = css`
   }
 `;
 
-
-
 // Size settings
 const sizeStyles = {
   large: css`
@@ -47,6 +45,21 @@ const sizeStyles = {
     f font-size: ${fontSizes.extraSmall}px;
   `,
 };
+
+// 선택시 색 변경 버튼
+export const StyledTimeButton = styled.button`
+  ${commonStyles} // 공통 스타일 적용
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: ${({ selected }) => (selected ? 'green' : 'white')};
+  color: ${({ selected }) => (selected ? 'white' : 'black')};
+
+  &:hover {
+    background-color: ${({ selected }) => (selected ? 'darkgreen' : '#f0f0f0')};
+  }
+`;
 
 // StyledButton with updated sizes, colors, and states
 export const StyledButton = styled.button`
