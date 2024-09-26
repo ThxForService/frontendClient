@@ -22,7 +22,7 @@ const MessageBox = styled.form`
         padding: 10px;
         border-radius: 15px;
         max-width: 60%;
-        background-color: rgba(255, 255, 255, 0.08);  // 기본 수신 메시지 색상
+        background-color: rgba(255, 255, 255, 0.08);
         &.sender {
             margin-right: 10px;
         }
@@ -45,10 +45,9 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
   }, [messages]);
 
   const handleKeyPress = (e) => {
-    // Enter 키가 눌렸을 때
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault(); // 기본 Enter 동작 방지
-      onSubmit(e); // onSubmit 호출
+      e.preventDefault();
+      onSubmit(e);
     }
   };
 
@@ -86,8 +85,6 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
             <ChatMessageSendBox type="text" autoComplete="off" name="message" value={form.message} onChange={onChange}
                          onKeyPress={handleKeyPress}
                          placeholder={t('메시지를 입력하세요')} />
-            {/*<StyledButton type="submit">{t('제출')}</StyledButton>*/}
-            {/*{errors.message && <StyledMessage variant="danger">{errors.message}</StyledMessage>}*/}
           </form>
         </ChatFooter>
       </ChatBox>

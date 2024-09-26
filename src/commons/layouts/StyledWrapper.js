@@ -74,6 +74,19 @@ export const ChatBox = styled.div`
     right: 30px;
 `;
 
+export const ChatBox2 = styled.div`
+    width: 390px;
+    height: 690px;
+    padding: 0;
+    margin: 0 auto;
+    background-color: #313234;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    bottom: 110px;
+    right: 30px;
+`;
+
 export const ChatHeader = styled.div`
     width: 370px;
     height: 60px;
