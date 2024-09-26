@@ -22,11 +22,11 @@ const MyListItem = ({ items, onCancel, className }) => {
         </thead>
         <tbody>
           {items && items.length > 0 ? (
-            items.map(({ pgmSeq, pgmNm, pgmStartDate, createdAt }, index) => (
+            items.map(({ pgmSeq, program, createdAt }, index) => (
               <tr key={pgmSeq}>
                 <td>{index + 1}</td>
-                <td>{pgmNm}</td>
-                <td>{pgmStartDate}</td>
+                <td>{program?.pgmNm}</td>
+                <td>{program?.pgmStartDate}</td>
                 <td>{createdAt}</td>
                 <td>
                   <StyledButton type="button" onClick={() => onCancel(pgmSeq)}>
@@ -47,7 +47,7 @@ const MyListItem = ({ items, onCancel, className }) => {
 };
 
 const TableWrapper = styled.div`
-  max-width: 1000px; 
+  max-width: 1000px;
   margin: 30px auto 0;
 `;
 
@@ -56,7 +56,8 @@ const Table = styled.table`
   border-collapse: collapse;
   margin-top: 10px;
 
-  th, td {
+  th,
+  td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center; // 가운데 정렬

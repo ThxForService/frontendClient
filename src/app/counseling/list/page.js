@@ -1,12 +1,15 @@
+'use client';
+import React from 'react';
 import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
 import CounselingListContainer from '@/counseling/containers/CounselingListContainer';
+import MyGCListConatiner from '@/group/containers/MyGCListConatiner';
 
-const CounselingView = ({ searchParams }) => {
+const CounselingView = () => {
   return (
     <MemberOnlyContainer>
-      <CounselingListContainer searchParams={searchParams} />
+      <MyGCListConatiner />
+      <CounselingListContainer />
     </MemberOnlyContainer>
   );
 };
-
-export default CounselingView;
+export default React.memo(CounselingView);

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 const ViewItems = ({ programs, className }) => {
+  console.log('programs', programs);
   const { t } = useTranslation();
   return (
     <div className={className}>
@@ -48,7 +49,7 @@ const StyledViewItems = styled(ViewItems)`
   padding: 20px;
   border-radius: 8px;
   margin: 20px 0;
-  text-align: center; 
+  text-align: center;
   overflow: hidden; /* 자식 요소가 부모를 벗어나지 않게 함 */
 
   &::before {
@@ -65,30 +66,31 @@ const StyledViewItems = styled(ViewItems)`
     z-index: 0; /* 배경이 글씨 뒤에 오도록 설정 */
   }
 
-  h1, p {
+  h1,
+  p {
     position: relative; /* 텍스트가 흐리게 처리된 배경 위에 위치하도록 설정 */
     z-index: 1; /* 텍스트가 배경 위에 오도록 설정 */
   }
 
-h1 {
-  font-size: 24px;
-  color: #333;
-  font-weight: bold; /* 텍스트를 더 진하게 설정 */
-  margin-bottom: 15px;
-}
-
-p {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #555;
-  margin-bottom: 10px;
-  font-weight: 1000; 
-
-  strong {
-    color: #555; /* 강조된 텍스트 색상도 검은색으로 설정 */
-    font-weight: bold; /* 강조된 텍스트를 더 진하게 설정 */
+  h1 {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold; /* 텍스트를 더 진하게 설정 */
+    margin-bottom: 15px;
   }
-}
+
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 10px;
+    font-weight: 1000;
+
+    strong {
+      color: #555; /* 강조된 텍스트 색상도 검은색으로 설정 */
+      font-weight: bold; /* 강조된 텍스트를 더 진하게 설정 */
+    }
+  }
 `;
 
 export default StyledViewItems;

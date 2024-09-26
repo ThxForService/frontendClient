@@ -21,37 +21,40 @@ const ListItems = ({ items, onApply, onChange, className }) => {
       <ul className={className}>
         {items &&
           items.length > 0 &&
-          items.map(({ pgmSeq, pgmNm, pgmStartDate, capacity, ...rest }) => (
-            <li key={pgmSeq}>
-               {pgmNm}
-              <p>
-                <strong>일시:</strong>{' '}
-                {new Date(pgmStartDate).toLocaleString('ko-KR', {
-                  month: 'numeric',
-                  day: 'numeric',
-                  weekday: 'short',
-                  hour: 'numeric',
-                  minute: 'numeric',
-                  hour12: false,
-                })}
-              </p>
-              <p>
-                <strong>정원:</strong> {capacity}
-              </p>
-              <ButtonContainer>
-                <StyledButton onClick={() => handleChange({ pgmNm, ...rest })}>
-                  {t('상세 보기')}
-                </StyledButton>
-                <StyledButton
-                  type="button"
-                  variant="primary"
-                  onClick={() => onApply(pgmSeq)}
-                >
-                  {t('신청 하기')}
-                </StyledButton>
-              </ButtonContainer>
-            </li>
-          ))}
+          items.map((item) => {
+            const { pgmSeq, pgmNm, pgmStartDate, capacity } = item;
+            return (
+              <li key={pgmSeq}>
+                {pgmNm}
+                <p>
+                  <strong>일시:</strong>{' '}
+                  {new Date(pgmStartDate).toLocaleString('ko-KR', {
+                    month: 'numeric',
+                    day: 'numeric',
+                    weekday: 'short',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: false,
+                  })}
+                </p>
+                <p>
+                  <strong>정원:</strong> {capacity}
+                </p>
+                <ButtonContainer>
+                  <StyledButton onClick={() => handleChange(item)}>
+                    {t('상세 보기')}
+                  </StyledButton>
+                  <StyledButton
+                    type="button"
+                    variant="primary"
+                    onClick={() => onApply(pgmSeq)}
+                  >
+                    {t('신청 하기')}
+                  </StyledButton>
+                </ButtonContainer>
+              </li>
+            );
+          })}
       </ul>
 
       {visible && (
@@ -86,8 +89,8 @@ const StyledListItems = styled(ListItems)`
   margin: 30px auto 0;
 
   li {
-  color: #000;
-  font-weight: bold;
+    color: #000;
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
