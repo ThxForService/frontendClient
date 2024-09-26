@@ -38,6 +38,7 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
   const messageEndRef = useRef(null);
 
 
+
   useEffect(() => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });

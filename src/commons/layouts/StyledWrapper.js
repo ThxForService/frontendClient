@@ -99,7 +99,7 @@ export const ChatFooter = styled.div`
 `;
 
 export const ChatMessageBox = styled.div`
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 600px;
 `;
 
