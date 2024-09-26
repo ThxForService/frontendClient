@@ -36,5 +36,3 @@ const Wrapper = styled.div`
     color: #fff;
   }
 `;
-
-z;
