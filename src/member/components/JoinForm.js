@@ -198,11 +198,11 @@ const JoinForm = ({
         <dd>
           <StyledInput
             type="date"
-            name="birth"
-            value={form?.birth ?? ''}
+            name="birthDate"
+            value={form?.birthDate ?? ''}
             onChange={onChange}
           />
-          <StyledMessage variant="danger">{errors?.birth}</StyledMessage>
+          <StyledMessage variant="danger">{errors?.birthDate}</StyledMessage>
         </dd>
       </dl>
       <dl>

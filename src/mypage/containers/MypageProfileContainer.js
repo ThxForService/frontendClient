@@ -1,14 +1,23 @@
 'use client';
-import React, { useState, useCallback, useContext, useEffect } from 'react';
+import React, { useState, useCallback, useContext, useEffect,useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
 import UserInfoContext from '@/commons/contexts/UserInfoContext';
+import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { updateProfile } from '../apis/apiMypage';
 import ProfileForm from '../components/ProfileForm';
 import ProfileImage from '../components/ProfileImage';
 import { getProfessors } from '@/member/apis/apiInfo';
+import Image from 'next/image';
+
+
 
 const MypageProfileContainer = () => {
+  const { t } = useTranslation();
+  const { setMainTitle } = getCommonActions();
+  useLayoutEffect(() => {
+    setMainTitle(t('마이페이지'));
+  }, [setMainTitle, t]);
   const {
     states: { userInfo },
     actions: { setUserInfo },
@@ -24,7 +33,7 @@ const MypageProfileContainer = () => {
   const [professors, setProfessors] = useState([]);
   const [skey, setSkey] = useState('');
 
-  const { t } = useTranslation();
+  
   const router = useRouter();
 
   const onChange = useCallback((e) => {
