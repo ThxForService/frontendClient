@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect, useState, useCallback } from 'react';
-import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { groupApiProgramInfo } from '../apis/groupApiProgramInfo';
 import { useRouter } from 'next/navigation';
 import ViewItems from '../components/ViewItems';

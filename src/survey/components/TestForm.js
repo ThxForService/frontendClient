@@ -271,7 +271,12 @@ const TestForm = ({ items, form, errors, onClick, onSubmit }) => {
         >
           {t('모두 선택하기 (1)')}
         </StyledButton>
-        <StyledButton type="button" onClick={() => handleSelectAll(2)}>
+        <StyledButton
+          size="small"
+          variant="primary"
+          type="button"
+          onClick={() => handleSelectAll(2)}
+        >
           {t('모두 선택하기 (2)')}
         </StyledButton>
       </div>

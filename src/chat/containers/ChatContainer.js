@@ -46,6 +46,7 @@ const ChatContainer = ({ roomNo }) => {
     const socketMessageData = {
       message: form.message,
       senderEmail: userInfo?.email,
+      createdAt: form.createdAt,
       roomNo
     };
 

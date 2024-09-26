@@ -5,7 +5,7 @@ import fontWeight from '@/theme/fontWeight';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import Image from 'next/image';
+import Mainlogo, { StyledLogoText } from '../main/components/Mainlogo';
 
 const { dark, light, midGreen, white, lightGreen } = colors;
 
@@ -41,39 +41,47 @@ const MenuItem = styled.li`
     display: block;
     font-size: 1.5em;
     font-weight: bold;
-
-    &:hover {
-      background: white;
-      text-decoration-line: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 10px;
-      color: midGreen;
-    }
   }
 
   &:hover .sub-menu {
     display: flex;
+    opacity: 1;
+    pointer-events: auto;
   }
 `;
+
 const SubMenu = styled.div`
   position: absolute;
   top: 80px;
   background: ${white};
-  display: none;
   flex-direction: column;
   width: 200px;
   height: auto;
   z-index: 1000;
+  opacity: 0; /* 서브메뉴를 처음에 보이지 않게 설정 */
+  transform: translateY(-20px); /* 처음에는 약간 위쪽에 위치 */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* 부드러운 애니메이션 효과 추가 */
+  border-radius: 20px; /* 박스를 둥글게 설정 */
+  pointer-events: none; /* 서브메뉴가 안보일 때는 클릭 불가 */
 
   a {
     padding: 0 20px;
     color: ${dark};
     font-size: 1.3em;
     text-decoration: none;
+    transition: background 0.3s ease;
 
     &:hover {
       background: ${lightGreen};
+      border-radius: 10px; /* 링크 호버 시 박스도 둥글게 유지 */
     }
+  }
+
+  ${MenuItem}:hover & {
+    display: flex;
+    opacity: 1; /* 서브메뉴가 나타나도록 설정 */
+    transform: translateY(0); /* 원래 위치로 이동 */
+    pointer-events: auto;
   }
 `;
 
@@ -92,7 +100,13 @@ const MainMenu = () => {
       <MenuContainer>
         <MenuList>
           <MenuItem>
-            <a>{t('심리상담센터 소개')}</a>
+            <Mainlogo />
+          </MenuItem>
+
+          <MenuItem>
+            
+              <a>{t('심리상담센터 소개')}</a>
+            
             <SubMenu className="sub-menu">
               <a href="/introduce/center">{t('센터 소개')}</a>
               <a href="/introduce/member">{t('구성원 소개')}</a>
@@ -100,6 +114,7 @@ const MainMenu = () => {
               <a href="/introduce/directions">{t('오시는 길')}</a>
             </SubMenu>
           </MenuItem>
+
           <MenuItem>
             <a>{t('상담신청')}</a>
             <SubMenu className="sub-menu">
@@ -108,17 +123,15 @@ const MainMenu = () => {
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
             </SubMenu>
           </MenuItem>
+
           <MenuItem>
-            <a href="/">{t('Main')}</a>
+            <a>{t('자가 진단')}</a>
             <SubMenu className="sub-menu">
-              <a href="/">{t('로고넣고싶어')}</a>
-              <a href="/">{t('메롱')}</a>
+              <a href="/survey/answer">{t('answer')}</a>
+              <a href="/survey/list">{t('list')}</a>
+              <a href="/survey/register">{t('register')}</a>
+              <a href="/survey/view">{t('view')}</a>
             </SubMenu>
-          </MenuItem>
-          <MenuItem>
-
-            <a href="/survey/list">{t('자가 진단')}</a>
-
           </MenuItem>
           <MenuItem>
             <a>{t('게시판')}</a>

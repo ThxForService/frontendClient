@@ -36,7 +36,7 @@ const GroupListContainer = ({ searchParams }) => {
   const onChange = useCallback(
     (pgmSeq) => {
       // 프로그램 상세, 수정 페이지로 이동
-      router.replace(`/counseling/group/${pgmSeq}`);
+      router.replace(`/counseling/complete`);
     },
     [router],
   );
@@ -52,14 +52,17 @@ const GroupListContainer = ({ searchParams }) => {
           department: userInfo.department,
           email: userInfo.email,
           mobile: userInfo.mobile,
+          status: 'APPLY',
         };
         console.log('form', form);
         await groupApiApply(pgmSeq, form); // 신청하기 API 호출
         alert(`${pgmSeq} 프로그램에 신청했습니다!`); // 성공 메시지
         router.replace('/counseling/list');
       } catch (error) {
-        console.error(error);
-        alert('신청에 실패했습니다.'); // 에러 메시지
+        const message = error.message.global
+          ? error.message.global[0]
+          : error.message;
+        alert(message); // 에러 메시지
       }
     },
     [userInfo, router],
