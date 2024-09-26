@@ -1,10 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'next-i18next';
-import { StyledInput } from '@/commons/components/StyledInput';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import { ChatBox, ChatHeader, ChatFooter, ChatMessageBox, ChatMessageSendBox } from '@/commons/layouts/StyledWrapper';
 import styled from 'styled-components';
-import { white } from 'next/dist/lib/picocolors';
 
 const MessageBox = styled.form`
     overflow-y: auto;
@@ -39,6 +37,7 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
   const { states: { userInfo } } = getUserContext();
   const messageEndRef = useRef(null);
 
+
   useEffect(() => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -69,8 +68,10 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
                     key={index}
                     className={`chat-message ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'right' : ''}`}
                   >
-                    <div key={index}
-                         className={`message-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
+                    <div className={`time-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
+                      {msg.createdAt ? msg.createdAt.split(' ')[1].slice(0, 5) : new Date().toTimeString().slice(0, 5)}
+                    </div>
+                    <div className={`message-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
                       {msg.message}
                     </div>
                   </li>
