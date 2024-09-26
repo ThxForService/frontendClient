@@ -4,9 +4,9 @@ import ListContainer from '@/board/containers/ListContainer';
 const ListPage = ({ params }) => {
   const { bid } = params;
   return (
-    <MemberOnlyContainer>
+  
       <ListContainer bid={bid} />
-    </MemberOnlyContainer>
+
   );
 };
 

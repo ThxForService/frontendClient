@@ -1,10 +1,11 @@
 import MemberOnlyContainer from "@/member/containers/MemberOnlyContainer";
 import RegisterContainer from "@/board/containers/RegisterContainer";
 
-const UpdatePage = () => {
+const UpdatePage = ({params}) => {
+  const {seq} = params
   return (
     <MemberOnlyContainer>
-      <RegisterContainer />
+      <RegisterContainer seq={seq}/>
     </MemberOnlyContainer>
   );
 };

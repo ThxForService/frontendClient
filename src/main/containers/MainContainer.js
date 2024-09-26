@@ -1,7 +1,13 @@
 import React from 'react';
+import Maincomponents from '../components/Maincomponents.js';
 
 const MainContainer = () => {
-  return <h1>메인페이지..</h1>;
+  return( 
+  
+   <div>
+     <Maincomponents /><h1></h1>
+     </div>
+  );
 };
 
 export default React.memo(MainContainer);
