@@ -1,13 +1,11 @@
 import React from 'react';
 import { colors } from '@/theme/colors';
-import fontSizes from '@/theme/fontSizes';
-import fontWeight from '@/theme/fontWeight';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import Mainlogo, { StyledLogoText } from '../main/components/Mainlogo';
+import Mainlogo  from '../main/components/Mainlogo';
 
-const { dark, light, midGreen, white, lightGreen } = colors;
+const { dark, white, lightGreen } = colors;
 
 const MenuContainer = styled.nav`
   position: relative;
@@ -89,11 +87,7 @@ const SubMenu = styled.div`
   }
 `;
 
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 0 10px;
-`;
+
 
 const MainMenu = () => {
   const { showMainMenu } = getCommonStates();
