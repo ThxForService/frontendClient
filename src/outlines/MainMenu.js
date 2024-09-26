@@ -41,12 +41,12 @@ const MenuItem = styled.li`
     display: block;
     font-size: 1.5em;
     font-weight: bold;
-
-    }
   }
 
   &:hover .sub-menu {
     display: flex;
+    opacity: 1;
+    pointer-events: auto;
   }
 `;
 
@@ -60,10 +60,9 @@ const SubMenu = styled.div`
   z-index: 1000;
   opacity: 0; /* 서브메뉴를 처음에 보이지 않게 설정 */
   transform: translateY(-20px); /* 처음에는 약간 위쪽에 위치 */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* 부드러운 애니메이션 효과 추가 */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* 부드러운 애니메이션 효과 추가 */
   border-radius: 20px; /* 박스를 둥글게 설정 */
   pointer-events: none; /* 서브메뉴가 안보일 때는 클릭 불가 */
- 
 
   a {
     padding: 0 20px;
@@ -78,12 +77,11 @@ const SubMenu = styled.div`
     }
   }
 
-
   ${MenuItem}:hover & {
+    display: flex;
     opacity: 1; /* 서브메뉴가 나타나도록 설정 */
     transform: translateY(0); /* 원래 위치로 이동 */
     pointer-events: auto;
-    visibility: visible;
   }
 `;
 
