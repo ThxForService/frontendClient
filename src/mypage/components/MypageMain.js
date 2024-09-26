@@ -106,15 +106,18 @@ const MypageMain = ({ item }) => {
             <dd>{userInfo?.mobile || '등록정보 없음'}</dd>
           </dl>
         )}
-        {(userInfo?.address || userInfo?.addressSub || userInfo?.zonecode) && (
+        {userInfo?.address || userInfo?.addressSub || userInfo?.zonecode ? (
           <dl>
             <dt>{t('주소')}</dt>
             <dd>
-              {userInfo?.address || '등록정보 없음'}
-              {userInfo?.addressSub ? '등록정보 없음' : ''}{' '}
-              {userInfo?.zonecode || '등록정보 없음'}
+              {[userInfo?.address, userInfo?.addressSub, userInfo?.zonecode]
+                .filter(Boolean) // 존재하는 값만 남기기
+                .join(' ')}{' '}
+              {/* 값들 사이에 공백 추가 */}
             </dd>
           </dl>
+        ) : (
+          <p>{t('등록정보 없음')}</p>
         )}
         <dl>
           <dt>{t('생년월일')}</dt>
