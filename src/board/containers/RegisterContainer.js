@@ -1,14 +1,29 @@
 'use client';
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, {
+  useLayoutEffect,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
+import { getUserStates } from '@/commons/contexts/UserInfoContext';
 import Form from '@/board/components/Form';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'next-i18next';
-import { getInfo, createBoardData, updateBoardData } from '@/board/apis/apiboard';
+import {
+  getInfo,
+  createBoardData,
+  updateBoardData,
+} from '@/board/apis/apiboard';
+import Loading from '../../commons/components/Loading';
+import { deleteFile } from '@/commons/libs/apiFile';
 
 const RegisterContainer = ({ bid, seq }) => {
+  const { isLogin, userInfo } = getUserStates();
+
   const [form, setForm] = useState({
     bid: bid || '',
+    gid: Date.now() + '',
     seq: '',
     poster: '',
     subject: '',
@@ -25,6 +40,8 @@ const RegisterContainer = ({ bid, seq }) => {
     mode: seq ? 'edit' : 'write',
   });
 
+  const [loading, setLoading] = useState(true);
+
   const router = useRouter();
   const { t } = useTranslation();
   const { setMainTitle } = getCommonActions();
@@ -34,8 +51,13 @@ const RegisterContainer = ({ bid, seq }) => {
   }, [setMainTitle, t]);
 
   useEffect(() => {
+    setForm((form) => ({ ...form, poster: userInfo?.username }));
+  }, [isLogin, userInfo]);
+
+  useEffect(() => {
     const fetchBoardData = async () => {
       if (seq) {
+        setLoading(true);
         try {
           const boardData = await getInfo(seq);
           setForm({
@@ -44,27 +66,53 @@ const RegisterContainer = ({ bid, seq }) => {
           });
         } catch (error) {
           console.error(error);
+        } finally {
+          setLoading(false);
         }
+      } else {
+        setLoading(false);
       }
     };
 
     fetchBoardData();
   }, [seq]);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm({
-      ...form,
-      [name]: type === 'checkbox' ? checked : value,
-    });
-  };
+  const onChange = useCallback(
+    (e) => {
+      setForm({ ...form, [e.target.name]: e.target.value });
+    },
+    [form],
+  );
+  const onFileDelete = useCallback(
+    (seq) => {
+      if (!confirm(t('정말_삭제하겠습니까?'))) {
+        return;
+      }
 
-  const handleEditorChange = (event, editor) => {
+      (async () => {
+        try {
+          await deleteFile(seq);
+
+          let editorImages = form?.editorImages;
+          if (!editorImages) {
+            return;
+          }
+
+          editorImages = editorImages.filter((file) => file.seq !== seq);
+          setForm((form) => ({ ...form, editorImages }));
+        } catch (err) {
+          console.error(err);
+        }
+      })();
+    },
+    [form, t],
+  );
+  const onEditorChange = (event, editor) => {
     const data = editor.getData();
     setForm({ ...form, content: data });
   };
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     try {
       if (form.mode === 'edit') {
@@ -79,15 +127,20 @@ const RegisterContainer = ({ bid, seq }) => {
     }
   };
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <h1>{seq ? '게시글 수정' : '게시글 등록'}</h1>
       <Form
         form={form}
-        handleChange={handleChange}
-        handleEditorChange={handleEditorChange}
-        handleSubmit={handleSubmit}
+        onChange={onChange}
+        onEditorChange={onEditorChange}
+        onSubmit={onSubmit}
         bid={bid}
+        onFileDelete={onFileDelete}
       />
     </div>
   );

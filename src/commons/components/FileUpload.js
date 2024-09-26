@@ -4,7 +4,6 @@ import apiRequest from '../libs/apiRequest';
 import { StyledButton } from '@/commons/components/StyledButton';
 import StyledMessage from '@/commons/components/StyledMessage';
 import { useTranslation } from 'react-i18next';
-
 const FileUpload = ({
   children,
   gid,
@@ -15,6 +14,7 @@ const FileUpload = ({
   done,
   callback,
   width,
+  imageWidth,
   imageUrl,
   className,
 }) => {
@@ -71,7 +71,6 @@ const FileUpload = ({
         (async () => {
           try {
             const res = await apiRequest('/file/upload', 'POST', formData);
-            console.log('res', res);
             if (res.status === 201 && res.data.success) {
               // 파일 업로드 후속 처리
               if (typeof callback === 'function') {
@@ -103,7 +102,7 @@ const FileUpload = ({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={imageUrl}
-          width={width}
+          width={imageWidth}
           alt="profile"
           onClick={onButtonClick}
         />
