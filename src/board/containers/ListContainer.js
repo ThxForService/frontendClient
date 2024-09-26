@@ -1,3 +1,4 @@
+// ListContainer.js
 'use client';
 import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
@@ -88,6 +89,10 @@ const ListContainer = ({ setPageTitle, bid }) => {
     });
   }, [router]);
 
+  const handleRowClick = useCallback((seq) => {
+    router.push(`/board/view/${seq}`);
+  }, [router]);
+
   const handleButtonClick = useCallback(() => {
     router.push(`/board/write/${_bid}`);
   }, [router, _bid]);
@@ -103,6 +108,7 @@ const ListContainer = ({ setPageTitle, bid }) => {
         search={search} 
         onChange={onChange}
         onSubmit={onSubmitSearch}
+        onRowClick={handleRowClick}
       />
       {mode === 'list' && <button onClick={handleButtonClick}>글쓰기</button>}
       <Pagination pagination={pagination} onClick={onChangePage} />

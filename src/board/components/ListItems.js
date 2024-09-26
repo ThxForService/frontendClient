@@ -1,13 +1,8 @@
+// ListItems.js
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-const ListItems = ({ items }) => {
-  const router = useRouter();
-
-  const handleRowClick = (seq) => {
-    router.push(`/board/view/${seq}`);
-  };
-
+const ListItems = ({ items, onRowClick }) => {
   return (
     <table>
       <thead>
@@ -21,7 +16,7 @@ const ListItems = ({ items }) => {
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr key={item.seq} onClick={() => handleRowClick(item.seq)}>
+          <tr key={item.seq} onClick={() => onRowClick(item.seq)}>
             <td>{index + 1}</td>
             <td>{item.subject}</td>
             <td>{item.poster}</td>
