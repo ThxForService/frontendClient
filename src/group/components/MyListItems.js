@@ -22,14 +22,14 @@ const MyListItem = ({ items, onCancel, className }) => {
         </thead>
         <tbody>
           {items && items.length > 0 ? (
-            items.map(({ pgmSeq, program, createdAt }, index) => (
-              <tr key={pgmSeq}>
+            items.map(({ pgmRegSeq, program, createdAt }, index) => (
+              <tr key={pgmRegSeq}>
                 <td>{index + 1}</td>
                 <td>{program?.pgmNm}</td>
                 <td>{program?.pgmStartDate}</td>
                 <td>{createdAt}</td>
                 <td>
-                  <StyledButton type="button" onClick={() => onCancel(pgmSeq)}>
+                  <StyledButton type="button" onClick={() => onCancel(pgmRegSeq)}>
                     {t('신청 취소')}
                   </StyledButton>
                 </td>

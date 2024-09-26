@@ -44,7 +44,7 @@ const MyGCListContainer = ({ searchParams }) => {
           (program) => program.pgmSeq !== pgmSeq,
         );
         setPrograms(updatedPrograms);
-        router.reload(); // 페이지 새로 고침
+        router.replace(`/counseling/list`); // 페이지 새로 고침
       } catch (err) {
         alert(`예약 취소 오류: ${err.message}`);
       }
