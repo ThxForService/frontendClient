@@ -104,7 +104,7 @@ const MainMenu = () => {
             <a>{t('상담신청')}</a>
             <SubMenu className="sub-menu">
               <a href="/counseling/reserve">{t('개인 상담 신청')}</a>
-              <a href="/counseling/group">{t('집단 상담 프로그램')}</a>
+              <a href="/group/program/info">{t('집단 상담 프로그램')}</a>
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
             </SubMenu>
           </MenuItem>

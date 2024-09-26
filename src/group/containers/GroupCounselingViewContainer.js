@@ -1,51 +1,82 @@
 'use client';
 import React, { useEffect, useState, useCallback } from 'react';
-import { groupApiProgramInfo } from '../apis/groupApiProgramInfo';
+import { useTranslation } from 'react-i18next';
+import groupApiProgramList from '../apis/groupApiProgramList';
 import { useRouter } from 'next/navigation';
-import ViewItems from '../components/ViewItems';
+import Pagination from '@/commons/components/Pagination';
+import { groupApiApply } from '../apis/groupApiApply';
+import ListItems from '../components/ListItems';
+import { getUserStates } from '@/commons/contexts/UserInfoContext';
 
-const GroupCounselingViewContainer = ({ params }) => {
+const GroupListContainer = ({ searchParams }) => {
+  const { userInfo } = getUserStates();
+
+  const [programs, setPrograms] = useState([]);
+  const [pagination, setPagination] = useState(null);
   const router = useRouter();
-
-  const { pgmSeq } = params; // URL 파라미터에서 pgmSeq 가져오기
-
-  const [programs, setPrograms] = useState(null);
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await groupApiProgramInfo(pgmSeq);
-        setPrograms(response.data); // 응답에서 data 속성 가져오기
+        const data = await groupApiProgramList(searchParams);
+        setPrograms(data.items);
+        setPagination(data.pagination);
       } catch (err) {
         setErrors(err.message);
-      } finally {
-        setLoading(false);
       }
     })();
-  }, [pgmSeq]);
+  }, [searchParams]);
 
-  const onChange = useCallback(() => {
-    // 프로그램 목록으로 이동
-    router.replace(`/group/program/info`);
-  }, [router]);
+  const onChangePage = useCallback((p) => {
+    setSearch((search) => ({ ...search, page: p }));
+    window.location.hash = '#root';
+  }, []);
 
-  // **로딩 상태 체크**
-  if (loading) {
-    return <div>로딩 중...</div>; // 로딩 중 메시지
-  }
+  const onChange = useCallback(
+    (pgmSeq) => {
+      // 프로그램 상세, 수정 페이지로 이동
+      router.replace(`/counseling/group/${pgmSeq}`);
+    },
+    [router],
+  );
 
-  // **오류 처리**
-  if (errors.global) {
-    return <div>오류: {errors.global.join(', ')}</div>; // 오류 메시지 표시
-  }
+  const onApply = useCallback(
+    async (pgmSeq) => {
+      try {
+        const form = {
+          pgmSeq,
+          studentNo: userInfo.studentNo,
+          username: userInfo.username,
+          grade: userInfo.grade,
+          department: userInfo.department,
+          email: userInfo.email,
+          mobile: userInfo.mobile,
+          status: 'APPLY',
+        };
+        console.log('form', form);
+        await groupApiApply(pgmSeq, form); // 신청하기 API 호출
+        alert(`${pgmSeq} 프로그램에 신청했습니다!`); // 성공 메시지
+        router.replace('/counseling/list');
+      } catch (error) {
+        const message = error.message.global
+          ? error.message.global[0]
+          : error.message;
+        alert(message); // 에러 메시지
+      }
+    },
+    [userInfo, router],
+  );
 
   return (
     <div>
-      <ViewItems programs={programs} onChange={onChange} />
+      <h1>{t('집단_상담_프로그램_목록')}</h1>
+      <ListItems items={programs} onApply={onApply} />
+      {pagination && (
+        <Pagination pagination={pagination} onClick={onChangePage} />
+      )}
     </div>
   );
 };
 
-export default React.memo(GroupCounselingViewContainer);
+export default React.memo(GroupListContainer);

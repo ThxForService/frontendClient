@@ -15,6 +15,8 @@ const GroupListContainer = ({ searchParams }) => {
   const [pagination, setPagination] = useState(null);
   const router = useRouter();
   const { t } = useTranslation();
+  const [showIframe, setShowIframe] = useState(false);
+  const [iframeSrc, setIframeSrc] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -23,22 +25,21 @@ const GroupListContainer = ({ searchParams }) => {
         setPrograms(data.items);
         setPagination(data.pagination);
       } catch (err) {
-        setErrors(err.message);
+        console.error(err.message);
       }
     })();
   }, [searchParams]);
 
   const onChangePage = useCallback((p) => {
-    setSearch((search) => ({ ...search, page: p }));
-    window.location.hash = '#root';
+    // 페이지 변경 처리
   }, []);
 
   const onChange = useCallback(
     (pgmSeq) => {
-      // 프로그램 상세, 수정 페이지로 이동
-      router.replace(`/counseling/group/${pgmSeq}`);
+      setIframeSrc(`/group/program/info/${pgmSeq}`);
+      setShowIframe(true);
     },
-    [router],
+    []
   );
 
   const onApply = useCallback(
@@ -54,15 +55,14 @@ const GroupListContainer = ({ searchParams }) => {
           mobile: userInfo.mobile,
           status: 'APPLY',
         };
-        console.log('form', form);
-        await groupApiApply(pgmSeq, form); // 신청하기 API 호출
-        alert(`${pgmSeq} 프로그램에 신청했습니다!`); // 성공 메시지
+        await groupApiApply(pgmSeq, form);
+        alert(`${pgmSeq} 프로그램에 신청했습니다!`);
         router.replace('/counseling/list');
       } catch (error) {
         const message = error.message.global
           ? error.message.global[0]
           : error.message;
-        alert(message); // 에러 메시지
+        alert(message);
       }
     },
     [userInfo, router],
@@ -70,8 +70,8 @@ const GroupListContainer = ({ searchParams }) => {
 
   return (
     <div>
-      <h1>{t('집단_상담_프로그램_목록')}</h1>
-      <ListItems items={programs} onApply={onApply} />
+      <h1 style={{ marginTop: '30px', textAlign: 'center' }}>{t('집단 상담 프로그램 목록')}</h1>
+      <ListItems items={programs} onApply={onApply} onChange={onChange} />
       {pagination && (
         <Pagination pagination={pagination} onClick={onChangePage} />
       )}

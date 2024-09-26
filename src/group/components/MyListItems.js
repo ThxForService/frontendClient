@@ -5,67 +5,72 @@ import { useTranslation } from 'react-i18next';
 import { StyledButton } from '@/commons/components/StyledButton';
 import Status from '../constants/status';
 
-const MyListItem = ({ items, onCancel }) => {
+const MyListItem = ({ items, onCancel, className }) => {
   const { t } = useTranslation();
 
   return (
-    <ul className="MyListItem">
-      {items && items.length > 0 ? (
-        items.map(({ pgmSeq, pgmNm, description, status }) => (
-          <li key={pgmSeq}>
-            <p>
-              <strong>{t('프로그램명:')}</strong> {pgmNm}
-            </p>
-            <p>
-              <strong>{t('프로그램 설명:')}</strong> {description}
-            </p>
-            <p>
-              <strong> {t('접수 상태 :')}</strong>{' '}
-              {Status[status] || '상태 미정'}
-            </p>
-            <StyledButton type="button" onClick={() => onCancel(pgmSeq)}>
-              {t('신청 취소')}
-            </StyledButton>
-          </li>
-        ))
-      ) : (
-        <li>{t('신청 내역이 없습니다.')}</li>
-      )}
-    </ul>
+    <TableWrapper className={className}>
+      <Table>
+        <thead>
+          <tr>
+            <th>{t('번호')}</th>
+            <th>{t('이용하고 싶은 상담 프로그램명')}</th>
+            <th>{t('상담 일시')}</th>
+            <th>{t('신청 일시')}</th>
+            <th>{t('신청 취소')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items && items.length > 0 ? (
+            items.map(({ pgmSeq, pgmNm, pgmStartDate, createdAt }, index) => (
+              <tr key={pgmSeq}>
+                <td>{index + 1}</td>
+                <td>{pgmNm}</td>
+                <td>{pgmStartDate}</td>
+                <td>{createdAt}</td>
+                <td>
+                  <StyledButton type="button" onClick={() => onCancel(pgmSeq)}>
+                    {t('신청 취소')}
+                  </StyledButton>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5">{t('신청 내역이 없습니다.')}</td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
+    </TableWrapper>
   );
 };
 
-const StyledMyListItem = styled(MyListItem)`
-  .my-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
+const TableWrapper = styled.div`
+  max-width: 1000px; 
+  margin: 30px auto 0;
+`;
 
-  .list-item {
-    background-color: #f9f9f9;
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+
+  th, td {
     border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 16px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s;
+    padding: 8px;
+    text-align: center; // 가운데 정렬
+  }
 
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr {
     &:hover {
-      background-color: #e9e9e9;
+      background-color: transparent; // 테이블 행 hover 효과 제거
     }
-  }
-
-  p {
-    margin: 5px 0;
-  }
-
-  strong {
-    color: #333;
-  }
-
-  button {
-    margin-top: 10px;
   }
 `;
 
-export default StyledMyListItem;
+export default MyListItem;

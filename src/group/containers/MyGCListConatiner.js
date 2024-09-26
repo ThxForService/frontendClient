@@ -52,7 +52,7 @@ const MyGCListContainer = ({ searchParams }) => {
 
   return (
     <div>
-      <h1>{t('집단 상담 예약 내역')}</h1>
+      <h1 style={{ marginTop: '30px', textAlign: 'center' }}>{t('집단 상담 예약 내역')}</h1>
       <MyListItems items={programs} onCancel={onCancel}/> 
       {pagination && (
         <Pagination pagination={pagination} onClick={onChangePage} />

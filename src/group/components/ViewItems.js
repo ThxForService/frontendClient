@@ -2,15 +2,13 @@
 import React from 'react';
 import programStatus from '../constants/programStatus';
 import styled from 'styled-components';
-import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { StyledButton } from '@/commons/components/StyledButton';
 
-const ViewItems = ({ programs, onChange, className }) => {
+const ViewItems = ({ programs, className }) => {
   const { t } = useTranslation();
   return (
     <div className={className}>
-      {programs && ( // programs가 null이 아닐 때만 렌더링
+      {programs && (
         <>
           <h1>{programs.pgmNm}</h1>
           <p>
@@ -18,16 +16,15 @@ const ViewItems = ({ programs, onChange, className }) => {
           </p>
           <p>
             <strong>일시:</strong>{' '}
-            {new Date(programs.pgmStartDate)
-              .toLocaleString('ko-KR', {
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-                weekday: 'long', // 요일 표시
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true, // 12시간제
-              })}
+            {new Date(programs.pgmStartDate).toLocaleString('ko-KR', {
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+              weekday: 'long',
+              hour: 'numeric',
+              minute: 'numeric',
+              hour12: true,
+            })}
           </p>
           <p>
             <strong>정원:</strong> {programs.capacity}
@@ -40,11 +37,6 @@ const ViewItems = ({ programs, onChange, className }) => {
             <strong>접수 상태:</strong>{' '}
             {programStatus[programs.status] || '상태 미정'}
           </p>
-          <Link href={`/group/program/info`} passHref>
-            <StyledButton type="button" variant="primary">
-              {t('목록으로 돌아가기')}
-            </StyledButton>
-          </Link>
         </>
       )}
     </div>
@@ -52,11 +44,11 @@ const ViewItems = ({ programs, onChange, className }) => {
 };
 
 const StyledViewItems = styled(ViewItems)`
- padding: 20px;
-  background-color: #f9f9f9;
+  padding: 20px;
+  background-color: #ffffff; 
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin: 20px 0;
+  text-align: center; 
 
   h1 {
     font-size: 24px;
@@ -71,17 +63,14 @@ const StyledViewItems = styled(ViewItems)`
     margin-bottom: 10px;
 
     strong {
-      color: #0070f3; 
+      color: #333; 
     }
   }
 
   a {
     text-decoration: none;
   }
-
-  button {
-    margin-top: 15px; 
-  }
 `;
+
 
 export default StyledViewItems;
