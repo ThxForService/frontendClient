@@ -12,17 +12,8 @@ const CommentForm = ({ form, onChange, onSubmit, errors }) => {
     <form onSubmit={onSubmit} autoComplete="off">
       <div>
         <div>
-          <input
-            type="text"
-            name="commenter"
-            placeholder={t('작성자')}
-            value={form?.commenter}
-            onChange={onChange}
-          />
-          {errors?.commenter && (
-            <div style={{ color: 'red' }}>{errors.commenter.join(', ')}</div>
-          )}
-        
+          <label>작성자: </label>
+          {form?.commenter}
         </div>
         <textarea
           name="content"
