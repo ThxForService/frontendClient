@@ -53,7 +53,7 @@ const MenuItem = styled.li`
 const SubMenu = styled.div`
   position: absolute;
   top: 80px;
-  background: ${white};
+  background: ${dark} rgb(255, 255, 255, 0.95);
   flex-direction: column;
   width: 200px;
   height: auto;

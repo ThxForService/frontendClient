@@ -61,7 +61,7 @@ const StyledViewItems = styled(ViewItems)`
     background-image: url('/images/groupPopup.jpg'); /* public 폴더를 기준으로 경로 설정 */
     background-size: cover; /* 이미지 크기 조정 */
     background-position: center; /* 중앙 정렬 */
-    opacity: 0.6; /* 투명도 설정 */
+    opacity: 0.3; /* 투명도 설정 */
     z-index: 0; /* 배경이 글씨 뒤에 오도록 설정 */
   }
 
