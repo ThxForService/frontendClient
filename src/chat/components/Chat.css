@@ -1,0 +1,86 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #5697cc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f0f4f8; /* 채팅방 배경색 */
+}
+
+.chat-room-list {
+    background-color: #5697cc; /* 채팅방 목록 배경색 */
+    padding: 15px;
+    color: white; /* 글자색 */
+    border-bottom: 3px solid #4a88b4; /* 하단 선 */
+}
+
+.chat-room-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    border-radius: 5px; /* 채팅방 항목 모서리 */
+}
+
+.chat-room-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.02); /* 확대 효과 */
+}
+
+.chat-messages {
+    background-color: #ffffff; /* 메시지 배경색 */
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    border-radius: 0 0 8px 8px; /* 아래쪽 모서리 */
+}
+
+.chat-message {
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #eaf4ff; /* 메시지 배경색 */
+    position: relative;
+}
+
+.chat-message strong {
+    color: #5697cc; /* 발신자 이름 색상 */
+}
+
+.chat-form {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f0f4f8; /* 입력란 배경색 */
+    border-top: 3px solid #4a88b4; /* 입력란 상단선 */
+}
+
+.message-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #5697cc;
+    border-radius: 5px;
+    margin-right: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* 입력란 그림자 */
+}
+
+.send-button {
+    background-color: #5697cc; /* 버튼 배경색 */
+    color: white; /* 버튼 글자색 */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px; /* 버튼 모서리 */
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s; /* 전환 효과 */
+}
+
+.send-button:hover {
+    background-color: #4788b0; /* 버튼 호버 색상 */
+    transform: scale(1.05); /* 버튼 확대 효과 */
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+}

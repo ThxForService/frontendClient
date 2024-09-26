@@ -1,12 +1,12 @@
 'use client';
 
+import ChatContainer from '@/chat/containers/ChatContainerCounselor';
 import { OuterBox } from '@/commons/layouts/StyledWrapper';
-import ChatRoomListContainer from '@/chat/containers/ChatRoomListContainer';
 
 const ChatPage = () => {
   return (
     <OuterBox>
-      <ChatRoomListContainer />
+      <ChatContainer/>
     </OuterBox>
   );
 };
