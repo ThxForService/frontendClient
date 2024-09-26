@@ -160,8 +160,14 @@ const MypageMain = ({ item }) => {
         )}
          {userInfo?.subject && (
           <dl>
-            <dt>{t('담당학과')}</dt>
+            <dt>{t('담당분야')}</dt>
             <dd>{userInfo?.subject}</dd>
+          </dl>
+        )}
+         {userInfo?.introduction && (
+          <dl>
+            <dt>{t('상담사 소개')}</dt>
+            <dd>{userInfo?.introduction}</dd>
           </dl>
         )}
       </Wrapper>

@@ -16,16 +16,22 @@ const Wrapper = styled.div`
 `;
 
 const ProfileImage = ({ gid, profileImage, fileUploadCallback, className }) => {
+
+  const imageUrl = profileImage ? `${profileImage.thumbUrl}?seq=${profileImage.seq}&width=300&height=400` : NoProfile;
+
+
+  
   return (
     <Wrapper className={className}>
       <FileUpload
         width={170}
-        imageUrl={profileImage ?? '/images/basicprofile.png'}
+        imageUrl={imageUrl}
         gid={gid}
         imageOnly={true}
         single={true}
         done={true}
         callback={fileUploadCallback}
+        style={{ cursor: 'pointer' }}
       />
     </Wrapper>
   );
