@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Page2 from '../centerintroduce/Page2';
 import Header from '@/commons/layouts/Header';
 import { OuterBox, ContentBox2 } from '@/commons/layouts/StyledWrapper';
 
@@ -10,7 +11,8 @@ const center = () => {
     <OuterBox>
       <Header />
       <ContentBox2>
-        <h1>센터 소개</h1>
+        <h1></h1>
+        <Page2 />
       </ContentBox2>
     </OuterBox>
   );
