@@ -1,0 +1,45 @@
+.chat-component {
+    background-color: #f9f9f9; /* 부드러운 배경색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    padding: 20px; /* 패딩 추가 */
+    max-width: 400px; /* 최대 너비 */
+    margin: 10px auto; /* 중앙 정렬 */
+}
+
+.chat-message {
+    margin-bottom: 10px; /* 메시지 간격 */
+    padding: 10px; /* 메시지 내부 패딩 */
+    border-radius: 5px; /* 메시지 박스 모서리 둥글게 */
+    background-color: #e1f5fe; /* 메시지 배경색 */
+}
+
+.chat-message strong {
+    color: #00796b; /* 보낸 사람 이름 색상 */
+}
+
+.chat-component form {
+    display: flex; /* 입력 필드와 버튼을 가로로 나란히 */
+}
+
+.chat-component input {
+    flex: 1; /* 입력 필드가 남은 공간을 차지 */
+    padding: 10px; /* 입력 필드 내부 패딩 */
+    border: 1px solid #bdbdbd; /* 테두리 색상 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    margin-right: 10px; /* 버튼과 간격 */
+}
+
+.chat-component button {
+    padding: 10px 15px; /* 버튼 내부 패딩 */
+    background-color: #00796b; /* 버튼 배경색 */
+    color: white; /* 버튼 글자색 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 */
+    cursor: pointer; /* 커서 포인터로 변경 */
+    transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+}
+
+.chat-component button:hover {
+    background-color: #004d40; /* 호버 시 배경색 변경 */
+}
