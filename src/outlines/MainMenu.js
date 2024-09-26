@@ -1,13 +1,11 @@
 import React from 'react';
 import { colors } from '@/theme/colors';
-import fontSizes from '@/theme/fontSizes';
-import fontWeight from '@/theme/fontWeight';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import Mainlogo, { StyledLogoText } from '../main/components/Mainlogo';
+import Mainlogo  from '../main/components/Mainlogo';
 
-const { dark, light, midGreen, white, lightGreen } = colors;
+const { dark, white, lightGreen } = colors;
 
 const MenuContainer = styled.nav`
   position: relative;
@@ -23,12 +21,16 @@ const MenuContainer = styled.nav`
 
 const MenuList = styled.ul`
   display: flex;
+  justify-content: space-between; /* 전체 메뉴의 배치를 컨트롤 */
+  width: 75%; /* 메뉴 전체가 차지하는 너비 */
+  padding: 0 10px; /* 좌우 패딩으로 여유를 줄 수 있음 */
 `;
 
 const MenuItem = styled.li`
   position: relative;
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 -40px;
+  padding: 0 10px; /* 각 메뉴 아이템의 내부 패딩 */
 
   a {
     color: dark;
@@ -85,11 +87,7 @@ const SubMenu = styled.div`
   }
 `;
 
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 0 10px;
-`;
+
 
 const MainMenu = () => {
   const { showMainMenu } = getCommonStates();
@@ -103,10 +101,8 @@ const MainMenu = () => {
             <Mainlogo />
           </MenuItem>
 
-          <MenuItem>
-            
-              <a>{t('심리상담센터 소개')}</a>
-            
+          <MenuItem style={{ marginRight: '20px' }}>
+            <a>{t('심리상담센터 소개')}</a>
             <SubMenu className="sub-menu">
               <a href="/introduce/center">{t('센터 소개')}</a>
               <a href="/introduce/member">{t('구성원 소개')}</a>
@@ -115,7 +111,7 @@ const MainMenu = () => {
             </SubMenu>
           </MenuItem>
 
-          <MenuItem>
+          <MenuItem style={{ marginRight: '70px' }}>
             <a>{t('상담신청')}</a>
             <SubMenu className="sub-menu">
               <a href="/counseling/reserve">{t('개인 상담 신청')}</a>
@@ -124,7 +120,7 @@ const MainMenu = () => {
             </SubMenu>
           </MenuItem>
 
-          <MenuItem>
+          <MenuItem style={{ marginRight: '40px' }}>
             <a>{t('자가 진단')}</a>
             <SubMenu className="sub-menu">
               <a href="/survey/answer">{t('answer')}</a>
@@ -133,11 +129,11 @@ const MainMenu = () => {
               <a href="/survey/view">{t('view')}</a>
             </SubMenu>
           </MenuItem>
-          <MenuItem>
+          <MenuItem style={{ marginRight: '-20px' }}> {/* 좌측 정렬 */}
             <a>{t('게시판')}</a>
             <SubMenu className="sub-menu">
-              <a href="/board/list">{t('공지사항')}</a>
-              <a href="/board/list">{t('QnA')}</a>
+              <a href="/board/list/1">{t('공지사항')}</a>
+              <a href="/board/list/2">{t('QnA')}</a>
             </SubMenu>
           </MenuItem>
         </MenuList>

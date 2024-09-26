@@ -1,4 +1,3 @@
-// ListContainer.js
 'use client';
 import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
@@ -63,7 +62,9 @@ const ListContainer = ({ setPageTitle, bid }) => {
     const { name, value } = e.target;
     setSearch((prevSearch) => {
       const updatedSearch = { ...prevSearch, [name]: value };
-      router.push({ pathname: router.pathname, query: updatedSearch });
+      if (router.pathname) {
+        router.push({ pathname: router.pathname, query: updatedSearch });
+      }
       return updatedSearch;
     });
   }, [router]);
@@ -73,7 +74,9 @@ const ListContainer = ({ setPageTitle, bid }) => {
       e.preventDefault();
       setSearch((prevSearch) => {
         const updatedSearch = { ...prevSearch, page: 1 };
-        router.push({ pathname: router.pathname, query: updatedSearch });
+        if (router.pathname) {
+          router.push({ pathname: router.pathname, query: updatedSearch });
+        }
         return updatedSearch;
       });
     },
@@ -83,17 +86,19 @@ const ListContainer = ({ setPageTitle, bid }) => {
   const onChangePage = useCallback((p) => {
     setSearch((prevSearch) => {
       const updatedSearch = { ...prevSearch, page: p };
-      router.push({ pathname: router.pathname, query: updatedSearch });
-      window.location.hash = '#root';
+      if (router.pathname) {
+        router.push({ pathname: router.pathname, query: updatedSearch });
+        window.location.hash = '#root';
+      }
       return updatedSearch;
     });
   }, [router]);
 
-  const handleRowClick = useCallback((seq) => {
+  const onRowClick = useCallback((seq) => {
     router.push(`/board/view/${seq}`);
   }, [router]);
 
-  const handleButtonClick = useCallback(() => {
+  const onButtonClick = useCallback(() => {
     router.push(`/board/write/${_bid}`);
   }, [router, _bid]);
 
@@ -105,12 +110,13 @@ const ListContainer = ({ setPageTitle, bid }) => {
     <>
       <List
         items={items}
-        search={search} 
+        search={search}
         onChange={onChange}
         onSubmit={onSubmitSearch}
-        onRowClick={handleRowClick}
+        onRowClick={onRowClick}
+        bid={bid}
       />
-      {mode === 'list' && <button onClick={handleButtonClick}>글쓰기</button>}
+      {mode === 'list' && <button onClick={onButtonClick}>글쓰기</button>}
       <Pagination pagination={pagination} onClick={onChangePage} />
     </>
   );

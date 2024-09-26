@@ -144,7 +144,7 @@ const MypageMain = ({ item }) => {
         )}
         {userInfo?.grade && (
           <dl>
-            <dt>{t('학과')}</dt>
+            <dt>{t('학년')}</dt>
             <dd>{userInfo?.grade}</dd>
           </dl>
         )}
@@ -156,6 +156,12 @@ const MypageMain = ({ item }) => {
           <dl>
             <dt>{t('지도교수')}</dt>
             <dd>{userInfo?.professor?.username || '등록정보 없음'}</dd>
+          </dl>
+        )}
+         {userInfo?.subject && (
+          <dl>
+            <dt>{t('담당학과')}</dt>
+            <dd>{userInfo?.subject}</dd>
           </dl>
         )}
       </Wrapper>

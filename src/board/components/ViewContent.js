@@ -1,7 +1,13 @@
 import React from 'react';
+import { getUserStates } from '@/commons/contexts/UserInfoContext';
+import { useRouter } from 'next/navigation';
 
 const ViewContent = ({ data, onDelete }) => {
+  const { userInfo } = getUserStates(); 
   const { board } = data;
+  const router = useRouter();
+
+  const isAuthor = userInfo && userInfo.username === data.poster;
 
   return (
     <div>
@@ -29,22 +35,23 @@ const ViewContent = ({ data, onDelete }) => {
       )}
       <div>
         {data.showList && (
-          <button onClick={() => window.location.href = '/board/list/' + board.bid}>
-            글목록
-          </button>
+          <a href={'/board/list/' + board.bid}>
+            <button type="button">글목록</button>
+          </a>
         )}
 
-        {data.showEdit && (
+        {isAuthor && data.showEdit && (
           <>
-            <button onClick={() => window.location.href = '/board/write/' + board.bid}>
-              글쓰기
-            </button>
-            <button onClick={() => window.location.href = '/board/update/' + data.seq}>
-              글수정
-            </button>
+            <a href={'/board/write/' + board.bid}>
+              <button type="button">글쓰기</button>
+            </a>
+            <a href={'/board/update/' + data.seq}>
+              <button type="button">글수정</button>
+            </a>
           </>
         )}
-        {data.showDelete && (
+
+        {isAuthor && data.showDelete && (
           <button type="button" onClick={() => onDelete(data.seq)}>
             글삭제
           </button>
