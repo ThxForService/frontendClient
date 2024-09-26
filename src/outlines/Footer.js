@@ -8,11 +8,11 @@ import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import cookies from 'react-cookies';
 import { useRouter } from 'next/navigation';
 
-const { darkgray, midgray } = colors;
+const { darkPink, black } = colors;
 
 const FooterBox = styled.footer`
   min-height: 270px;
-  background: ${darkgray};
+  background: ${black};
   padding: 20px;
   display: flex;
   align-items: center;
@@ -33,7 +33,7 @@ const Address = styled.div`
   font-weight: bold;
 
   span {
-    color: ${midgray};
+    color: ${darkPink};
     cursor: pointer;
     &:hover {
       text-decoration: underline;
@@ -41,12 +41,21 @@ const Address = styled.div`
   }
 `;
 
+const Information = styled.div`
+  width: 100%;
+  font-size: 13px;
+  margin-left: 100px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: ${darkPink};
+`;
+
 const Information2 = styled.div`
   width: 100%;
   font-size: 13px;
   margin-left: 100px;
   line-height: 1.5;
-  color: ${midgray};
+  color: ${darkPink};
 `;
 
 const FooterContentBox = styled.div`
@@ -98,6 +107,7 @@ const Footer = () => {
             <Address>
               <span onClick={handlePrivacyPolicyClick}>개인정보처리방침</span>
             </Address>
+            
             <Information2>
               주소(이대센터) : (04104) 서울 마포구 신촌로 176 이메일
               :qwer1234@thx.or.kr
