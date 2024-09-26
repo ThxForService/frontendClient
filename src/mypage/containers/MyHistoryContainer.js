@@ -5,6 +5,7 @@ import MyHistory from '../components/MyHistory';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { apiList } from '@/counseling/apis/apiInfo';
 import Loading from '@/commons/components/Loading';
+import Pagination from '@/commons/components/Pagination';
 
 const MyHistoryContainer = () => {
   const { t } = useTranslation();

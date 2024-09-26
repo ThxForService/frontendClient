@@ -35,6 +35,7 @@ export const getList = (bid, search) => {
 
   const url = `/board/list/${bid}${qs}`;
 
+  console.log(url)
   return requestData(url);
 };
 
