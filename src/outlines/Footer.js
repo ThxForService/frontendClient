@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { getCommonStates } from '../commons/contexts/CommonContext';
 import { colors } from '@/theme/colors';
@@ -29,8 +29,15 @@ const Address = styled.div`
   margin-left: 100px;
   margin-bottom: 30px;
   margin-top: 10px;
-  color: ${darkPink};
   font-weight: bold;
+
+  span {
+    color: ${darkPink};
+    cursor: pointer;
+    &: hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const Information = styled.div`
@@ -62,44 +69,47 @@ const FooterImageBox = styled.div`
   margin-top: 180px;
 `;
 
-const Footer = () => {
+const Footer = ({ onOpenModal }) => {
   const { t } = useTranslation();
   const { showFooter } = getCommonStates();
   const {
     states: { isLogin, userInfo, isAdmin },
     actions: { setIsLogin, setIsAdmin, setUserInfo },
   } = getUserContext();
+
   const onLogout = useCallback(() => {
     setIsLogin(false);
     setIsAdmin(false);
     setUserInfo(null);
     cookies.remove('token', { path: '/' });
   }, [setIsLogin, setIsAdmin, setUserInfo]);
+
   return (
     showFooter && (
       <FooterBox>
         <FooterWrap>
           <FooterContentBox>
-            <Address>이진표</Address>
-            <Information>
-              <br />
-            </Information>
+            <Address>
+              <span onClick={onOpenModal}>개인정보처리방침</span>
+            </Address>
+            
             <Information2>
-              주소(신촌캠퍼스) : (03722) 서울특별시 서대문구 연세로 50
-              연세대학교 백양관 N408호 전화 : 02-2123-6688 이메일 :
-              counsel@yonsei.ac.kr
+              주소(이대센터) : (04104) 서울 마포구 신촌로 176  
+              이메일 :qwer1234@thx.or.kr  
               <br />
-              주소(국제캠퍼스) : (21983) 인천광역시 연수구 송도과학로 85
-              송도2학사 G동 반피득홀 전화 : 032-749-2070 이메일 :
-              counselyic@yonsei.ac.kr
+              전화 :02-222-3333 
+              <br/>
+              주소(강남센터) : (06134) 서울 강남구 테헤란로7길 7 에스코빌딩 6층
+              이메일 :JH.K77@thx.or.kr
               <br />
+              전화: 02-444-5555
+            
               <br />
-              Copyrights (c) 2017 Yonsei University Counseling Center. All
-              rights reserved.
+              <br/>
+              Copyrights (c) 2024 THX Counseling Center. All rights reserved.
             </Information2>
           </FooterContentBox>
           <FooterImageBox>
-            <Image src="/images/logo.png" alt="1" width={100} height={100} />
           </FooterImageBox>
         </FooterWrap>
       </FooterBox>

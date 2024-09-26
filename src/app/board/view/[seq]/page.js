@@ -3,9 +3,7 @@ import ViewContainer from "@/board/containers/ViewContainer";
 
 const ViewPage = () => {
   return (
-    <MemberOnlyContainer>
       <ViewContainer />
-    </MemberOnlyContainer>
   );
 };
 

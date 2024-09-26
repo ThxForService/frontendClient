@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import FileUpload from '@/commons/components/FileUpload';
-import NoProfile from '../../../public/images/basicprofile.jpg';
+import NoProfile from '../../../public/images/basicprofile.png';
+import Image from 'next/image';
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,8 +19,8 @@ const ProfileImage = ({ gid, profileImage, fileUploadCallback, className }) => {
   return (
     <Wrapper className={className}>
       <FileUpload
-        width={180}
-        imageUrl={profileImage ?? NoProfile}
+        width={170}
+        imageUrl={profileImage ?? '/images/basicprofile.png'}
         gid={gid}
         imageOnly={true}
         single={true}
