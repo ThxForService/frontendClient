@@ -5,20 +5,16 @@ import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { StyledButton } from '@/commons/components/StyledButton';
 
-const CounselingList = ({ items, onApply, className }) => {
+const ListItems = ({ items, className }) => {
   const { t } = useTranslation();
   return (
     <ul className={className}>
       {items &&
         items.length > 0 &&
-        items.map(({ cSeq }) => (
-          <li key={pgmSeq}>
-            <Link href={`/counseling/list/${cSeq}`}>{studentNo}</Link>
-            <StyledButton
-              type="button"
-              variant="primary"
-              onClick={() => onApply(cSeq)}
-            >
+        items.map(({ cSeq, ccase }) => (
+          <li key={cSeq}>
+            <Link href={`/counseling/list/${cSeq}`}>{ccase}</Link>
+            <StyledButton type="button" variant="primary">
               {t('신청하기')}
             </StyledButton>
           </li>
@@ -27,7 +23,7 @@ const CounselingList = ({ items, onApply, className }) => {
   );
 };
 
-const StyledListItems = styled(CounselingList)`
+const StyledListItems = styled(ListItems)`
   list-style: none;
   padding: 0;
   margin: 0;

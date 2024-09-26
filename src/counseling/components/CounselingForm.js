@@ -64,10 +64,12 @@ const CounselingForm = ({
     morning: ['09:00', '10:00', '11:00', '12:00'],
     afternoon: ['13:00', '14:00', '15:00', '16:00', '17:00'],
   };
+
   const options = Object.keys(ccase).map((key) => ({
     value: key,
     label: ccase[key],
   }));
+
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <div>
@@ -112,9 +114,9 @@ const CounselingForm = ({
           <StyledMessage color="danger" messages={errors.mobile} />
         )}
       </div>
-      <div></div>
       <div>
         <dt>{t('상담_날짜')}</dt>
+        {/* 예약 가능한 날짜 범위 설정 */}
         <Calendar onChange={onDateChange} value={selectedDate} />{' '}
         {errors?.rDate && (
           <StyledMessage color="danger" messages={errors.rDate} />

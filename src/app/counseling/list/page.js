@@ -1,10 +1,10 @@
 import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
 import CounselingListContainer from '@/counseling/containers/CounselingListContainer';
 
-const CounselingView = ({ params }) => {
+const CounselingView = ({ searchParams }) => {
   return (
     <MemberOnlyContainer>
-      <CounselingListContainer params={params} />
+      <CounselingListContainer searchParams={searchParams} />
     </MemberOnlyContainer>
   );
 };

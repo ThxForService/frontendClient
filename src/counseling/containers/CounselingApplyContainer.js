@@ -71,6 +71,10 @@ const CounselingApplyContainer = () => {
       customCase: t('상담_사유를_적어보세요.'),
     };
 
+    if (form.ccase === 'OTHER') {
+      requiredFields.customCase = t('상담_사유를_적어보세요.');
+    }
+
     for (const [field, message] of Object.entries(requiredFields)) {
       if (
         (typeof form[field] === 'string' && !form[field].trim()) ||
@@ -102,7 +106,7 @@ const CounselingApplyContainer = () => {
       (async () => {
         try {
           await apiApply(form);
-          router.replace(`/counseling/complete/${cSeq}`); // 예약 성공 후 페이지 이동
+          router.replace(`/counseling/complete`); // 예약 성공 후 페이지 이동
         } catch (err) {
           console.log('api요청오류', err);
           // 오류 처리
