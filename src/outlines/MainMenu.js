@@ -3,7 +3,7 @@ import { colors } from '@/theme/colors';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import Mainlogo  from '../main/components/Mainlogo';
+import Mainlogo from '../main/components/Mainlogo';
 
 const { dark, white, lightGreen } = colors;
 
@@ -87,8 +87,6 @@ const SubMenu = styled.div`
   }
 `;
 
-
-
 const MainMenu = () => {
   const { showMainMenu } = getCommonStates();
   const { t } = useTranslation();
@@ -129,7 +127,9 @@ const MainMenu = () => {
               <a href="/survey/view">{t('view')}</a>
             </SubMenu>
           </MenuItem>
-          <MenuItem style={{ marginRight: '-20px' }}> {/* 좌측 정렬 */}
+          <MenuItem style={{ marginRight: '-20px' }}>
+            {' '}
+            {/* 좌측 정렬 */}
             <a>{t('게시판')}</a>
             <SubMenu className="sub-menu">
               <a href="/board/list/1">{t('공지사항')}</a>

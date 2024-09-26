@@ -42,11 +42,7 @@ export const StyledLogoText = styled.a`
 const Mainlogo = () => {
   return (
     <LogoContainer>
-      <a
-        href="http://localhost:7000/"
-        target="_self"
-        style={{ outline: 'none' }}
-      >
+      <a href="/" target="_self" style={{ outline: 'none' }}>
         <LogoImage src={smilelogo} alt="Smile Logo" width={85} height={85} />
       </a>
     </LogoContainer>
