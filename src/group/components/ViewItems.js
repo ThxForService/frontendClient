@@ -44,33 +44,51 @@ const ViewItems = ({ programs, className }) => {
 };
 
 const StyledViewItems = styled(ViewItems)`
+  position: relative; /* 부모 요소에 상대 위치 설정 */
   padding: 20px;
-  background-color: #ffffff; 
   border-radius: 8px;
   margin: 20px 0;
   text-align: center; 
+  overflow: hidden; /* 자식 요소가 부모를 벗어나지 않게 함 */
 
-  h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 15px;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/images/groupPopup.jpg'); /* public 폴더를 기준으로 경로 설정 */
+    background-size: cover; /* 이미지 크기 조정 */
+    background-position: center; /* 중앙 정렬 */
+    opacity: 0.6; /* 투명도 설정 */
+    z-index: 0; /* 배경이 글씨 뒤에 오도록 설정 */
   }
 
-  p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #555;
-    margin-bottom: 10px;
-
-    strong {
-      color: #333; 
-    }
+  h1, p {
+    position: relative; /* 텍스트가 흐리게 처리된 배경 위에 위치하도록 설정 */
+    z-index: 1; /* 텍스트가 배경 위에 오도록 설정 */
   }
 
-  a {
-    text-decoration: none;
+h1 {
+  font-size: 24px;
+  color: #333;
+  font-weight: bold; /* 텍스트를 더 진하게 설정 */
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 10px;
+  font-weight: 1000; 
+
+  strong {
+    color: #555; /* 강조된 텍스트 색상도 검은색으로 설정 */
+    font-weight: bold; /* 강조된 텍스트를 더 진하게 설정 */
   }
+}
 `;
-
 
 export default StyledViewItems;

@@ -23,19 +23,16 @@ const ListItems = ({ items, onApply, onChange, className }) => {
           items.length > 0 &&
           items.map(({ pgmSeq, pgmNm, pgmStartDate, capacity, ...rest }) => (
             <li key={pgmSeq}>
-              <StyledLink href={`/group/program/info/${pgmSeq}`}>
-                {pgmNm}
-              </StyledLink>
+               {pgmNm}
               <p>
                 <strong>일시:</strong>{' '}
                 {new Date(pgmStartDate).toLocaleString('ko-KR', {
-                  year: 'numeric',
                   month: 'numeric',
                   day: 'numeric',
-                  weekday: 'long',
+                  weekday: 'short',
                   hour: 'numeric',
                   minute: 'numeric',
-                  hour12: true,
+                  hour12: false,
                 })}
               </p>
               <p>
@@ -77,16 +74,6 @@ const ListItems = ({ items, onApply, onChange, className }) => {
   );
 };
 
-const StyledLink = styled(Link)`
-  color: #000;
-  font-weight: bold;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: none;
-  }
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
@@ -99,6 +86,8 @@ const StyledListItems = styled(ListItems)`
   margin: 30px auto 0;
 
   li {
+  color: #000;
+  font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
