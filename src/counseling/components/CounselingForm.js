@@ -11,6 +11,14 @@ import styled from 'styled-components';
 import ccase from '../constants/cCase';
 import creason from '../constants/cReason';
 import { IoIosRadioButtonOn, IoIosRadioButtonOff } from 'react-icons/io';
+import { theme } from '@/theme';
+import { colors } from '@/theme/colors';
+import fontSize from '@/theme/fontSizes';
+import { getUserStates } from '@/commons/contexts/UserInfoContext';
+import { InputBox } from '@/commons/components/StyledInput';
+const { gray, primary, lightGreen, darkGreen, white, midGreen, dark } = colors;
+const { normal, medium, normedium, big, extraBig } = fontSize;
+
 // const FormBox = styled.form`
 //   dl {
 //     display: flex;
@@ -280,6 +288,29 @@ const FormBox = styled.form`
   .submit-button:hover {
     background-color: #218838;
   }
+  .react-calendar {
+    width: 100%;
+    height: 300px;
+    padding: 15px;
+    border-radius: 20px;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+  // 연도 옮기는 버튼 없애기
+  .react-calendar__navigation__next2-button,
+  .react-calendar__navigation__prev2-button {
+    display: none;
+  }
+  .title {
+    display: flex;
+    align-items: center;
+
+    svg {
+      font-size: 10px;
+      margin-right: 10px;
+    }
+  }
 `;
 
 const RadioLabel = styled.label`
@@ -304,6 +335,7 @@ const CounselingForm = ({
   onDateChange,
 }) => {
   const { t } = useTranslation();
+  // const { userInfo } = getUserStates();
   const times = {
     morning: ['09:00', '10:00', '11:00', '12:00'],
     afternoon: ['13:00', '14:00', '15:00', '16:00', '17:00'],
@@ -316,58 +348,60 @@ const CounselingForm = ({
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
-      <div>
-        <dt>{t('학번')}</dt>
-        <StyledInput
-          type="text"
-          name="studentNo"
-          value={form?.studentNo}
-          onChange={onChange}
-        />
+      <div className="title">
+        <h2>{t('학번')}</h2>
       </div>
-      <div>
-        <dt>{t('이름')}</dt>
-        <StyledInput
-          type="text"
-          name="username"
-          value={form?.username}
-          onChange={onChange}
-        />
+      <InputBox
+        type="text"
+        name="studentNo"
+        value={form?.studentNo}
+        onChange={onChange}
+      />
+      <div className="title">
+        <h2>{t('이름')}</h2>
       </div>
-      <div>
-        <dt>{t('이메일')}</dt>
-        <StyledInput
-          type="text"
-          name="email"
-          value={form?.email}
-          onChange={onChange}
-        />
-        {errors?.email && (
-          <StyledMessage color="danger" messages={errors.email} />
-        )}
+      <InputBox
+        type="text"
+        name="username"
+        value={form?.username}
+        onChange={onChange}
+      />
+      <div className="title">
+        <h2>{t('이메일')}</h2>
       </div>
-      <div>
-        <dt>{t('전화번호')}</dt>
-        <StyledInput
-          type="text"
-          name="mobile"
-          value={form?.mobile}
-          onChange={onChange}
-        />
-        {errors?.mobile && (
-          <StyledMessage color="danger" messages={errors.mobile} />
-        )}
+      <InputBox
+        type="text"
+        name="email"
+        value={form?.email}
+        onChange={onChange}
+      />
+      {errors?.email && (
+        <StyledMessage color="danger" messages={errors.email} />
+      )}
+      <div className="title">
+        <h2>{t('전화번호')}</h2>
       </div>
-      <div>
-        <dt>{t('상담_날짜')}</dt>
-        {/* 예약 가능한 날짜 범위 설정 */}
-        <Calendar onChange={onDateChange} value={selectedDate} />{' '}
-        {errors?.rDate && (
-          <StyledMessage color="danger" messages={errors.rDate} />
-        )}
+      <InputBox
+        type="text"
+        name="mobile"
+        value={form?.mobile}
+        onChange={onChange}
+      />
+      {errors?.mobile && (
+        <StyledMessage color="danger" messages={errors.mobile} />
+      )}
+      <div className="title">
+        <h2>{t('상담_날짜')}</h2>
       </div>
-      <RadioWrapper>
-        <dt>{t('상담_경위')}</dt>
+      {/* 예약 가능한 날짜 범위 설정 */}
+      <Calendar onChange={onDateChange} value={selectedDate} />{' '}
+      {errors?.rDate && (
+        <StyledMessage color="danger" messages={errors.rDate} />
+      )}
+      <div className="footer">
+        <div className="title">
+          <h3>{t('상담_경위')}</h3>
+        </div>
         <dd>
           <RadioLabel
             onClick={() =>
@@ -397,11 +431,13 @@ const CounselingForm = ({
             <StyledMessage color="danger" messages={errors.creason} />
           )}
         </dd>
-      </RadioWrapper>
+      </div>
       <div>
-        <dt>{t('상담_시간')}</dt>
-        <div>
-          <h4>{t('오전')}</h4>
+        <div className="title">
+          <h3>{t('상담_시간')}</h3>
+        </div>
+        <div className="timeStyled">
+          <RadioLabel>{t('오전')}</RadioLabel>
           {times.morning.map((time) => (
             <StyledTimeButton
               type="button"
@@ -413,8 +449,8 @@ const CounselingForm = ({
             </StyledTimeButton>
           ))}
         </div>
-        <div>
-          <h4>{t('오후')}</h4>
+        <div className="timeStyled">
+          <RadioLabel>{t('오후')}</RadioLabel>
           {times.afternoon.map((time) => (
             <StyledTimeButton
               type="button"
@@ -431,7 +467,9 @@ const CounselingForm = ({
         )}
       </div>
       <div>
-        <dt>{t('상담_유형')}</dt>
+        <div className="title">
+          <h3>{t('상담_유형')}</h3>
+        </div>
         <select name="ccase" value={form.ccase} onChange={onChange}>
           {options.map((option) => (
             <option key={option.value} value={option.value}>
@@ -452,6 +490,7 @@ const CounselingForm = ({
           </div>
         )}
       </div>
+      <br />
       <StyledButton type="submit">{t('예약하기')}</StyledButton>
     </FormBox>
   );

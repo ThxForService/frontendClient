@@ -5,6 +5,7 @@ import CounselingForm from '../components/CounselingForm'; // CounselingForm imp
 import apiApply from '../apis/apiApply'; // API 요청 함수
 import { StyledWrapper } from '@/commons/layouts/StyledWrapper'; // Wrapper 컴포넌트
 import { useTranslation } from 'react-i18next';
+import { getUserStates } from '@/commons/contexts/UserInfoContext';
 
 const initialForm = {
   studentNo: '',
@@ -17,8 +18,8 @@ const initialForm = {
   customCase: '',
   creason: '',
 };
-
 const CounselingApplyContainer = () => {
+  // const { userInfo } = getUserStates();
   const [form, setForm] = useState(initialForm); // 폼 상태 관리
   const [errors, setErrors] = useState({}); // 오류 상태 관리
   const router = useRouter(); // 페이지 이동을 위한 useRouter
@@ -33,6 +34,7 @@ const CounselingApplyContainer = () => {
 
   // 시간 선택 처리
   const onTimeSelect = useCallback((time) => {
+    console.log('시간선택', time);
     setForm((form) => ({ ...form, rTime: time }));
   }, []);
 

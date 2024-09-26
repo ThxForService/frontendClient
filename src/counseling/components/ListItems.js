@@ -38,7 +38,7 @@ const ListItems = ({ items, className, onCancel }) => {
                 </p>
               </div>
               <div>
-                {status !== 'CANCEL' && (
+                {status !== 'CANCEL' ? (
                   <StyledButton
                     type="button"
                     variant="primary"
@@ -46,6 +46,8 @@ const ListItems = ({ items, className, onCancel }) => {
                   >
                     {t('신청 취소')}
                   </StyledButton>
+                ) : (
+                  <div>{t('취소된 예약입니다.')}</div>
                 )}
               </div>
             </li>
