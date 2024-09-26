@@ -1,10 +1,11 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import StyledMessage from '@/commons/components/StyledMessage';
 import { IoIosRadioButtonOn, IoIosRadioButtonOff } from 'react-icons/io';
 import { useTranslation } from 'react-i18next';
 import { StyledButton } from '@/commons/components/StyledButton';
+import Pagination from '@/commons/components/Pagination';
 
 const FormBox = styled.form`
   display: flex;
@@ -251,6 +252,22 @@ const ItemBox = ({ no, item, answers, className, onClick }) => {
 };
 
 const TestForm = ({ items, form, errors, onClick, onSubmit }) => {
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+
+  const [pagination, setPagination] = useState({
+    page: 1, // 현재 페이지
+    totalPages: totalPages, // 전체 페이지 수
+  });
+
+  const handlePageChange = (newPage) => {
+    console.log('페이지 변경:', newPage);
+    setPagination((prev) => ({
+      ...prev,
+      page: newPage,
+    }));
+  };
+
   const { answers } = form;
   const { t } = useTranslation();
 
@@ -259,6 +276,9 @@ const TestForm = ({ items, form, errors, onClick, onSubmit }) => {
       onClick(item.questionId, value);
     });
   };
+
+  const startIndex = (pagination.page - 1) * itemsPerPage;
+  const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
@@ -280,9 +300,9 @@ const TestForm = ({ items, form, errors, onClick, onSubmit }) => {
           {t('모두 선택하기 (2)')}
         </StyledButton>
       </div>
-      {items && items.length > 0 && (
+      {currentItems && currentItems.length > 0 && (
         <List>
-          {items.map((item, i) => (
+          {currentItems.map((item, i) => (
             <ItemBox
               key={`questionId_${item.questionId}`}
               item={item}
@@ -293,6 +313,17 @@ const TestForm = ({ items, form, errors, onClick, onSubmit }) => {
           ))}
         </List>
       )}
+
+      {totalPages > 1 && (
+        <Pagination
+          pagination={{
+            ...pagination,
+            pages: Array.from({ length: totalPages }, (_, i) => [i + 1]),
+          }}
+          onClick={handlePageChange}
+        />
+      )}
+
       <StyledMessage variant="danger">{errors?.global}</StyledMessage>
       <StyledButton type="submit" variant="primary">
         {t('제출하기')}

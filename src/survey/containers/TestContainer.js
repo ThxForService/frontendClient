@@ -6,9 +6,6 @@ import { useRouter } from 'next/navigation';
 import { getTest } from '../apis/apiInfo';
 import answer from '../apis/apiAnswer';
 import TestForm from '../components/TestForm';
-//import Pagination from '@/commons/components/Pagination';
-
-//const ITEMS_PER_PAGE = 10;
 
 const TestContainer = ({ params }) => {
   const { testType } = params;
@@ -70,37 +67,18 @@ const TestContainer = ({ params }) => {
         setErrors(typeof message === 'string' ? { global: message } : message);
       }
     },
-    [form, items, t, router], // Add router to dependencies
+    [form, items, t, router],
   );
-
-
-  // // Calculate the items to display based on current page
-  // const currentItems = items.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-  // const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
-
-  // // Create pagination data
-  // const paginationData = {
-  //   page: currentPage,
-  //   pages: Array.from({ length: totalPages }, (_, i) => [i + 1]), // Create pages array
-  //   prevRangePage: currentPage > 1 ? currentPage - 1 : 0,
-  //   nextRangePage: currentPage < totalPages ? currentPage + 1 : 0,
-  //   totalPages,
-  // };
-
-  // const handlePageChange = (page) => {
-  //   setCurrentPage(page);
-  // };
 
   return (
     <>
-    <TestForm
-      items={items}
-      form={form}
-      errors={errors}
-      onClick={onClick}
-      onSubmit={onSubmit}
-    />
-   {/*<Pagination Pagination={Pagination} onClick={handlePageChange} /> */}
+      <TestForm
+        items={items}
+        form={form}
+        errors={errors}
+        onClick={onClick}
+        onSubmit={onSubmit}
+      />
     </>
   );
 };

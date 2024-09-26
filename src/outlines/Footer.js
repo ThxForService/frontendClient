@@ -7,11 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import cookies from 'react-cookies';
 
-const { darkPink, black } = colors;
+const { white, border } = colors;
 
 const FooterBox = styled.footer`
   min-height: 270px;
-  background: ${black};
+  background: ${border};
   padding: 20px;
   display: flex;
   align-items: center;
@@ -32,7 +32,7 @@ const Address = styled.div`
   font-weight: bold;
 
   span {
-    color: ${darkPink};
+    color: ${white};
     cursor: pointer;
     &: hover {
       text-decoration: underline;
@@ -46,7 +46,7 @@ const Information = styled.div`
   margin-left: 100px;
   margin-bottom: 20px;
   line-height: 1.5;
-  color: ${darkPink};
+  color: ${white};
 `;
 
 const Information2 = styled.div`
@@ -54,7 +54,7 @@ const Information2 = styled.div`
   font-size: 13px;
   margin-left: 100px;
   line-height: 1.5;
-  color: ${darkPink};
+  color: ${white};
 `;
 
 const FooterContentBox = styled.div`
@@ -92,25 +92,23 @@ const Footer = ({ onOpenModal }) => {
             <Address>
               <span onClick={onOpenModal}>개인정보처리방침</span>
             </Address>
-            
+
             <Information2>
-              주소(이대센터) : (04104) 서울 마포구 신촌로 176  
-              이메일 :qwer1234@thx.or.kr  
+              주소(이대센터) : (04104) 서울 마포구 신촌로 176 이메일
+              :qwer1234@thx.or.kr
               <br />
-              전화 :02-222-3333 
-              <br/>
+              전화 :02-222-3333
+              <br />
               주소(강남센터) : (06134) 서울 강남구 테헤란로7길 7 에스코빌딩 6층
               이메일 :JH.K77@thx.or.kr
               <br />
               전화: 02-444-5555
-            
               <br />
-              <br/>
+              <br />
               Copyrights (c) 2024 THX Counseling Center. All rights reserved.
             </Information2>
           </FooterContentBox>
-          <FooterImageBox>
-          </FooterImageBox>
+          <FooterImageBox></FooterImageBox>
         </FooterWrap>
       </FooterBox>
     )
