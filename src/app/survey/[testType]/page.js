@@ -1,6 +1,11 @@
 import TestContainer from '@/survey/containers/TestContainer';
-const TestPage = ({ params }) => {
-  return <TestContainer params={params} />;
-};
 
-export default TestPage;
+import MemberOnlyContainer from '@/member/containers/MemberOnlyContainer';
+export default function TestPage({ params }) {
+  return (
+    <MemberOnlyContainer>
+      <TestContainer params={params} />
+    </MemberOnlyContainer>
+  );
+}
+
