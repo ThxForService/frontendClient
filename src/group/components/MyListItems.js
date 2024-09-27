@@ -17,6 +17,7 @@ const MyListItem = ({ items, onCancel, className }) => {
             <th>{t('이용하고 싶은 상담 프로그램명')}</th>
             <th>{t('상담 일시')}</th>
             <th>{t('신청 일시')}</th>
+            {/* <th>{t('신청 상태')}</th> */}
             <th>{t('신청 취소')}</th>
           </tr>
         </thead>
@@ -28,8 +29,15 @@ const MyListItem = ({ items, onCancel, className }) => {
                 <td>{program?.pgmNm}</td>
                 <td>{program?.pgmStartDate}</td>
                 <td>{createdAt}</td>
+                {/* <td>
+                  <strong>{t('접수 상태 :')}</strong>{' '}
+                  {Status[status] || '상태 미정'}
+                </td> */}
                 <td>
-                  <StyledButton type="button" onClick={() => onCancel(pgmRegSeq)}>
+                  <StyledButton
+                    type="button"
+                    onClick={() => onCancel(pgmRegSeq)}
+                  >
                     {t('신청 취소')}
                   </StyledButton>
                 </td>
