@@ -42,6 +42,7 @@ const Submenus = () => {
       <a href="/mypage/info">{t('회원정보수정')}</a>
       <a href="/mypage/MyHistory">{t('상담이력')}</a>
       <a href="/mypage/board">{t('작성한_게시글')}</a>
+      <a href="/mypage/survey">{t('설문결과_목록')}</a>
     </SubMenuBox>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 
-const MySurvey = () => {
+const MySurvey = ({ items }) => {
+  console.log(items);
   return <></>;
 };
 
