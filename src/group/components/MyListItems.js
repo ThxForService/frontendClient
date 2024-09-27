@@ -17,22 +17,21 @@ const MyListItem = ({ items, onCancel, className }) => {
             <th>{t('이용하고 싶은 상담 프로그램명')}</th>
             <th>{t('상담 일시')}</th>
             <th>{t('신청 일시')}</th>
-            {/* <th>{t('신청 상태')}</th> */}
+            <th>{t('신청 상태')}</th>
             <th>{t('신청 취소')}</th>
           </tr>
         </thead>
         <tbody>
           {items && items.length > 0 ? (
-            items.map(({ pgmRegSeq, program, createdAt }, index) => (
+            items.map(({ pgmRegSeq, program, createdAt, status }, index) => (
               <tr key={pgmRegSeq}>
                 <td>{index + 1}</td>
                 <td>{program?.pgmNm}</td>
                 <td>{program?.pgmStartDate}</td>
                 <td>{createdAt}</td>
-                {/* <td>
-                  <strong>{t('접수 상태 :')}</strong>{' '}
+                <td>
                   {Status[status] || '상태 미정'}
-                </td> */}
+                </td>
                 <td>
                   <StyledButton
                     type="button"
