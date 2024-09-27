@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'next-i18next';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
-import { ChatHeader, ChatFooter, ChatMessageBox, ChatMessageSendBox } from '@/commons/layouts/StyledWrapper';
+import { ChatBox2, ChatHeader, ChatFooter, ChatMessageBox, ChatMessageSendBox } from '@/commons/layouts/StyledWrapper';
 import styled from 'styled-components';
 
 const MessageBox = styled.form`
@@ -33,6 +33,7 @@ const MessageBox = styled.form`
             margin-left: 10px;
         }
     }
+    
 `;
 
 const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
@@ -48,15 +49,15 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
   }, [messages]);
 
   const handleKeyPress = (e) => {
-    // Enter 키가 눌렸을 때
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault(); // 기본 Enter 동작 방지
+      e.preventDefault();
       onSubmit(e); // onSubmit 호출
     }
   };
 
   return (
-      <div>
+    <div>
+      <ChatBox2>
         <ChatHeader>
           <header>
           </header>
@@ -72,7 +73,7 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
                   >
                     <div
                       className={`time-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
-                      {msg.createdAt ? msg.createdAt.split(' ')[1] : new Date().toTimeString().slice(0, 5)}
+                      {msg.createdAt ? msg.createdAt.split(' ')[1]?.slice(0,5) : new Date().toTimeString().slice(0, 5)}
                     </div>
                     <div
                       className={`message-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
@@ -94,7 +95,8 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
         </ChatFooter>
         <footer>
         </footer>
-      </div>
+      </ChatBox2>
+    </div>
   );
 };
 

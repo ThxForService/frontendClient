@@ -5,6 +5,8 @@ const WritePage = ({ params }) => {
   const { bid } = params;
 
   return <RegisterContainer bid={bid} />;
+
+  
 };
 
 export default WritePage;
