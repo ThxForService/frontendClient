@@ -64,7 +64,6 @@ const Header = () => {
     cookies.remove('token', { path: '/' });
   }, [setIsLogin, setIsAdmin, setUserInfo]);
 
-
   useEffect(() => {
     setLogin(isLogin);
   }, [isLogin]);
@@ -76,8 +75,6 @@ const Header = () => {
       <HeaderBox>
         <section className="site-top">
           <div className="layout-width">
-            {isLogin ? (
-              <div>
                 <CounselorOnlyContainer>
                   <Link href="/chat/list" passHref>
                     {t('채팅관리')}
@@ -87,15 +84,14 @@ const Header = () => {
                   {t('마이페이지')}
                 </Link>
                 {isAdmin && (
-                <a href={adminUrl} target="_blank">
-                  {t('사이트관리')}
-                </a>
-              )}
+                  <a href={adminUrl} target="_blank">
+                    {t('사이트관리')}
+                  </a>
+                )}
                 <a onClick={onLogout}>
                   <BiLockOpen className="icon" />
                   {t('로그아웃')}
                 </a>
-                
               </div>
             ) : (
               <div>
