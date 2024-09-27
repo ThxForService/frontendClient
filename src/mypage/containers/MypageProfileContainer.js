@@ -1,5 +1,11 @@
 'use client';
-import React, { useState, useCallback, useContext, useEffect,useLayoutEffect } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
 import UserInfoContext from '@/commons/contexts/UserInfoContext';
@@ -8,9 +14,6 @@ import { updateProfile } from '../apis/apiMypage';
 import ProfileForm from '../components/ProfileForm';
 import ProfileImage from '../components/ProfileImage';
 import { getProfessors } from '@/member/apis/apiInfo';
-import Image from 'next/image';
-
-
 
 const MypageProfileContainer = () => {
   const { t } = useTranslation();
@@ -33,7 +36,6 @@ const MypageProfileContainer = () => {
   const [professors, setProfessors] = useState([]);
   const [skey, setSkey] = useState('');
 
-  
   const router = useRouter();
 
   const onChange = useCallback((e) => {
@@ -148,6 +150,7 @@ const MypageProfileContainer = () => {
     },
     [setUserInfo],
   );
+
   return (
     userInfo && (
       <>
