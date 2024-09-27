@@ -69,7 +69,7 @@ const Footer = () => {
   const [isMounted, setIsMounted] = useState(false); // 클라이언트 사이드 여부 확인
 
   useEffect(() => {
-    setIsMounted(true); // 컴포넌트가 마운트되면 클라이언트 사이드임을 설정
+    setIsMounted(true); // 컴포넌트가 마운트되면 클라이언트 사이드임을 설정.
   }, []);
 
   const {

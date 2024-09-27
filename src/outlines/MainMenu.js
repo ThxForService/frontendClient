@@ -64,7 +64,7 @@ const SubMenu = styled.div`
   width: 200px;
   height: auto;
   z-index: 1000;
-  opacity: 0; /* 서브메뉴를 처음에 보이지 않게 설정 */
+  opacity: 0; /* 서브메뉴를 처음에 보이지 않게 설정. */
   transform: translateY(-20px); /* 처음에는 약간 위쪽에 위치 */
   transition: opacity 0.5s ease, transform 0.5s ease; /* 부드러운 애니메이션 효과 추가 */
   border-radius: 20px; /* 박스를 둥글게 설정 */
