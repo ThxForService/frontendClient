@@ -37,7 +37,7 @@ const SubMenus = () => {
   return (
     <SubMenuBox>
       <a href="/mypage/info">{t('개인상담_조회')}</a>
-      <a href="/mypage/MyHistory">{t('집단상담_조회')}</a>
+      <a href="/counseling/group/list">{t('집단상담_조회')}</a>
     </SubMenuBox>
   );
 };
