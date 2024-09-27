@@ -44,7 +44,7 @@ const MyListItem = ({ items, onCancel, className }) => {
             ))
           ) : (
             <tr>
-              <td colSpan="5">{t('신청 내역이 없습니다.')}</td>
+              <td colSpan="6">{t('신청 내역이 없습니다.')}</td>
             </tr>
           )}
         </tbody>

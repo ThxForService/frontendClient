@@ -57,7 +57,7 @@ const GroupListContainer = ({ searchParams }) => {
         };
         await groupApiApply(pgmSeq, form);
         alert(`${pgmSeq} 프로그램에 신청했습니다!`);
-        router.replace('/counseling/list');
+        router.replace('/counseling/group/list');
       } catch (error) {
         const message = error.message.global
           ? error.message.global[0]

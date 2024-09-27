@@ -106,10 +106,6 @@ const MainMenu = () => {
               <a href="/introduce/directions">{t('오시는 길')}</a>
             </SubMenu>
           </MenuItem>
-          ..
-          <MenuItem>
-            <Mainlogo />
-          </MenuItem>
           <MenuItem style={{ marginRight: '70px' }}>
             <a>{t('상담신청')}</a>
 
@@ -120,62 +116,24 @@ const MainMenu = () => {
             </SubMenu>
           </MenuItem>
           <MenuItem>
-            <a href="/survey/list">{t('자가 진단')}</a>
+            <Mainlogo />
           </MenuItem>
-          <MenuItem style={{ marginRight: '-20px' }}>
-            {' '}
-            {/* 좌측 정렬 */}
+          <MenuItem>
+            <a>{t('자가 진단')}</a>
+            <SubMenu className="sub-menu">
+              <a href="/survey/list">{t('심리검사')}</a>
+            </SubMenu>
+          </MenuItem>
+
+          <MenuItem>
             <a>{t('게시판')}</a>
             <SubMenu className="sub-menu">
-              <a href="/board/list">{t('공지사항')}</a>
-              <a href="/board/list">{t('QnA')}</a>
+              <a href="/board/list/1">{t('공지사항')}</a>
+              <a href="/board/list/2">{t('QnA')}</a>
             </SubMenu>
           </MenuItem>
         </MenuList>
       </MenuContainer>
-      <>
-        <MenuContainer>
-          <MenuList>
-            <MenuItem>
-              <a>{t('심리상담센터 소개')}</a>
-              <SubMenu className="sub-menu">
-                <a href="/introduce/center">{t('센터 소개')}</a>
-                <a href="/introduce/member">{t('구성원 소개')}</a>
-                <a href="/introduce/business">{t('센터업무 및 이용안내')}</a>
-                <a href="/introduce/directions">{t('오시는 길')}</a>
-              </SubMenu>
-            </MenuItem>
-
-            <MenuItem>
-              <a>{t('상담신청')}</a>
-              <SubMenu className="sub-menu">
-                <a href="/counseling/reserve">{t('개인 상담 신청')}</a>
-                <a href="/group/program/info">{t('집단 상담 프로그램')}</a>
-                <a href="/counseling/list">{t('나의 상담 현황')}</a>
-              </SubMenu>
-            </MenuItem>
-
-            <MenuItem>
-              <Mainlogo />
-            </MenuItem>
-
-            <MenuItem>
-              <a>{t('자가 진단')}</a>
-              <SubMenu className="sub-menu">
-                <a href="/survey/list">{t('심리검사')}</a>
-              </SubMenu>
-            </MenuItem>
-
-            <MenuItem>
-              <a>{t('게시판')}</a>
-              <SubMenu className="sub-menu">
-                <a href="/board/list/1">{t('공지사항')}</a>
-                <a href="/board/list/2">{t('QnA')}</a>
-              </SubMenu>
-            </MenuItem>
-          </MenuList>
-        </MenuContainer>
-      </>
     )
   );
 };
