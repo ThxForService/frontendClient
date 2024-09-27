@@ -20,7 +20,7 @@ const CounselingListContainer = ({ searchParams }) => {
         setPrograms(data.items);
         setPagination(data.pagination);
       } catch (err) {
-        setErrors(err.message);
+        // setErrors(err.message);
       }
     })();
   }, [searchParams]);

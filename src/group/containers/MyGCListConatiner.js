@@ -18,7 +18,10 @@ const MyGCListContainer = ({ searchParams }) => {
   useEffect(() => {
     (async () => {
       try {
-        const data = await groupApiList({ searchParams, userId: userInfo.userId });
+        const data = await groupApiList({
+          searchParams,
+          userId: userInfo.userId,
+        });
         setPrograms(data.items);
         setPagination(data.pagination);
       } catch (err) {
@@ -27,7 +30,6 @@ const MyGCListContainer = ({ searchParams }) => {
     })();
   }, [searchParams, userInfo]);
 
- 
   const onChangePage = useCallback((p) => {
     setSearch((search) => ({ ...search, page: p }));
     window.location.hash = '#root';
@@ -42,7 +44,7 @@ const MyGCListContainer = ({ searchParams }) => {
           (program) => program.pgmSeq !== pgmSeq,
         );
         setPrograms(updatedPrograms);
-        router.reload(); // 페이지 새로 고침
+        router.replace(`/counseling/list`); // 페이지 새로 고침
       } catch (err) {
         alert(`예약 취소 오류: ${err.message}`);
       }
@@ -52,8 +54,10 @@ const MyGCListContainer = ({ searchParams }) => {
 
   return (
     <div>
-      <h1>{t('집단 상담 예약 내역')}</h1>
-      <MyListItems items={programs} onCancel={onCancel}/> 
+      <h1 style={{ marginTop: '30px', textAlign: 'center' }}>
+        {t('집단 상담 예약 내역')}
+      </h1>
+      <MyListItems items={programs} onCancel={onCancel} />
       {pagination && (
         <Pagination pagination={pagination} onClick={onChangePage} />
       )}
