@@ -1,67 +1,84 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useContext } from 'react';
+import styled, { css } from 'styled-components';
+import UserInfoContext from '../../commons/contexts/UserInfoContext';
+import { useTranslation } from 'react-i18next';
 
 // Styled Components
-const Container = styled.div`
-  margin-top: 20px;
+const FormContainer = styled.form`
+    margin: 20px 0 30px;
 `;
 
-const CommentItem = styled.div`
-    border: 1px solid #d5d5d5;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    background: #f8f8f8;
-`;
+const CommenterInfo = styled.div`
+    display: flex;
+    margin-bottom: 5px;
 
-const CommentHeader = styled.p`
-    margin: 0;
-    font-weight: bold;
+    label {
+        margin-right: 10px;
+    }
 
-    span {
-        font-weight: normal;
-        color: #666;
-        font-size: 0.85em;
-        margin-left: 5px;
+    input {
+        width: 120px;
+        margin-top: 30px;
+        font-size: 12px !important;
+        padding: 8px;
+        border: 1px solid #ccc;
     }
 `;
 
-const CommentContent = styled.p`
-    margin: 5px 0;
-    color: #333;
-    white-space: pre-line;
+const CommentContent = styled.div`
+    display: flex;
+    height: 100px;
+
+    textarea {
+        flex-grow: 1;
+        border: 1px solid #d5d5d5;
+        padding: 10px;
+        resize: none;
+    }
+
+    button {
+        width: 100px;
+        background: #30b1e3;
+        color: #fff;
+        border: 0;
+        cursor: pointer;
+        font-size: 1.15rem;
+        margin-left: 10px;
+
+        &:hover {
+            background-color: #27a7d9;
+        }
+    }
 `;
 
-const NoCommentsMessage = styled.h1`
-    text-align: center;
-    color: #888;
+const ErrorMessage = styled.div`
+    color: red;
 `;
 
-const CommentItems = ({ items }) => {
-  if (!items || items.length === 0) {
-    return <NoCommentsMessage>댓글이 없습니다.</NoCommentsMessage>;
-  }
+const CommentForm = ({ form, onChange, onSubmit, errors }) => {
+  const { t } = useTranslation();
+  const {
+    states: { isLogin },
+  } = useContext(UserInfoContext);
 
   return (
-    <Container>
-      {items.map(comment => (
-        <CommentItem key={comment.seq}>
-          <CommentHeader>
-            <strong>{comment.commenter}</strong>
-            <span>({new Date(comment.createdAt).toLocaleString()})</span>
-          </CommentHeader>
-          <CommentContent>
-            {comment.content.split('\n').map((line, index) => (
-              <React.Fragment key={index}>
-                {line}
-                <br />
-              </React.Fragment>
-            ))}
-          </CommentContent>
-        </CommentItem>
-      ))}
-    </Container>
+    <FormContainer onSubmit={onSubmit} autoComplete="off">
+      <CommenterInfo>
+        <label>작성자:</label>
+        {form?.commenter}
+      </CommenterInfo>
+      <CommentContent>
+        <textarea
+          name="content"
+          placeholder="댓글을 입력해주세요"
+          value={form?.content}
+          onChange={onChange}
+        />
+        <button type="submit">{t('작성하기')}</button>
+      </CommentContent>
+      {errors?.content && <ErrorMessage>{errors.content.join(', ')}</ErrorMessage>}
+    </FormContainer>
   );
 };
 
-export default React.memo(CommentItems);
+export default React.memo(CommentForm);
