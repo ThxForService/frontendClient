@@ -1,11 +1,13 @@
 import React from 'react';
 import { colors } from '@/theme/colors';
+import fontSizes from '@/theme/fontSizes';
+import fontWeight from '@/theme/fontWeight';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import Mainlogo  from '../main/components/Mainlogo';
+import Mainlogo from '../main/components/Mainlogo';
 
-const { dark, white, lightGreen } = colors;
+const { dark, light, midGreen, white, lightGreen } = colors;
 
 const MenuContainer = styled.nav`
   position: relative;
@@ -22,6 +24,7 @@ const MenuContainer = styled.nav`
 const MenuList = styled.ul`
   display: flex;
   justify-content: space-between; /* 전체 메뉴의 배치를 컨트롤 */
+  align-items: center; /* 로고와 메뉴가 수직으로 정렬되도록 설정 */
   width: 75%; /* 메뉴 전체가 차지하는 너비 */
   padding: 0 10px; /* 좌우 패딩으로 여유를 줄 수 있음 */
 `;
@@ -29,8 +32,9 @@ const MenuList = styled.ul`
 const MenuItem = styled.li`
   position: relative;
   display: inline-block;
-  margin: 0 -40px;
   padding: 0 10px; /* 각 메뉴 아이템의 내부 패딩 */
+  display: flex; /* 로고와 메뉴를 가로로 배치 */
+  align-items: center; /* 세로 정렬을 맞추기 위해 center로 설정 */
 
   a {
     color: dark;
@@ -60,7 +64,7 @@ const SubMenu = styled.div`
   width: 200px;
   height: auto;
   z-index: 1000;
-  opacity: 0; /* 서브메뉴를 처음에 보이지 않게 설정 */
+  opacity: 0; /* 서브메뉴를 처음에 보이지 않게 설정. */
   transform: translateY(-20px); /* 처음에는 약간 위쪽에 위치 */
   transition: opacity 0.5s ease, transform 0.5s ease; /* 부드러운 애니메이션 효과 추가 */
   border-radius: 20px; /* 박스를 둥글게 설정 */
@@ -87,8 +91,6 @@ const SubMenu = styled.div`
   }
 `;
 
-
-
 const MainMenu = () => {
   const { showMainMenu } = getCommonStates();
   const { t } = useTranslation();
@@ -97,10 +99,6 @@ const MainMenu = () => {
     showMainMenu && (
       <MenuContainer>
         <MenuList>
-          <MenuItem>
-            <Mainlogo />
-          </MenuItem>
-
           <MenuItem style={{ marginRight: '20px' }}>
             <a>{t('심리상담센터 소개')}</a>
             <SubMenu className="sub-menu">
@@ -110,30 +108,29 @@ const MainMenu = () => {
               <a href="/introduce/directions">{t('오시는 길')}</a>
             </SubMenu>
           </MenuItem>
-
+          ..
+          <MenuItem>
+            <Mainlogo />
+          </MenuItem>
           <MenuItem style={{ marginRight: '70px' }}>
             <a>{t('상담신청')}</a>
+
             <SubMenu className="sub-menu">
               <a href="/counseling/reserve">{t('개인 상담 신청')}</a>
               <a href="/group/program/info">{t('집단 상담 프로그램')}</a>
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
             </SubMenu>
           </MenuItem>
-
-          <MenuItem style={{ marginRight: '40px' }}>
-            <a>{t('자가 진단')}</a>
-            <SubMenu className="sub-menu">
-              <a href="/survey/answer">{t('answer')}</a>
-              <a href="/survey/list">{t('list')}</a>
-              <a href="/survey/register">{t('register')}</a>
-              <a href="/survey/view">{t('view')}</a>
-            </SubMenu>
+          <MenuItem>
+            <a href="/survey/list">{t('자가 진단')}</a>
           </MenuItem>
-          <MenuItem style={{ marginRight: '-20px' }}> {/* 좌측 정렬 */}
+          <MenuItem style={{ marginRight: '-20px' }}>
+            {' '}
+            {/* 좌측 정렬 */}
             <a>{t('게시판')}</a>
             <SubMenu className="sub-menu">
-              <a href="/board/list/1">{t('공지사항')}</a>
-              <a href="/board/list/2">{t('QnA')}</a>
+              <a href="/board/list">{t('공지사항')}</a>
+              <a href="/board/list">{t('QnA')}</a>
             </SubMenu>
           </MenuItem>
         </MenuList>

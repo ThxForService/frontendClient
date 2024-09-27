@@ -12,6 +12,7 @@ const AnswerContainer = ({ params }) => {
       try {
         const data = await getAnswer(resultId);
         setData(data);
+        console.log('data', data);
       } catch (err) {
         console.error(err);
       }

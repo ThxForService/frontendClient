@@ -36,7 +36,6 @@ const Wrapper = styled.div`
     color: #fff;
   }
 `;
-
 const Pagination = ({ pagination, onClick }) => {
   const { page, pages, prevRangePage, nextRangePage, totalPages } = pagination;
 
