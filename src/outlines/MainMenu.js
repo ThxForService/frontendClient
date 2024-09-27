@@ -122,10 +122,7 @@ const MainMenu = () => {
             </MenuItem>
 
             <MenuItem>
-              <a>{t('자가 진단')}</a>
-              <SubMenu className="sub-menu">
-                <a href="/survey/list">{t('심리검사')}</a>
-              </SubMenu>
+              <a href="/survey/list">{t('자가 진단')}</a>
             </MenuItem>
 
             <MenuItem>
