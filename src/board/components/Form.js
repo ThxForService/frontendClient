@@ -1,10 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import FileUpload from '@/commons/components/FileUpload';
+import FileItems from '@/commons/components/FileItems';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { colors } from '@/theme/colors';
+import { StyledButton } from '@/commons/components/StyledButton';
 
-// 공통 폼 스타일
 const FormContainer = styled.form`
   width: 100%;
   max-width: 960px;
@@ -42,43 +45,41 @@ const ContentEditor = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 400px; /* 고정 높이 설정 */
-  overflow: hidden; /* 내부 요소의 오버플로우 숨김 */
+  height: 400px;
+  overflow: hidden;
 `;
 
 const EditorContainer = styled.div`
-  flex-grow: 1; /* 에디터가 가능한 공간을 모두 차지 */
-  height: 400px; /* 에디터 높이 설정 */
-  overflow: auto; /* 내용이 넘칠 경우 스크롤 생기도록 설정 */
+  flex-grow: 1;
+  height: 400px;
+  overflow: auto;
+
+  .ck-editor__editable {
+    min-height: 350px;
+  }
 `;
 
 const ButtonGroup = styled.div`
   text-align: center;
   margin-top: 20px;
+  margin-bottom: 10px;
 `;
 
-// 버튼 스타일
-const Button = styled.button`
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  margin-right: 10px;
-  color: white;
-  background-color: ${(props) => props.bgColor || '#3498db'};
-  
-  &:hover {
-    background-color: ${(props) => props.hoverColor || '#2980b9'};
-  }
-`;
+const submitButtonStyles = {
+  size: 'medium',
+  bgColor: colors.gray,
+  hoverColor: colors.darkGray,
+};
 
-const Form = ({ form, onChange, onEditorChange, onSubmit }) => {
+const Form = ({ form, onChange, onEditorChange, onSubmit, onFileDelete }) => {
   const { t } = useTranslation();
   const [editor, setEditor] = useState(null);
 
   const insertImageCallback = useCallback(
     (files) => {
-      if (!files || files.length === 0 || !editor) return;
+      if (!files || files.length === 0 || !editor) {
+        return;
+      }
 
       const source = files.map((file) => file.fileUrl);
       editor.execute('insertImage', { source });
@@ -96,28 +97,7 @@ const Form = ({ form, onChange, onEditorChange, onSubmit }) => {
         <tbody>
           <tr>
             <TableCell>{t('작성자')}</TableCell>
-            <TableCell>
-              <input
-                type="text"
-                name="poster"
-                value={form?.poster}
-                onChange={onChange}
-                readOnly
-              />
-            </TableCell>
-          </tr>
-          <tr>
-            <TableCell>{t('비밀번호')}</TableCell>
-            <TableCell>
-              <input
-                type="password"
-                name="password"
-                value={form?.password}
-                onChange={onChange}
-                required
-                placeholder={t('비밀번호를 입력하세요')}
-              />
-            </TableCell>
+            <TableCell>{form?.poster}</TableCell>
           </tr>
           <tr>
             <TableCell>{t('제목')}</TableCell>
@@ -125,7 +105,7 @@ const Form = ({ form, onChange, onEditorChange, onSubmit }) => {
               <input
                 type="text"
                 name="subject"
-                value={form?.subject}
+                value={form.subject}
                 onChange={onChange}
                 required
                 placeholder={t('제목을 입력하세요')}
@@ -139,9 +119,11 @@ const Form = ({ form, onChange, onEditorChange, onSubmit }) => {
                 <EditorContainer>
                   <CKEditor
                     editor={ClassicEditor}
-                    data={form?.content}
+                    data={form.content}
                     onChange={onEditorChange}
-                    onReady={(editorInstance) => setEditor(editorInstance)}
+                    onReady={editor => {
+                      setEditor(editor);
+                    }}
                   />
                 </EditorContainer>
               </ContentEditor>
@@ -149,14 +131,23 @@ const Form = ({ form, onChange, onEditorChange, onSubmit }) => {
           </tr>
         </tbody>
       </Table>
+
+      <FileUpload
+        imageOnly={true}
+        gid={form?.gid}
+        color="primary"
+        callback={insertImageCallback}
+      >
+        {t('이미지_첨부')}
+      </FileUpload>
+      {form?.editorImages && (
+        <FileItems files={form.editorImages} onDelete={onFileDelete} />
+      )}
       
       <ButtonGroup>
-        <Button type="submit" bgColor="#0064C5" hoverColor="#0056b3">
-          {t('작성 완료')}
-        </Button>
-        <Button type="reset" bgColor="#6c757d" hoverColor="#5a6268">
-          {t('다시 입력')}
-        </Button>
+        <StyledButton type="submit" {...submitButtonStyles}>
+          {t('등록')}
+        </StyledButton>
       </ButtonGroup>
     </FormContainer>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { MdOutlineCancel } from "react-icons/md";
 
@@ -23,6 +23,7 @@ const ModalContainer = styled.div`
     position: fixed;
     bottom: 110px;
     right: 30px;
+    overflow-y: auto; /* 모달 내부 스크롤 */
 `;
 
 const ModalCloseButton = styled.button`
@@ -35,13 +36,29 @@ const ModalCloseButton = styled.button`
 `;
 
 const Modal = ({ isOpen, children, onClose }) => {
+  // 모달이 열릴 때 메인 페이지 스크롤 잠금
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';  // 메인 페이지 스크롤 잠금
+    } else {
+      document.body.style.overflow = 'auto';  // 메인 페이지 스크롤 복구
+    }
+
+    // 컴포넌트 언마운트 시 또는 모달이 닫힐 때 스크롤 복구
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
     <ModalBackdrop onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
         {children}
-        <ModalCloseButton onClick={onClose}><MdOutlineCancel size={30} color="#fff"/></ModalCloseButton>
+        <ModalCloseButton onClick={onClose}>
+          <MdOutlineCancel size={30} color="#fff" />
+        </ModalCloseButton>
       </ModalContainer>
     </ModalBackdrop>
   );
