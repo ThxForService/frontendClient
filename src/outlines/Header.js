@@ -75,6 +75,9 @@ const Header = () => {
       <HeaderBox>
         <section className="site-top">
           <div className="layout-width">
+            {isLogin ? (
+              <>
+                {/* 로그인 상태 */}
                 <CounselorOnlyContainer>
                   <Link href="/chat/list" passHref>
                     {t('채팅관리')}
@@ -84,17 +87,17 @@ const Header = () => {
                   {t('마이페이지')}
                 </Link>
                 {isAdmin && (
-                  <a href={adminUrl} target="_blank">
+                  <a href={adminUrl} target="_blank" rel="noopener noreferrer">
                     {t('사이트관리')}
                   </a>
                 )}
-                <a onClick={onLogout}>
+                <a onClick={onLogout} style={{ cursor: 'pointer' }}>
                   <BiLockOpen className="icon" />
                   {t('로그아웃')}
                 </a>
-              </div>
+              </>
             ) : (
-              <div>
+              <>
                 <Link href="/member/join">
                   <BiUserPlus className="icon" />
                   {t('회원가입')}
@@ -103,7 +106,7 @@ const Header = () => {
                   <BiLock className="icon" />
                   {t('로그인')}
                 </Link>
-              </div>
+              </>
             )}
           </div>
         </section>
@@ -111,5 +114,4 @@ const Header = () => {
     )
   );
 };
-
 export default React.memo(Header);
