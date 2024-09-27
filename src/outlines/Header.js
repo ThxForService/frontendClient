@@ -70,7 +70,10 @@ const Header = () => {
         <section className="site-top">
           <div className="layout-width">
             {isLogin ? (
-              <div>          
+
+                       
+              <div>
+
                 <CounselorOnlyContainer>
                   <Link href="/chat/list" passHref>
                     {t('채팅관리')}
