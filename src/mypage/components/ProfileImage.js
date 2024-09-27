@@ -14,14 +14,15 @@ const Wrapper = styled.div`
 `;
 
 const ProfileImage = ({ gid, profileImage, fileUploadCallback, className }) => {
-  console.log('profileImage', profileImage);
-  //const imageUrl = profileImage ? `${profileImage.thumbUrl}?seq=${profileImage.seq}&width=300&height=400` : NoProfile;
-  let imageUrl = '/images/basicprofile.png';
-  if (profileImage) {
-    imageUrl =
-      typeof profileImage === 'string'
-        ? profileImage
-        : `${profileImage.thumbUrl}?seq=${profileImage.seq}&width=300&height=400`;
+  let imageUrl;
+  if (typeof profileImage === 'string') {
+    imageUrl = profileImage;
+  }
+
+  if (!imageUrl) {
+    imageUrl = profileImage
+      ? `${profileImage.thumbUrl}?seq=${profileImage.seq}&width=300&height=400`
+      : '/images/basicprofile.png';
   }
 
   return (

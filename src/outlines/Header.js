@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import cookies from 'react-cookies';
 import { useTranslation } from 'react-i18next';
@@ -12,46 +12,47 @@ import { colors } from '@/theme/colors';
 const { sora, white, gray } = colors;
 
 const HeaderBox = styled.header`
-    position: relative;
-    top: 0;
-    left: 0;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: ${sora};
+  height: 50px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+
+  .site-top {
     width: 100%;
-    background: ${sora};
-    height: 50px;
-    z-index: 1000;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+  }
+
+  .layout-width {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  a {
+    color: ${white};
+    text-decoration: none;
     padding: 0 20px;
+    transition: color 0.3s;
 
-    .site-top {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
+    &:hover {
+      color: ${gray};
     }
-
-    .layout-width {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        width: 100%;
-    }
-
-    a {
-        color: ${white};
-        text-decoration: none;
-        padding: 0 20px;
-        transition: color 0.3s;
-
-        &:hover {
-            color: ${gray};
-        }
-    }
+  }
 `;
 
 const Header = () => {
   const { t } = useTranslation();
   const { showHeader } = getCommonStates();
+  const [login, setLogin] = useState(false);
   const {
     states: { isLogin, userInfo, isAdmin },
     actions: { setIsLogin, setIsAdmin, setUserInfo },
@@ -63,17 +64,35 @@ const Header = () => {
     cookies.remove('token', { path: '/' });
   }, [setIsLogin, setIsAdmin, setUserInfo]);
 
+<<<<<<< HEAD
+  useEffect(() => {
+    setLogin(isLogin);
+  }, [isLogin]);
+
+  const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL;
+=======
   const adminUrl = 'http://thxforservice.xyz:7001/';
+>>>>>>> master
   return (
     showHeader && (
       <HeaderBox>
         <section className="site-top">
           <div className="layout-width">
+<<<<<<< HEAD
+            {login ? (
+              <div>
+                {isAdmin && (
+                  <a href={adminUrl} target="_blank">
+                    {t('사이트_관리')}
+                  </a>
+                )}
+=======
             {isLogin ? (
 
                        
               <div>
 
+>>>>>>> master
                 <CounselorOnlyContainer>
                   <Link href="/chat/list" passHref>
                     {t('채팅관리')}

@@ -1,14 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
-import classNames from 'classnames';
 import styled from 'styled-components';
-import UserInfoContext from '@/commons/contexts/UserInfoContext';
-import { FaUserCircle } from 'react-icons/fa';
-import { StyledButton } from '@/commons/components/StyledButton';
-import basicprofileimage from '../../../public/images/basicprofile.jpg';
-import Loading from '@/commons/components/Loading';
+import { getUserStates } from '@/commons/contexts/UserInfoContext';
 
 const MyPageMainContainer = styled.div`
   background-color: white;
@@ -66,11 +61,8 @@ const Seperator = styled.div`
   background-color: #ececec;
 `;
 
-const MypageMain = ({ item }) => {
-  const {
-    states: { userInfo },
-    actions: { setUserInfo },
-  } = useContext(UserInfoContext);
+const MypageMain = () => {
+  const { userInfo } = getUserStates();
 
   const formatDate = (dateString) => {
     if (!dateString) return 'Not available';
@@ -79,13 +71,12 @@ const MypageMain = ({ item }) => {
   };
 
   const { t } = useTranslation();
-  const router = useRouter();
 
   return (
     <MyPageMainContainer>
       {userInfo?.profileImage ? (
         <Link href="/mypage">
-          <ImageBox src={userInfo.profileImage} alt="profile" />
+          <ImageBox src={userInfo?.profileImage} alt="profile" />
         </Link>
       ) : (
         <ImageBox src="/images/basicprofile.png" alt="default profile" />
@@ -112,7 +103,7 @@ const MypageMain = ({ item }) => {
             <dd>
               {[userInfo?.address, userInfo?.addressSub, userInfo?.zonecode]
                 .filter(Boolean) // 존재하는 값만 남기기
-                .join(' ')}{' '}
+                .join(' ')}
               {/* 값들 사이에 공백 추가 */}
             </dd>
           </dl>
@@ -158,13 +149,13 @@ const MypageMain = ({ item }) => {
             <dd>{userInfo?.professor?.username || '등록정보 없음'}</dd>
           </dl>
         )}
-         {userInfo?.subject && (
+        {userInfo?.subject && (
           <dl>
             <dt>{t('담당분야')}</dt>
             <dd>{userInfo?.subject}</dd>
           </dl>
         )}
-         {userInfo?.introduction && (
+        {userInfo?.introduction && (
           <dl>
             <dt>{t('상담사 소개')}</dt>
             <dd>{userInfo?.introduction}</dd>

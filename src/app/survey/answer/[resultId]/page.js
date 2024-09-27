@@ -6,6 +6,7 @@ import { getUserStates } from '@/commons/contexts/UserInfoContext';
 
 const ResultPage = ({ params }) => {
   const { isStudent } = getUserStates();
+
   return (
     <MemberOnlyContainer>
       {isStudent && <AnswerContainer params={params} />}
