@@ -5,20 +5,21 @@ import CounselingForm from '../components/CounselingForm'; // CounselingForm imp
 import apiApply from '../apis/apiApply'; // API 요청 함수
 import { StyledWrapper } from '@/commons/layouts/StyledWrapper'; // Wrapper 컴포넌트
 import { useTranslation } from 'react-i18next';
-
-const initialForm = {
-  studentNo: '',
-  username: '',
-  email: '',
-  mobile: '',
-  rDate: null, // 날짜 초기값
-  rTime: '', // 시간 초기값
-  ccase: 'FAMILY', // 기본 상담 유형
-  customCase: '',
-  creason: '',
-};
+import { getUserStates } from '@/commons/contexts/UserInfoContext';
 
 const CounselingApplyContainer = () => {
+  const { userInfo } = getUserStates();
+  const initialForm = {
+    studentNo: userInfo.studentNo,
+    username: userInfo.username,
+    email: '',
+    mobile: '',
+    rDate: null, // 날짜 초기값
+    rTime: '', // 시간 초기값
+    ccase: 'FAMILY', // 기본 상담 유형
+    customCase: '',
+    creason: '',
+  };
   const [form, setForm] = useState(initialForm); // 폼 상태 관리
   const [errors, setErrors] = useState({}); // 오류 상태 관리
   const router = useRouter(); // 페이지 이동을 위한 useRouter
@@ -33,6 +34,7 @@ const CounselingApplyContainer = () => {
 
   // 시간 선택 처리
   const onTimeSelect = useCallback((time) => {
+    console.log('시간선택', time);
     setForm((form) => ({ ...form, rTime: time }));
   }, []);
 
@@ -106,8 +108,9 @@ const CounselingApplyContainer = () => {
       (async () => {
         try {
           await apiApply(form);
-          router.replace(`/counseling/complete`); // 예약 성공 후 페이지 이동
+          router.replace(`/counseling/list`); // 예약 성공 후 페이지 이동
         } catch (err) {
+          console.log('api요청오류', form);
           console.log('api요청오류', err);
           // 오류 처리
           const apiErrors =

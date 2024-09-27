@@ -5,7 +5,7 @@ import fontWeight from '@/theme/fontWeight';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import Mainlogo, { StyledLogoText } from '../main/components/Mainlogo';
+import Mainlogo from '../main/components/Mainlogo';
 
 const { dark, light, midGreen, white, lightGreen } = colors;
 
@@ -91,12 +91,6 @@ const SubMenu = styled.div`
   }
 `;
 
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 0 10px;
-`;
-
 const MainMenu = () => {
   const { showMainMenu } = getCommonStates();
   const { t } = useTranslation();
@@ -114,15 +108,13 @@ const MainMenu = () => {
               <a href="/introduce/directions">{t('오시는 길')}</a>
             </SubMenu>
           </MenuItem>
-
-..
+          ..
           <MenuItem>
-              <Mainlogo />
-            </MenuItem>
-
+            <Mainlogo />
+          </MenuItem>
           <MenuItem style={{ marginRight: '70px' }}>
             <a>{t('상담신청')}</a>
-           
+
             <SubMenu className="sub-menu">
               <a href="/counseling/reserve">{t('개인 상담 신청')}</a>
               <a href="/counseling/group">{t('집단 상담 프로그램')}</a>
