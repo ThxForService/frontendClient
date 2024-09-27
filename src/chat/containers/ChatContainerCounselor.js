@@ -1,4 +1,3 @@
-// ChatContainer.js
 'use client';
 import React, { useEffect, useState } from 'react';
 import { sendMessageAPI, chatHistory, chatList } from '@/chat/apis/apiChat';
@@ -7,6 +6,23 @@ import ChatRoomList from '@/chat/components/ChatRoomListCounselor';
 import useWebSocket from '@/chat/hooks/useWebSocket';
 import { getUserContext } from '@/commons/contexts/UserInfoContext';
 import { OuterBox } from '@/commons/layouts/StyledWrapper';
+import styled from 'styled-components';
+
+const ChatContainerWrapper = styled(OuterBox)`
+  display: flex;
+  flex-direction: row;  // 가로로 배치
+  height: 100%;  // 필요에 따라 조정
+`;
+
+const ChatRoomListWrapper = styled.div`
+  border-right: 1px solid #ddd;  // 구분선 추가
+  overflow-y: auto;  // 스크롤 가능하게 처리
+`;
+
+const ChatComponentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const ChatContainer = () => {
   const [form, setForm] = useState({ message: '' });
@@ -93,17 +109,20 @@ const ChatContainer = () => {
   };
 
   return (
-    <OuterBox>
-      <h1>채팅방 목록</h1>
-      <ChatRoomList items={items} onRoomSelect={handleRoomSelect} />
-      <ChatComponent
-        messages={messages}
-        form={form}
-        onChange={handleChange}
-        onSubmit={handleSendMessage}
-        errors={errors}
-      />
-    </OuterBox>
+    <ChatContainerWrapper>
+      <ChatRoomListWrapper>
+        <ChatRoomList items={items} onRoomSelect={handleRoomSelect} />
+      </ChatRoomListWrapper>
+      <ChatComponentWrapper>
+        <ChatComponent
+          messages={messages}
+          form={form}
+          onChange={handleChange}
+          onSubmit={handleSendMessage}
+          errors={errors}
+        />
+      </ChatComponentWrapper>
+    </ChatContainerWrapper>
   );
 };
 

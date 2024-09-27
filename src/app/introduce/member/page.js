@@ -10,7 +10,7 @@ const center = () => {
     <OuterBox>
       <Header />
       <ContentBox2>
-        <h1>센터 소개</h1>
+        <h1>구성원 소개.</h1>
       </ContentBox2>
     </OuterBox>
   );
