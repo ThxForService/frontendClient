@@ -2,7 +2,7 @@ import TestListContainer from '@/survey/containers/TestListContainer';
 import TestContainer from '@/survey/containers/TestContainer';
 
 const TestListPage = () => {
-  return <TestContainer />;
+  return <TestListContainer />;
 };
 
 export default TestListPage;
