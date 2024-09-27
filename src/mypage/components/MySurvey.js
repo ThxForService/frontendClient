@@ -34,7 +34,6 @@ const StyledListItem = styled(ListItem)`
 `;
 
 const MySurvey = ({ items }) => {
-  console.log('items', items);
   const { t } = useTranslation();
   return (
     <ListItems>
