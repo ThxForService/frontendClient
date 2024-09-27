@@ -1,6 +1,5 @@
 import React from 'react';
 import Calendar from 'react-calendar';
-import { StyledInput } from '@/commons/components/StyledInput';
 import {
   StyledButton,
   StyledTimeButton,
@@ -335,7 +334,7 @@ const CounselingForm = ({
   onDateChange,
 }) => {
   const { t } = useTranslation();
-  // const { userInfo } = getUserStates();
+  const { userInfo } = getUserStates();
   const times = {
     morning: ['09:00', '10:00', '11:00', '12:00'],
     afternoon: ['13:00', '14:00', '15:00', '16:00', '17:00'],
@@ -354,7 +353,7 @@ const CounselingForm = ({
       <InputBox
         type="text"
         name="studentNo"
-        value={form?.studentNo}
+        value={userInfo.studentNo}
         onChange={onChange}
       />
       <div className="title">
@@ -363,7 +362,7 @@ const CounselingForm = ({
       <InputBox
         type="text"
         name="username"
-        value={form?.username}
+        value={userInfo.username}
         onChange={onChange}
       />
       <div className="title">
