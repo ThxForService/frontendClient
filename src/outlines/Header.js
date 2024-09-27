@@ -64,16 +64,21 @@ const Header = () => {
     cookies.remove('token', { path: '/' });
   }, [setIsLogin, setIsAdmin, setUserInfo]);
 
+<<<<<<< HEAD
   useEffect(() => {
     setLogin(isLogin);
   }, [isLogin]);
 
   const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL;
+=======
+  const adminUrl = 'http://thxforservice.xyz:7001/';
+>>>>>>> master
   return (
     showHeader && (
       <HeaderBox>
         <section className="site-top">
           <div className="layout-width">
+<<<<<<< HEAD
             {login ? (
               <div>
                 {isAdmin && (
@@ -81,6 +86,13 @@ const Header = () => {
                     {t('사이트_관리')}
                   </a>
                 )}
+=======
+            {isLogin ? (
+
+                       
+              <div>
+
+>>>>>>> master
                 <CounselorOnlyContainer>
                   <Link href="/chat/list" passHref>
                     {t('채팅관리')}
@@ -89,10 +101,16 @@ const Header = () => {
                 <Link href="/mypage" passHref>
                   {t('마이페이지')}
                 </Link>
+                {isAdmin && (
+                <a href={adminUrl} target="_blank">
+                  {t('사이트관리')}
+                </a>
+              )}
                 <a onClick={onLogout}>
                   <BiLockOpen className="icon" />
                   {t('로그아웃')}
                 </a>
+                
               </div>
             ) : (
               <div>
