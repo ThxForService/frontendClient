@@ -39,7 +39,7 @@ const MyHistoryContainer = () => {
     <>
       <MyHistory items={items} />
       {items.length > 0 && (
-        <pagination onClick={onChangePage} pagination={pagination} />
+        <Pagination onClick={onChangePage} pagination={pagination} />
       )}
     </>
   );
