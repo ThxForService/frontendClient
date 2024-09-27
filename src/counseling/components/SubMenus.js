@@ -4,20 +4,17 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
 const SubMenuBox = styled.aside`
-  /*
   height: 650px;
   min-width: 200px;
   width: 200px;
-  */
-  margin: 50px 0;
+
   background-size: 100% 40px;
   border-radius: 5px;
   padding: 20px 15px;
   box-shadow: 0 4px 9px rgba(0, 0, 0, 0.4);
-  /*
   position: relative;
   top: 60px;
-  */
+
   background: ${({ theme }) => theme.colors.white};
   a {
     display: block;
@@ -35,16 +32,14 @@ const SubMenuBox = styled.aside`
   }
 `;
 
-const Submenus = () => {
+const SubMenus = () => {
   const { t } = useTranslation();
   return (
     <SubMenuBox>
-      <a href="/mypage/info">{t('회원정보수정')}</a>
-      <a href="/mypage/MyHistory">{t('상담이력')}</a>
-      <a href="/mypage/board">{t('작성한_게시글')}</a>
-      <a href="/mypage/survey">{t('설문결과_목록')}</a>
+      <a href="/mypage/info">{t('개인상담_조회')}</a>
+      <a href="/mypage/MyHistory">{t('집단상담_조회')}</a>
     </SubMenuBox>
   );
 };
 
-export default React.memo(Submenus);
+export default React.memo(SubMenus);

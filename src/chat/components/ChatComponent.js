@@ -23,8 +23,10 @@ const MessageBox = styled.form`
         color: #FFFFFFCC;
         padding: 10px;
         border-radius: 15px;
-        max-width: 60%;
         background-color: rgba(255, 255, 255, 0.08);
+        max-width: 60%; /* 메시지 박스 최대 너비 */
+        width: fit-content; /* 텍스트 길이에 따라 박스 크기 자동 조정 */
+        word-break: break-word; /* 너무 긴 단어가 있을 경우 자동 줄바꿈 */
         &.sender {
             margin-right: 10px;
         }

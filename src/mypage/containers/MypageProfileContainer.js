@@ -1,16 +1,20 @@
 'use client';
-import React, { useState, useCallback, useContext, useEffect,useLayoutEffect } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
 import UserInfoContext from '@/commons/contexts/UserInfoContext';
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { updateProfile } from '../apis/apiMypage';
+import { apiUser } from '@/member/apis/apiLogin';
 import ProfileForm from '../components/ProfileForm';
 import ProfileImage from '../components/ProfileImage';
 import { getProfessors } from '@/member/apis/apiInfo';
-import Image from 'next/image';
-
-
 
 const MypageProfileContainer = () => {
   const { t } = useTranslation();
@@ -33,7 +37,6 @@ const MypageProfileContainer = () => {
   const [professors, setProfessors] = useState([]);
   const [skey, setSkey] = useState('');
 
-  
   const router = useRouter();
 
   const onChange = useCallback((e) => {
@@ -113,11 +116,14 @@ const MypageProfileContainer = () => {
       // 회원정보 수정 처리 S
       (async () => {
         try {
-          const res = await updateProfile(form);
+          await updateProfile(form);
           // 회원 정보 수정 완료 후 -> context api 쪽 정보 업데이트
           // form 초기화, 마이페이지 메인으로 이동
-          setUserInfo(res);
-          const newForm = res;
+          const user = await apiUser();
+
+          setUserInfo(user);
+
+          const newForm = user;
           delete newForm.password;
           setForm(newForm);
 
@@ -148,6 +154,7 @@ const MypageProfileContainer = () => {
     },
     [setUserInfo],
   );
+
   return (
     userInfo && (
       <>
