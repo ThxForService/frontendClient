@@ -80,7 +80,7 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
                       {msg.message}
                     </div>
                     <div className={`time-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
-                      {msg.createdAt ? msg.createdAt.split(' ')[1].slice(0, 5) : new Date().toTimeString().slice(0, 5)}
+                      {msg.createdAt ? msg.createdAt.split(' ')[1]?.slice(0, 5) : new Date().toTimeString().slice(0, 5)}
                     </div>
                   </li>
                 ))}
