@@ -142,7 +142,7 @@ const Maincomponents = () => {
   return (
     <MainContainerWrapper>
       <BackgroundSlider>
-        {/* 각 이미지마다 5초 간격으로 애니메이션 딜레이 설정 */}
+        {/* 각 이미지마다 5초 간격으로 애니메이션 딜레이 설정. */}
         <BackgroundImage image="/images/counsel1.jpg" delay={0} />
         <BackgroundImage image="/images/counsel2.jpg" delay={5} />
         <BackgroundImage image="/images/counsel3.jpg" delay={10} />
