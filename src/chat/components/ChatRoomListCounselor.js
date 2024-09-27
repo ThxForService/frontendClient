@@ -1,20 +1,23 @@
 import React from 'react';
-import './Chat.css';
+import { MdAccountCircle } from 'react-icons/md';
+import { ChatListButton } from '@/chat/components/ChatRoomList';
+import { ChatBox2} from '@/commons/layouts/StyledWrapper';
+
 
 const ChatRoomList = ({ items, onRoomSelect }) => {
   return (
-    <div className="chat-room-list">
+    <ChatBox2>
       <table>
-        <thead>
-        <tr>
-          <th>채팅방 목록</th>
-        </tr>
-        </thead>
         <tbody>
         {items && items.length > 0 ? (
           items.map((item, index) => (
-            <tr key={index} onClick={() => onRoomSelect(item.roomNo)} className="chat-room-item">
-              <td>{item.roomNm}</td>
+            <tr key={index}>
+              <td>
+                <ChatListButton onClick={() => onRoomSelect(item.roomNo)}>
+                  <MdAccountCircle size={45} />
+                  {item.roomNm}
+                </ChatListButton>
+              </td>
             </tr>
           ))
         ) : (
@@ -24,7 +27,7 @@ const ChatRoomList = ({ items, onRoomSelect }) => {
         )}
         </tbody>
       </table>
-    </div>
+    </ChatBox2>
   );
 };
 
