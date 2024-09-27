@@ -38,7 +38,7 @@ const NoCommentsMessage = styled.h1`
 
 const CommentItems = ({ items }) => {
   if (!items || items.length === 0) {
-    return <NoCommentsMessage>댓글이 없습니다.</NoCommentsMessage>;
+    return <NoCommentsMessage></NoCommentsMessage>;
   }
 
   return (
