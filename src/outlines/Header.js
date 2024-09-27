@@ -63,21 +63,17 @@ const Header = () => {
     cookies.remove('token', { path: '/' });
   }, [setIsLogin, setIsAdmin, setUserInfo]);
 
-  const adminUrl = 'http://localhost:7001';
+  const adminUrl = 'http://thxforservice.xyz:7001/';
   return (
     showHeader && (
       <HeaderBox>
         <section className="site-top">
           <div className="layout-width">
             {isLogin ? (
+
+                       
               <div>
-                {/* {isAdmin && (
-                  //컴포넌트를 교체하는 방식인데 a태그로 새 창 이동해서 페이지 교체
-                  <a href={adminUrl} target="_blank">
-                    <GrUserManager className="icon" />
-                    {t('사이트_관리')}
-                  </a>
-                )} */}
+
                 <CounselorOnlyContainer>
                   <Link href="/chat/list" passHref>
                     {t('채팅관리')}
@@ -86,10 +82,16 @@ const Header = () => {
                 <Link href="/mypage" passHref>
                   {t('마이페이지')}
                 </Link>
+                {isAdmin && (
+                <a href={adminUrl} target="_blank">
+                  {t('사이트관리')}
+                </a>
+              )}
                 <a onClick={onLogout}>
                   <BiLockOpen className="icon" />
                   {t('로그아웃')}
                 </a>
+                
               </div>
             ) : (
               <div>
