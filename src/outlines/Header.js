@@ -69,18 +69,12 @@ const Header = () => {
   }, [isLogin]);
 
   const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL;
+
   return (
     showHeader && (
       <HeaderBox>
         <section className="site-top">
           <div className="layout-width">
-            {login ? (
-              <div>
-                {isAdmin && (
-                  <a href={adminUrl} target="_blank">
-                    {t('사이트_관리')}
-                  </a>
-                )}
                 <CounselorOnlyContainer>
                   <Link href="/chat/list" passHref>
                     {t('채팅관리')}
