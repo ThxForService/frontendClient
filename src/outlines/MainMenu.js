@@ -129,15 +129,8 @@ const MainMenu = () => {
               <a href="/counseling/list">{t('나의 상담 현황')}</a>
             </SubMenu>
           </MenuItem>
-
-          <MenuItem style={{ marginRight: '40px' }}>
-            <a>{t('자가 진단')}</a>
-            <SubMenu className="sub-menu">
-              <a href="/survey/answer">{t('answer')}</a>
-              <a href="/survey/list">{t('list')}</a>
-              <a href="/survey/register">{t('register')}</a>
-              <a href="/survey/view">{t('view')}</a>
-            </SubMenu>
+          <MenuItem>
+            <a href="/survey/list">{t('자가 진단')}</a>
           </MenuItem>
           <MenuItem style={{ marginRight: '-20px' }}>
             {' '}
