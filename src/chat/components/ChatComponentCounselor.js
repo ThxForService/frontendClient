@@ -9,12 +9,14 @@ const MessageBox = styled.form`
 
     .chat-message {
         display: flex;
+        flex-direction: column; /* 수직 정렬 */
         justify-content: flex-start;
         margin-bottom: 10px;
     }
 
     .chat-message.right {
         justify-content: flex-end;
+        align-items: flex-end; /* 오른쪽 정렬 시 시간도 오른쪽 정렬 */
     }
 
     .message-text {
@@ -33,14 +35,18 @@ const MessageBox = styled.form`
             margin-left: 10px;
         }
     }
-    
+
+    .time-text {
+        font-size: 12px;
+        color: #cccccc;
+        margin-top: 5px; /* 메시지와 시간 사이 여백 */
+    }
 `;
 
 const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
   const { t } = useTranslation();
   const { states: { userInfo } } = getUserContext();
   const messageEndRef = useRef(null);
-
 
   useEffect(() => {
     if (messageEndRef.current) {
@@ -72,12 +78,12 @@ const ChatComponent = ({ messages, form, onChange, onSubmit, errors }) => {
                     className={`chat-message ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'right' : ''}`}
                   >
                     <div
-                      className={`time-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
-                      {msg.createdAt ? msg.createdAt.split(' ')[1]?.slice(0,5) : new Date().toTimeString().slice(0, 5)}
-                    </div>
-                    <div
                       className={`message-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
                       {msg.message}
+                    </div>
+                    <div
+                      className={`time-text ${msg.senderEmail === userInfo?.email || msg.email === userInfo?.email ? 'sender' : 'receiver'}`}>
+                      {msg.createdAt ? msg.createdAt.split(' ')[1]?.slice(0,5) : new Date().toTimeString().slice(0, 5)}
                     </div>
                   </li>
                 ))}
