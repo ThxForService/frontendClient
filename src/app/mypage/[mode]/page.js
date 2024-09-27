@@ -15,6 +15,8 @@ const MypageModePage = ({ params, searchParams }) => {
     case 'MyHistory':
       Container = MyHistoryContainer;
       break;
+    case 'survey':
+
     default:
       Container = MypageProfileContainer;
   }
