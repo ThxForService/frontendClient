@@ -40,12 +40,13 @@ const MySurveyContainer = ({ searchParams }) => {
     setPage(page);
   }, []);
 
-  if (!data) {
+  if (!items || items.length === 0) {
     return <Loading />;
   }
 
   return (
     <>
+      <h1>{t('나의_설문_목록')}</h1>
       <MySurvey items={items} />
       <Pagination pagination={pagination} onClick={onPageClick} />
     </>
