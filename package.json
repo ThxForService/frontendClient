@@ -17,6 +17,7 @@
     "ckeditor5": "^43.1.0",
     "classnames": "^2.5.1",
     "cookies-next": "^4.2.1",
+    "cors": "^2.8.5",
     "date-fns": "^4.0.0",
     "i18next": "^23.15.1",
     "i18next-browser-languagedetector": "^8.0.0",
@@ -39,6 +40,7 @@
     "react-select": "^5.8.1",
     "react-time-picker": "^7.0.0",
     "sass": "^1.78.0",
+    "sharp": "^0.33.5",
     "styled-components": "^6.1.13"
   },
   "devDependencies": {

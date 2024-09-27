@@ -52,6 +52,22 @@ const StyledInputWithMargin = styled(StyledInput)`
   margin-bottom: 15px;
 `;
 
+const StyledTextArea = styled.textarea`
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  resize: vertical; /* 세로 크기 조정 가능 */
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+`;
+
 const StatusContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -207,7 +223,6 @@ const ProfileForm = ({
               </dd>
             </dl>
           </Column>
-          
 
           <Column>
             {form?.authority === 'STUDENT' ? (
@@ -345,6 +360,23 @@ const ProfileForm = ({
                     <StyledMessage variant="danger">
                       {errors?.subject}
                     </StyledMessage>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt>{t('회원 소개')}</dt>
+                  <dd>
+                    <StyledTextArea
+                      name="introduction"
+                      value={form?.introduction || ''}
+                      onChange={onChange}
+                      rows={5}
+                    />
+                    {errors?.introduction && (
+                      <StyledMessage
+                        color="danger"
+                        messages={errors.introduction}
+                      />
+                    )}
                   </dd>
                 </dl>
               </>

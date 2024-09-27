@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import FileUpload from '@/commons/components/FileUpload';
-import NoProfile from '../../../public/images/basicprofile.png';
-import Image from 'next/image';
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,16 +14,29 @@ const Wrapper = styled.div`
 `;
 
 const ProfileImage = ({ gid, profileImage, fileUploadCallback, className }) => {
+  let imageUrl;
+  if (typeof profileImage === 'string') {
+    imageUrl = profileImage;
+  }
+
+  if (!imageUrl) {
+    imageUrl = profileImage
+      ? `${profileImage.thumbUrl}?seq=${profileImage.seq}&width=300&height=400`
+      : '/images/basicprofile.png';
+  }
+
   return (
     <Wrapper className={className}>
       <FileUpload
         width={170}
-        imageUrl={profileImage ?? '/images/basicprofile.png'}
+        imageWidth={170}
+        imageUrl={imageUrl}
         gid={gid}
         imageOnly={true}
         single={true}
         done={true}
         callback={fileUploadCallback}
+        style={{ cursor: 'pointer' }}
       />
     </Wrapper>
   );

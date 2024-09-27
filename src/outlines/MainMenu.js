@@ -1,11 +1,13 @@
 import React from 'react';
 import { colors } from '@/theme/colors';
+import fontSizes from '@/theme/fontSizes';
+import fontWeight from '@/theme/fontWeight';
 import { getCommonStates } from '@/commons/contexts/CommonContext';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Mainlogo from '../main/components/Mainlogo';
 
-const { dark, white, lightGreen } = colors;
+const { dark, light, midGreen, white, lightGreen } = colors;
 
 const MenuContainer = styled.nav`
     position: relative;

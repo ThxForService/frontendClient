@@ -5,6 +5,7 @@ import smilelogo from '/public/images/logo.png'; // 이미지 경로
 
 // LogoContainer: 로고를 포함하는 컨테이너
 const LogoContainer = styled.div`
+
     display: flex;
     align-items: center;
     justify-content: center; // 중앙 정렬
@@ -25,6 +26,7 @@ const LogoImage = styled(Image)`
 
 // 외부에서 사용할 텍스트 스타일 (MainMenu에서 사용)
 export const StyledLogoText = styled.a`
+
     color: #000000;
     font-size: 1.5em;
     font-weight: bold;
