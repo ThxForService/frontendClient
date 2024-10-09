@@ -8,18 +8,25 @@ import React, {
 import { getCommonActions } from '@/commons/contexts/CommonContext';
 import { useTranslation } from 'react-i18next';
 import { getMyAnswers } from '../apis/apiSurvey';
-import Pagination from '@/commons/components/Pagination';
 import MySurvey from '../components/MySurvey';
 import Loading from '@/commons/components/Loading';
+import styled from 'styled-components';
+
+const TitleContainer = styled.div`
+  text-align: center; /* 제목을 가운데 정렬 */
+  margin: 50px 0; /* 상하 여백 추가 */
+`;
+
 
 const MySurveyContainer = ({ searchParams }) => {
   const { t } = useTranslation();
   const { setMainTitle } = getCommonActions();
   const [items, setItems] = useState(null);
-  const [pagination, setPagination] = useState(null);
   const [page, setPage] = useState(searchParams?.page ?? 1);
+
+
   useLayoutEffect(() => {
-    setMainTitle(t('나의_설문_목록'));
+    setMainTitle(t('나의 설문 목록'));
   }, [setMainTitle, t]);
 
   useEffect(() => {
@@ -46,9 +53,11 @@ const MySurveyContainer = ({ searchParams }) => {
 
   return (
     <>
-      <h1>{t('나의_설문_목록')}</h1>
+        <TitleContainer>
+        <h1>{t('나의 설문 목록')}</h1> {/* 제목을 TitleContainer로 감싸서 스타일 적용 */}
+      </TitleContainer>
       <MySurvey items={items} />
-      <Pagination pagination={pagination} onClick={onPageClick} />
+     
     </>
   );
 };

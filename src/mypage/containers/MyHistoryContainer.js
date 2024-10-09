@@ -13,6 +13,7 @@ const MyHistoryContainer = () => {
   const [items, setItems] = useState([]);
   const [pagination, setPagination] = useState({});
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState(''); 
 
   const { setMainTitle } = getCommonActions();
   useLayoutEffect(() => {
@@ -23,13 +24,21 @@ const MyHistoryContainer = () => {
     (async () => {
       try {
         setLoading(true);
-        const { items, pagination } = await apiList(search);
+        const { items, pagination } = await apiList(search,  pagination.page);
+        setItems(items);
+        setPagination(pagination);
       } catch (err) {
         console.error(err);
+      }finally {
+        setLoading(false); 
       }
     })();
-  }, [search]);
+  }, [search, pagination.page]);
 
+  const onChangePage = (newPage) => {
+    setPagination((prev) => ({ ...prev, page: newPage })); // Update pagination state
+  };
+  
   // 로딩 처리
   if (loading) {
     return <Loading />;
