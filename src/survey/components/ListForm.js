@@ -2,63 +2,85 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { colors } from '@/theme/colors';
+import Image from 'next/image';
+import surveyType from '../constants/surveyType';
 
-// ListWrapper: 화면 중앙에 배치하는 컨테이너
 const ListWrapper = styled.div`
   display: flex;
   justify-content: center; /* 가로 방향 중앙 정렬 */
-  padding: 20px;
+  padding: 10px;
 `;
 
-// ListContainer 스타일 정의 (게시판 헤더 포함)
-// max-width: 최대 1000px, min-width: 최소 300px, width: 100%로 설정
+// ListContainer 스타일 정의
 const ListContainer = styled.div`
   width: 100%; /* 가로 폭을 100%로 설정하여 부모 컨테이너에 맞춤 */
-  max-width: 1000px; /* 최대 폭은 1000px */
-  min-width: 300px; /* 최소 폭은 300px */
-  border: 1px solid #ddd; /* 테두리 색상 */
-  border-radius: 10px; /* 둥근 모서리 */
+  max-width: 1800px; /* 최대 폭은 1000px */
+  min-width: 1500px; /* 최소 폭은 300px */
   overflow: hidden; /* 자식 요소의 테두리를 넘치지 않도록 */
   margin: 20px 0; /* 위아래 마진 추가 */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+
   background-color: #ffffff; /* 배경색 */
 `;
 
 // ListHeader 스타일 정의
 const ListHeader = styled.div`
-  background-color: ${colors.border}; /* 헤더 배경 색상 */
-  padding: 20px; /* 패딩 */
+  padding: 10px; /* 패딩 */
   font-weight: bold; /* 글자 두껍게 */
   font-size: 24px; /* 글자 크기 */
+  font-weight: 900;
   color: ${colors.darkgray}; /* 글자 색상 */
   text-align: center; /* 중앙 정렬 */
-  border-bottom: 4px solid ${colors.darkgray}; /* 아래쪽 테두리 추가 */
+  margin-bottom: 50px;
 `;
 
-// ListItem 스타일 정의
-const ListItem = styled.li`
+const BannerList = styled.ul`
+  display: flex;
+  flex-wrap: wrap; /* 여러 줄로 자동으로 배치 */
+  justify-content: flex-start;
+  list-style: none; /* 기본 리스트 스타일 제거 */
+  padding: 0; /* 패딩 제거 */
+  margin: 0; /* 마진 제거 */
+`;
+
+// BannerItem 스타일 정의
+const BannerItem = styled.li`
+  display: flex;
+  flex-direction: column; /* 이미지를 위에 두고 텍스트를 아래에 배치하기 위해 세로 정렬 */
+  align-items: flex-start; /* 가로 중앙 정렬 */
   padding: 15px 20px; /* 패딩 */
-  border-bottom: 1px solid #eee; /* 항목 아래쪽 테두리 */
+  border-bottom: 2px solid #eee; /* 항목 아래쪽 테두리 */
   font-size: 18px; /* 글자 크기 */
   color: #333; /* 글자 색상 */
   transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+  cursor: pointer; /* 클릭 가능 표시 */
+  width: calc(33.33% - 20px); /* 한 줄에 3개 배치, 마진을 고려하여 너비 설정 */
 
   &:hover {
-    background-color: #f5faff; /* 마우스를 올렸을 때 배경색 변화 */
+    
   }
 
-  &:last-child {
-    border-bottom: none; /* 마지막 항목의 아래쪽 테두리 제거 */
+
+  img {
+  
+    margin-bottom: 10px; /* 이미지와 텍스트 간격 */
+    border-radius: 5px; /* 이미지 둥글게 처리 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  &:hover img {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* 그림자 추가 */
   }
 
   a {
     text-decoration: none; /* 링크의 밑줄 제거 */
-    color: #4a90e2; /* 링크 색상 */
+    color: #000; /* 링크 색상 */
     font-weight: 500; /* 링크 글자 두께 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    width: 100%; /* 전체 너비를 사용하여 클릭 가능 영역 확대 */
+  }
 
-    &:hover {
-      text-decoration: underline; /* 링크에 마우스를 올렸을 때 밑줄 */
-    }
+  &:hover a {
+    font-weight: 600; /* 링크 글자 두께 */
   }
 `;
 
@@ -68,96 +90,33 @@ const ListForm = ({ items }) => {
     <ListWrapper>
       <ListContainer>
         <ListHeader>자가 진단</ListHeader> {/* 게시판 헤더 */}
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+        <BannerList>
           {items.length > 0 ? (
             items.map((item, index) => (
-              <ListItem key={`${item[0]}_${item[1]}_${index}`}>
-                <Link href={`/survey/${item[0]}`}>{item[1]}</Link>
-              </ListItem>
+              <BannerItem key={`${item[0]}_${item[1]}_${index}`}>
+                <Link href={`/survey/${item[0]}`}>
+                  <Image
+                    src={`/images/survey/${item[0]}.png`} // 이미지 경로
+                    alt={item[1]} // 대체 텍스트
+                    width={400} // 원하는 너비
+                    height={400} // 원하는 높이
+                    style={{ marginRight: '15px', borderRadius: '5px' }} // 스타일 추가
+                  />
+                  {/* 이미지 경로 수정 */}
+                  <div style={{ textAlign: 'center', whiteSpace: 'normal' }}>
+                    {surveyType[item[0]]}{' '}
+                    {/* 블록 요소로 감싸고 줄바꿈 가능하게 설정 */}
+                  </div>
+                </Link>
+              </BannerItem>
             ))
           ) : (
-            <ListItem>No items available.</ListItem>
+            <BannerItem>No items available.</BannerItem>
           )}
-        </ul>
+        </BannerList>
       </ListContainer>
     </ListWrapper>
   );
 };
 
 export default React.memo(ListForm);
-
-// import React from 'react';
-// import styled from 'styled-components';
-// import Link from 'next/link';
-// import { colors } from '@/theme/colors';
-
-// // ListContainer 스타일 정의 (게시판 헤더 포함)
-// const ListContainer = styled.div`
-//   width: 1000px;
-//   border: 1px solid #ddd; /* 테두리 색상 */
-//   border-radius: 10px; /* 둥근 모서리 */
-//   overflow: hidden; /* 자식 요소의 테두리를 넘치지 않도록 */
-//   margin: 20px 0; /* 위아래 마진 추가 */
-//   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-//   background-color: #ffffff; /* 배경색 */
-// `;
-
-// // ListHeader 스타일 정의
-// const ListHeader = styled.div`
-//   background-color: ${colors.border}; /* 헤더 배경 색상 */
-//   padding: 20px; /* 패딩 */
-//   font-weight: bold; /* 글자 두껍게 */
-//   font-size: 24px; /* 글자 크기 */
-//   color: ${colors.darkgray}; /* 글자 색상 */
-//   text-align: center; /* 중앙 정렬 */
-//   border-bottom: 4px solid ${colors.darkgray}; /* 아래쪽 테두리 추가 */
-// `;
-
-// // ListItem 스타일 정의
-// const ListItem = styled.li`
-//   padding: 15px 20px; /* 패딩 */
-//   border-bottom: 1px solid #eee; /* 항목 아래쪽 테두리 */
-//   font-size: 18px; /* 글자 크기 */
-//   color: #333; /* 글자 색상 */
-//   transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
-
-//   &:hover {
-//     background-color: #f5faff; /* 마우스를 올렸을 때 배경색 변화 */
-//   }
-
-//   &:last-child {
-//     border-bottom: none; /* 마지막 항목의 아래쪽 테두리 제거 */
-//   }
-
-//   a {
-//     text-decoration: none; /* 링크의 밑줄 제거 */
-//     color: #4a90e2; /* 링크 색상 */
-//     font-weight: 500; /* 링크 글자 두께 */
-
-//     &:hover {
-//       text-decoration: underline; /* 링크에 마우스를 올렸을 때 밑줄 */
-//     }
-//   }
-// `;
-
-// // ListForm 컴포넌트
-// const ListForm = ({ items }) => {
-//   return (
-//     <ListContainer>
-//       <ListHeader>자가 진단</ListHeader> {/* 게시판 헤더 */}
-//       <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-//         {items.length > 0 ? (
-//           items.map((item, index) => (
-//             <ListItem key={`${item[0]}_${item[1]}_${index}`}>
-//               <Link href={`/survey/${item[0]}`}>{item[1]}</Link>
-//             </ListItem>
-//           ))
-//         ) : (
-//           <ListItem>No items available.</ListItem>
-//         )}
-//       </ul>
-//     </ListContainer>
-//   );
-// };
-
-// export default React.memo(ListForm);
